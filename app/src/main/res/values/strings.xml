@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Controller</string>
+    <string name="brightness">Brightness</string>
+    <string name="settings">settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+</resources>
