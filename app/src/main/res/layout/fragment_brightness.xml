@@ -15,6 +15,11 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1E88E5"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
