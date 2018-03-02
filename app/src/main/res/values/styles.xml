@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#24292C</item>
+        <item name="colorPrimaryDark">#24292C</item>
+        <item name="colorAccent">#f44242</item>
+        <item name="android:textColor">#FBFCFD</item>
+        <item name="android:actionBarSize">40dp</item>
+    </style>
+
+    <style name="SettingsFragmentStyle">
+        <item name="android:textColor">#FBFCFD</item>
+        <item name="android:background">#24292C</item>
+    </style>
+
+    <style name="dialog_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:gravity">end</item>
+    </style>
+</resources>
