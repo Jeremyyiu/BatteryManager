@@ -1,15 +1,14 @@
-package com.example.jeremy.wifitoggler;
+package com.example.jeremy.controller;
 
-    import android.annotation.TargetApi;
-    import android.content.Context;
-    import android.net.ConnectivityManager;
-    import android.net.NetworkInfo;
-    import android.net.wifi.WifiManager;
-    import android.os.Build;
-    import android.os.Bundle;
-    import android.provider.Settings;
-    import android.support.v7.app.AppCompatActivity;
-    import android.support.v7.widget.SwitchCompat;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     //https://stackoverflow.com/questions/18735370/connectivitymanager-null-pointer
     private boolean isWifiConnected() {
         NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if(wifiInfo != null) {
+        if (wifiInfo != null) {
             return wifiInfo.isConnected();
         }
         return false;
@@ -47,15 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isMobileNetworkConnected() {
         NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if(mobileNetworkInfo != null) {
+        if (mobileNetworkInfo != null) {
             return mobileNetworkInfo.isConnected();
         }
         return false;
     }
 
-
     /** https://stackoverflow.com/questions/4319212/how-can-one-detect-airplane-mode-on-android */
-    /** Flight mode still allows you to connect to wifi but not mobile networks */
+    /**
+     * Flight mode still allows you to connect to wifi but not mobile networks
+     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressWarnings({"deprecation"})
     public static boolean isAirplaneModeOn(Context context) {
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** TODO: Add flight mode listener */
 
-    /** TODO: Mobile hotspot, grps - type of data connection **/
+
 }

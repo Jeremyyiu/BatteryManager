@@ -1,4 +1,4 @@
-package com.example.jeremy.wifitoggler;
+package com.example.jeremy.controller;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

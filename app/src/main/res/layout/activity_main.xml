@@ -6,17 +6,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.jeremy.wifitoggler.MainActivity">
+    tools:context="com.example.jeremy.controller.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_gravity="center_horizontal"
-        android:text="Toggle WiFi" />
+        android:text="WiFi" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/wifiSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Mobile Network" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/mobileNetworkSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="airplane mode" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/airplaneModeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>

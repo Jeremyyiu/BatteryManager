@@ -1,4 +1,4 @@
-package com.example.jeremy.wifitoggler;
+package com.example.jeremy.controller.controller;
 
 import android.content.Context;
 import android.content.Intent;
