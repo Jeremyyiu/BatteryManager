@@ -7,13 +7,23 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+
+import com.example.jeremy.controller.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private ConnectivityManager connectivityManager;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         initSwitches();
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        MyShortcutRecyclerViewAdapter adapter = new MyShortcutRecyclerViewAdapter(DummyContent.ITEMS);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
     }
 
     private void initSwitches() {
