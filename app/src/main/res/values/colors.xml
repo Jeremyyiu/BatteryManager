@@ -3,4 +3,21 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorInactive">#747474</color>
+    <color name="colorActiveSmall">#FFFFFF</color>
+    <color name="colorInactiveSmall">#50FFFFFF</color>
+
+    <color name="color_tab_1">#273238</color>
+    <color name="color_tab_2">#273238</color>
+    <color name="color_tab_3">#273238</color>
+
+    <color name="color_notification_back">#ffcd33</color>
+    <color name="color_notification_text">#3E4757</color>
+
+    <array name="tab_colors">
+        <item name="tab_1">#273238</item>
+        <item name="tab_2">#273238</item>
+        <item name="tab_3">#273238</item>
+    </array>
+
 </resources>
