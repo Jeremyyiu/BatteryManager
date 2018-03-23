@@ -17,7 +17,9 @@ public class TimeInfo {
         this.timeInMins = timeInMins;
     }
 
-    public int getDayOfWeek() { return dayOfWeek; }
+    public int getDayOfWeek() {
+        return dayOfWeek;
+    }
 
     public void setDayOfWeek(int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;

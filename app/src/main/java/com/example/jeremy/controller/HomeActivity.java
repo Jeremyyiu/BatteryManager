@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
      * Init UI
      */
     private void initUI() {
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         }
@@ -140,38 +139,5 @@ public class HomeActivity extends AppCompatActivity {
     public void reload() {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
-    }
-
-    //https://stackoverflow.com/questions/18735370/connectivitymanager-null-pointer
-    private boolean isWifiConnected() {
-        NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiInfo != null) {
-            return wifiInfo.isConnected();
-        }
-        return false;
-    }
-
-    private boolean isMobileNetworkConnected() {
-        NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (mobileNetworkInfo != null) {
-            return mobileNetworkInfo.isConnected();
-        }
-        return false;
-    }
-
-    /** https://stackoverflow.com/questions/4319212/how-can-one-detect-airplane-mode-on-android */
-    /**
-     * Flight mode still allows you to connect to wifi but not mobile networks
-     */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    @SuppressWarnings({"deprecation"})
-    public static boolean isAirplaneModeOn(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        /* API 17 and above */
-            return Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
-        } else {
-        /* below */
-            return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
-        }
     }
 }
