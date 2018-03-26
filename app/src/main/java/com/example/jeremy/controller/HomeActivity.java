@@ -1,143 +1,169 @@
 package com.example.jeremy.controller;
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
+import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
+import android.util.Log;
+import android.view.MenuItem;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private NavigationFragment currentFragment;
-    private NavigationViewPagerAdapter adapter;
-    private AHBottomNavigationAdapter navigationAdapter;
-    private int[] tabColors;
-    private Handler handler = new Handler();
-
-    private Context context;
-    private ConnectivityManager connectivityManager;
-
     // UI
-    private AHBottomNavigationViewPager viewPager;
-    private AHBottomNavigation bottomNavigation;
+    private static final String SELECTED_ITEM = "arg_selected_item";
+
+    private BottomNavigationView mBottomNav;
+    private ViewPager mViewpager;
+    private int mSelectedItem;
+
+    //Fragments
+    private BatteryFragment batteryFragment;
+    private ControllerFragment controllerFragment;
+    private GraphsFragment graphsFragment;
+
+    private MenuItem prevMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppTheme_TranslucentNavigation);
+        //setTheme(R.style.AppTheme_TranslucentNavigation);
         setContentView(R.layout.activity_home);
 
-        context = getApplicationContext();
-        connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        //initSwitches();
+        mViewpager = (ViewPager) findViewById(R.id.viewpager);
 
-        initUI();
-    }
+        mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
+        mBottomNav.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_battery:
+                                mViewpager.setCurrentItem(0);
+                                break;
+                            case R.id.menu_controller:
+                                mViewpager.setCurrentItem(1);
+                                break;
+                            case R.id.menu_graphs:
+                                mViewpager.setCurrentItem(2);
+                                break;
+                        }
+                        return false;
+                    }
+                });
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
-    }
-
-    /**
-     * Init UI
-     */
-    private void initUI() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        }
-
-        bottomNavigation = findViewById(R.id.bottom_navigation);
-        viewPager = findViewById(R.id.view_pager);
-
-        tabColors = getApplicationContext().getResources().getIntArray(R.array.tab_colors);
-        navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.bottom_navigation_menu_3);
-        navigationAdapter.setupWithBottomNavigation(bottomNavigation, tabColors);
-
-        bottomNavigation.setTranslucentNavigationEnabled(true);
-        setBottomNavigationScrollVisibility(false);
-
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (currentFragment == null) {
-                    currentFragment = adapter.getCurrentFragment();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (prevMenuItem != null) {
+                    prevMenuItem.setChecked(false);
+                } else {
+                    mBottomNav.getMenu().getItem(0).setChecked(false);
                 }
+                mBottomNav.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = mBottomNav.getMenu().getItem(position);
 
-                if (wasSelected) {
-                    currentFragment.refresh();
-                    return true;
-                }
+            }
 
-                if (currentFragment != null) {
-                    currentFragment.willBeHidden();
-                }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-                viewPager.setCurrentItem(position, false);
-
-                if (currentFragment == null) {
-                    return true;
-                }
-
-                currentFragment = adapter.getCurrentFragment();
-                currentFragment.willBeDisplayed();
-
-                return true;
             }
         });
 
-        viewPager.setOffscreenPageLimit(3);
-        adapter = new NavigationViewPagerAdapter(getSupportFragmentManager());
+        /**
+         MenuItem selectedItem;
+         if (savedInstanceState != null) {
+         mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
+         selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
+         } else {
+         selectedItem = mBottomNav.getMenu().getItem(0);
+         }
+         selectFragment(selectedItem);
+
+         **/
+
+
+        setupViewPager(mViewpager);
+    }
+
+    /**
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SELECTED_ITEM, mSelectedItem);
+        super.onSaveInstanceState(outState);
+    }
+**/
+    /**
+    private void selectFragment(MenuItem item) {
+        Fragment frag = null;
+        // init corresponding fragment
+        switch (item.getItemId()) {
+            case R.id.menu_battery:
+                frag = BatteryFragment.newInstance(getString(R.string.battery),
+                        getColorFromRes(R.color.cardview_light_background));
+                break;
+            case R.id.menu_controller:
+                frag = ControllerFragment.newInstance(getString(R.string.controller),
+                        getColorFromRes(R.color.cardview_light_background));
+                break;
+            case R.id.menu_graphs:
+                frag = GraphsFragment.newInstance(getString(R.string.graphs),
+                        getColorFromRes(R.color.cardview_light_background));
+                break;
+        }
+
+        // update selected item
+        mSelectedItem = item.getItemId();
+
+        // uncheck the other items.
+        for (int i = 0; i < mBottomNav.getMenu().size(); i++) {
+            MenuItem menuItem = mBottomNav.getMenu().getItem(i);
+            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
+        }
+
+        updateToolbarText(item.getTitle());
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        if (frag != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragContainer, frag, frag.getTag());
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+
+    }
+     **/
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        batteryFragment = new BatteryFragment();
+        controllerFragment = new ControllerFragment();
+        graphsFragment = new GraphsFragment();
+        adapter.addFragment(batteryFragment);
+        adapter.addFragment(controllerFragment);
+        adapter.addFragment(graphsFragment);
         viewPager.setAdapter(adapter);
-
-        currentFragment = adapter.getCurrentFragment();
     }
 
-    /**
-     * Update the bottom navigation colored param
-     */
-    public void updateBottomNavigationColor(boolean isColored) {
-        bottomNavigation.setColored(isColored);
+    private void updateToolbarText(CharSequence text) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(text);
+        }
     }
 
-    /**
-     * Show or hide selected item background
-     */
-    public void updateSelectedBackgroundVisibility(boolean isVisible) {
-        bottomNavigation.setSelectedBackgroundVisible(isVisible);
-    }
-
-    /**
-     * Set title state for bottomNavigation
-     */
-    public void setTitleState(AHBottomNavigation.TitleState titleState) {
-        bottomNavigation.setTitleState(titleState);
-    }
-
-    /**
-     * Set whether the bottom Navigation is visible when scrolling down
-     */
-    public void setBottomNavigationScrollVisibility(boolean isVisible) {
-        bottomNavigation.setBehaviorTranslationEnabled(isVisible);
-    }
-
-    /**
-     * Reload activity
-     */
-    public void reload() {
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
+    private int getColorFromRes(@ColorRes int resId) {
+        return ContextCompat.getColor(this, resId);
     }
 }

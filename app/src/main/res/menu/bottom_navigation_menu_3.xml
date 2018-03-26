@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_battery"
         android:icon="@drawable/ic_battery_full_white_24dp"
-        android:title="Battery" />
+        android:title="@string/battery" />
 
     <item
+        android:id="@+id/menu_controller"
         android:icon="@drawable/ic_apps_black_24dp"
-        android:title="Controller" />
+        android:title="@string/controller" />
 
     <item
+        android:id="@+id/menu_graphs"
         android:icon="@drawable/ic_show_chart_white_24dp"
-        android:title="Graphs" />
+        android:title="@string/graphs" />
 
 </menu>

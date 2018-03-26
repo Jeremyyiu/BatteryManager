@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <item
+        android:color="@android:color/white"
+        android:state_checked="true" />
+
+    <item
+        android:color="@android:color/white"
+        android:state_enabled="true"
+        android:state_pressed="true" />
+
+    <item
+        android:color="@color/colorInactive" />
+</selector>
