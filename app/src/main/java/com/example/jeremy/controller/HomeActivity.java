@@ -1,5 +1,6 @@
 package com.example.jeremy.controller;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -10,8 +11,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearSmoothScroller;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -20,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNav;
     private ViewPager mViewpager;
-    private int mSelectedItem;
+    private FrameLayout mMainFrame;
 
     //Fragments
     private BatteryFragment batteryFragment;
@@ -29,131 +32,56 @@ public class HomeActivity extends AppCompatActivity {
 
     private MenuItem prevMenuItem;
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setTheme(R.style.AppTheme_TranslucentNavigation);
         setContentView(R.layout.activity_home);
 
-        mViewpager = (ViewPager) findViewById(R.id.viewpager);
-
+        mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
+
+        context = getApplicationContext();
+        batteryFragment = new BatteryFragment();
+        controllerFragment = new ControllerFragment();
+        graphsFragment = new GraphsFragment();
+
+        setFragment(batteryFragment);
+        updateToolbarText("Battery");
+        //https://stackoverflow.com/questions/31235183/recyclerview-how-to-smooth-scroll-to-top-of-item-on-a-certain-position
+
         mBottomNav.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_battery:
-                                mViewpager.setCurrentItem(0);
-                                break;
+                                setFragment(batteryFragment);
+                                updateToolbarText("Battery");
+                                return true;
                             case R.id.menu_controller:
-                                mViewpager.setCurrentItem(1);
-                                break;
+                                setFragment(controllerFragment);
+                                updateToolbarText("Controller");
+                                return true;
                             case R.id.menu_graphs:
-                                mViewpager.setCurrentItem(2);
-                                break;
+                                setFragment(graphsFragment);
+                                updateToolbarText("Graphs");
+                                return true;
+                            default:
+                                return false;
                         }
-                        return false;
                     }
                 });
-
-        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                } else {
-                    mBottomNav.getMenu().getItem(0).setChecked(false);
-                }
-                mBottomNav.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = mBottomNav.getMenu().getItem(position);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        /**
-         MenuItem selectedItem;
-         if (savedInstanceState != null) {
-         mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
-         selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
-         } else {
-         selectedItem = mBottomNav.getMenu().getItem(0);
-         }
-         selectFragment(selectedItem);
-
-         **/
-
-
-        setupViewPager(mViewpager);
     }
 
-    /**
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SELECTED_ITEM, mSelectedItem);
-        super.onSaveInstanceState(outState);
-    }
-**/
-    /**
-    private void selectFragment(MenuItem item) {
-        Fragment frag = null;
-        // init corresponding fragment
-        switch (item.getItemId()) {
-            case R.id.menu_battery:
-                frag = BatteryFragment.newInstance(getString(R.string.battery),
-                        getColorFromRes(R.color.cardview_light_background));
-                break;
-            case R.id.menu_controller:
-                frag = ControllerFragment.newInstance(getString(R.string.controller),
-                        getColorFromRes(R.color.cardview_light_background));
-                break;
-            case R.id.menu_graphs:
-                frag = GraphsFragment.newInstance(getString(R.string.graphs),
-                        getColorFromRes(R.color.cardview_light_background));
-                break;
-        }
-
-        // update selected item
-        mSelectedItem = item.getItemId();
-
-        // uncheck the other items.
-        for (int i = 0; i < mBottomNav.getMenu().size(); i++) {
-            MenuItem menuItem = mBottomNav.getMenu().getItem(i);
-            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
-        }
-
-        updateToolbarText(item.getTitle());
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        if (frag != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragContainer, frag, frag.getTag());
-            ft.addToBackStack(null);
-            ft.commit();
-        }
-
-    }
-     **/
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        batteryFragment = new BatteryFragment();
-        controllerFragment = new ControllerFragment();
-        graphsFragment = new GraphsFragment();
-        adapter.addFragment(batteryFragment);
-        adapter.addFragment(controllerFragment);
-        adapter.addFragment(graphsFragment);
-        viewPager.setAdapter(adapter);
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
+                R.anim.fade_in, R.anim.fade_out);
+        //https://stackoverflow.com/questions/48147749/crossfade-animation-between-fragments-or-activities
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commit();
     }
 
     private void updateToolbarText(CharSequence text) {
