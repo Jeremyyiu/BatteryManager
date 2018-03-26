@@ -11,10 +11,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
+        mMainFrame = (FrameLayout) findViewById(R.id.main_container);
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
 
         context = getApplicationContext();
@@ -59,14 +58,17 @@ public class HomeActivity extends AppCompatActivity {
                             case R.id.menu_battery:
                                 setFragment(batteryFragment);
                                 updateToolbarText("Battery");
+                                refresh();
                                 return true;
                             case R.id.menu_controller:
                                 setFragment(controllerFragment);
                                 updateToolbarText("Controller");
+                                refresh();
                                 return true;
                             case R.id.menu_graphs:
                                 setFragment(graphsFragment);
                                 updateToolbarText("Graphs");
+                                refresh();
                                 return true;
                             default:
                                 return false;
@@ -80,8 +82,18 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                 R.anim.fade_in, R.anim.fade_out);
         //https://stackoverflow.com/questions/48147749/crossfade-animation-between-fragments-or-activities
-        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.replace(R.id.main_container, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void refresh() {
+        final ScrollView scrollView = (ScrollView) findViewById(R.id.scrolly);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, (findViewById(R.id.activity_main)).getTop());
+            }
+        });
     }
 
     private void updateToolbarText(CharSequence text) {

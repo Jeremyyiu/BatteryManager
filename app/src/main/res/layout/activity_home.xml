@@ -9,12 +9,18 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.jeremy.controller.HomeActivity">
 
-    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main_frame"
+    <ScrollView
+        android:id="@+id/scrolly"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
+        android:layout_height="match_parent">
+
+        <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
+    </ScrollView>
 
     <android.support.design.widget.BottomNavigationView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/navigation"
