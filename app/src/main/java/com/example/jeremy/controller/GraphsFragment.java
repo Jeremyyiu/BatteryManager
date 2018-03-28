@@ -7,33 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 
 /**
- * Fragment class for each nav menu item
+ * Fragment class for graphs
  */
 public class GraphsFragment extends Fragment {
     private static final String ARG_TEXT = "arg_text";
     private static final String ARG_COLOR = "arg_color";
-
-    private String mText;
-    private int mColor;
-
-    private View mContent;
-    private TextView mTextView;
-/**
-    public static Fragment newInstance(String text, int color) {
-        Fragment frag = new GraphsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_TEXT, text);
-        args.putInt(ARG_COLOR, color);
-        frag.setArguments(args);
-        return frag;
-    }
-
- **/
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,26 +26,5 @@ public class GraphsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
- /**       // retrieve text and color from bundle or savedInstanceState
-        if (savedInstanceState == null) {
-            Bundle args = getArguments();
-            mText = args.getString(ARG_TEXT);
-            mColor = args.getInt(ARG_COLOR);
-        } else {
-            mText = savedInstanceState.getString(ARG_TEXT);
-            mColor = savedInstanceState.getInt(ARG_COLOR);
-        }
-  **/
-
     }
-
-    /**
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString(ARG_TEXT, mText);
-        outState.putInt(ARG_COLOR, mColor);
-        super.onSaveInstanceState(outState);
-    }
-    **/
 }

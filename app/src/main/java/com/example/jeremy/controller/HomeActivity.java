@@ -18,7 +18,6 @@ import android.widget.ScrollView;
 public class HomeActivity extends AppCompatActivity {
 
     // UI
-    private static final String SELECTED_ITEM = "arg_selected_item";
 
     private BottomNavigationView mBottomNav;
     private ViewPager mViewpager;
@@ -28,8 +27,6 @@ public class HomeActivity extends AppCompatActivity {
     private BatteryFragment batteryFragment;
     private ControllerFragment controllerFragment;
     private GraphsFragment graphsFragment;
-
-    private MenuItem prevMenuItem;
 
     private Context context;
 
@@ -46,10 +43,12 @@ public class HomeActivity extends AppCompatActivity {
         controllerFragment = new ControllerFragment();
         graphsFragment = new GraphsFragment();
 
+
+        //Sets the initial fragment upon startup.
         setFragment(batteryFragment);
         updateToolbarText("Battery");
-        //https://stackoverflow.com/questions/31235183/recyclerview-how-to-smooth-scroll-to-top-of-item-on-a-certain-position
 
+        setTheme(R.style.AppTheme_TranslucentNavigation);
         mBottomNav.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -81,7 +80,6 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                 R.anim.fade_in, R.anim.fade_out);
-        //https://stackoverflow.com/questions/48147749/crossfade-animation-between-fragments-or-activities
         fragmentTransaction.replace(R.id.main_container, fragment);
         fragmentTransaction.commit();
     }
@@ -101,9 +99,5 @@ public class HomeActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setTitle(text);
         }
-    }
-
-    private int getColorFromRes(@ColorRes int resId) {
-        return ContextCompat.getColor(this, resId);
     }
 }

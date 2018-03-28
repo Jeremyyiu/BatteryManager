@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Controller</string>
+    <string name="app_name">JnA Battery Optimiser</string>
     <string name="graphs">Graphs</string>
     <string name="controller">Controller</string>
     <string name="battery">Battery</string>

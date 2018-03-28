@@ -1,11 +1,10 @@
 package com.example.jeremy.controller.controller;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
+import android.os.Build.VERSION;
 import android.provider.Settings;
 
 /**
@@ -39,14 +38,12 @@ public class NetworkController {
     /**
      * Flight mode still allows you to connect to wifi but not mobile networks
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    @SuppressWarnings({"deprecation"})
     public static boolean isAirplaneModeOn(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        /* API 17 and above */
+        if (VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            /* API 17 and above */
             return Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
         } else {
-        /* below */
+            /* below */
             return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
         }
     }

@@ -5,11 +5,11 @@
     android:layout_height="wrap_content">
 
     <item
-        android:color="@android:color/white"
+        android:color="@color/colorActiveSmall"
         android:state_checked="true" />
 
     <item
-        android:color="@android:color/white"
+        android:color="@color/colorActiveSmall"
         android:state_enabled="true"
         android:state_pressed="true" />
 
