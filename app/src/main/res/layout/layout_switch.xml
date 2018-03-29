@@ -8,12 +8,22 @@
     android:paddingRight="12dp"
     android:paddingTop="12dp">
 
+    <ImageView
+        android:id="@+id/list_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_apps_black_24dp"
+        android:layout_marginRight="12dp"
+        android:layout_gravity="center_vertical"/>
+
     <TextView
         android:id="@+id/switch_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Network"
+        android:text="Placeholder text"
+        style="@style/cardItemTheme"
+        android:gravity="center_vertical"
         android:textSize="16sp" />
 
     <android.support.v7.widget.SwitchCompat

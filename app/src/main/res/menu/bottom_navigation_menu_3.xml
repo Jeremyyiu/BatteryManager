@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_battery"
-        android:icon="@drawable/ic_battery_full_white_24dp"
+        android:icon="@drawable/battery"
         android:title="@string/battery" />
 
     <item
@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/menu_graphs"
-        android:icon="@drawable/ic_show_chart_white_24dp"
+        android:icon="@drawable/charts"
         android:title="@string/graphs" />
 
 </menu>

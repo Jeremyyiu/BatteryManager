@@ -1,9 +1,9 @@
-<android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/network_cv"
     style="@style/cardTheme"
     app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="0.7dp"
+    app:cardElevation=".7dp"
     app:cardMaxElevation="1dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
@@ -20,41 +20,133 @@
             style="@style/HeaderTheme"
             android:text="Network" />
 
-        <include layout="@layout/line_divider" />
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme">
 
-        <include
-            android:id="@+id/wifiSwitch"
-            layout="@layout/layout_switch"
-            android:text="WiFi" />
+            <ImageView
+                android:id="@+id/wifi_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/wifi" />
 
-        <include layout="@layout/line_divider" />
+            <TextView
+                android:id="@+id/wifiText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Wifi" />
 
-        <include
-            android:id="@+id/mobileDataSwitch"
-            layout="@layout/layout_switch"
-            android:text="Mobile Data" />
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/wifiSwitch"
+                style="@style/cardSwitchTheme" />
 
-        <include layout="@layout/line_divider" />
-
-        <include
-            android:id="@+id/bluetoothSwitch"
-            layout="@layout/layout_switch"
-            android:text="Bluetooth" />
-
-        <include layout="@layout/line_divider" />
-
-        <include
-            android:id="@+id/airplaneModeSwitch"
-            layout="@layout/layout_switch"
-            android:text="Airplane" />
+        </LinearLayout>
 
         <include layout="@layout/line_divider" />
 
-        <include
-            android:id="@+id/gprsSwitch"
-            layout="@layout/layout_switch"
-            android:text="GPRS" />
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/mobile_data_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/mobile_data" />
+
+            <TextView
+                android:id="@+id/mobile_data_text"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Mobile Data" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/mobileDataSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/bluetooth_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/bluetooth" />
+
+            <TextView
+                android:id="@+id/bluetoothText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Bluetooth" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/bluetoothSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/gps_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/gps" />
+
+            <TextView
+                android:id="@+id/gpsText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="GPS" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/gpsSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/flightMode_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/flight_mode" />
+
+            <TextView
+                android:id="@+id/flightModeText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Airplane Mode" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/flightModeSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/dataUsage_Icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/data_usage" />
+
+            <TextView
+                android:id="@+id/dataUsageText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Data Usage" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
 </android.support.v7.widget.CardView>

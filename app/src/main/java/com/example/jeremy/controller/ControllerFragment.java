@@ -13,18 +13,23 @@ import android.view.ViewGroup;
  * Fragment class for controller
  */
 public class ControllerFragment extends Fragment {
-    private static final String ARG_TEXT = "arg_text";
-    private static final String ARG_COLOR = "arg_color";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        initControllerItems();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_controller, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void initControllerItems() {
+
     }
 }
