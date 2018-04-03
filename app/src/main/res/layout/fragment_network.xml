@@ -3,8 +3,8 @@
     android:id="@+id/network_cv"
     style="@style/cardTheme"
     app:cardBackgroundColor="@android:color/white"
-    app:cardElevation=".7dp"
-    app:cardMaxElevation="1dp"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:contentPadding="5dp"
@@ -20,8 +20,9 @@
             style="@style/HeaderTheme"
             android:text="Network" />
 
-        <LinearLayout
-            style="@style/cardLinearLayoutTheme">
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/wifi_icon"
@@ -42,8 +43,7 @@
 
         <include layout="@layout/line_divider" />
 
-        <LinearLayout
-            style="@style/cardLinearLayoutTheme">
+        <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/mobile_data_icon"
@@ -64,8 +64,7 @@
 
         <include layout="@layout/line_divider" />
 
-        <LinearLayout
-            style="@style/cardLinearLayoutTheme">
+        <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/bluetooth_icon"
@@ -86,8 +85,7 @@
 
         <include layout="@layout/line_divider" />
 
-        <LinearLayout
-            style="@style/cardLinearLayoutTheme">
+        <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/gps_icon"
@@ -105,6 +103,29 @@
                 style="@style/cardSwitchTheme" />
 
         </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/hotspot_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/flight_mode" />
+
+            <TextView
+                android:id="@+id/hotspotText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Hotspot" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/hotspotSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
 
         <include layout="@layout/line_divider" />
 
@@ -132,8 +153,8 @@
 
         <LinearLayout
             style="@style/cardLinearLayoutTheme"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp">
 
             <ImageView
                 android:id="@+id/dataUsage_Icon"

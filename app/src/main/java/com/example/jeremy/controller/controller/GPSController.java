@@ -10,16 +10,16 @@ import android.provider.Settings;
  */
 
 public class GPSController {
-    Context context;
+    Context mContext;
     private LocationManager locationManager;
 
-    public void GPSController(Context context) {
-        this.context = context;
+    public GPSController(Context context) {
+        this.mContext = context;
         // Acquire a reference to the system Location Manager
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    public boolean gpsStatus() {
+    public boolean isGPSOn() {
         boolean GPSstatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         //https://stackoverflow.com/questions/16748300/locationmanager-isproviderenabledlocationmanager-network-provider-is-not-relia
         return GPSstatus;
@@ -28,9 +28,9 @@ public class GPSController {
     /**
      * Because toggling the GPS/Location service cannot be done on the app, the user has to go into settings to change.
      */
-    public void askGPSPermission() {
+    public void toggleGPS() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        context.startActivity(intent);
+        mContext.startActivity(intent);
         //TODO: Maybe add an alternative if the phone is rooted
     }
 

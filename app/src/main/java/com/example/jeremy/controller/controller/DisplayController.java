@@ -2,6 +2,7 @@ package com.example.jeremy.controller.controller;
 
 import android.content.Context;
 import android.provider.Settings;
+import android.widget.SeekBar;
 
 /**
  * Created by Jeremy on 18/03/2018.
@@ -27,18 +28,18 @@ public class DisplayController {
         boolean isInitialAutoBrightness = checkIfAutoBrightness() == 1;
     }
 
-    private int checkIfAutoBrightness() {
+    public int checkIfAutoBrightness() {
         return Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, 0);
     }
 
     /**
      * Get current system brightness value as an integer
      */
-    private int getCurrentBrightness() {
+    public int getCurrentBrightness() {
         return Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 0);
     }
 
-    private void setCurrentBrightness(int screenBrightnessValue) {
+    public void setCurrentBrightness(int screenBrightnessValue) {
         Settings.System.putInt(context.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS,
                 screenBrightnessValue);
@@ -48,7 +49,7 @@ public class DisplayController {
     /**
      * Turn automatic brightness mode on - set manual mode off
      */
-    private void setBrightnessToAuto() {
+    public void setBrightnessToAuto() {
         //int mode = displayMonitor.getDisplayInfo().getBrightnessMode();
         //if not auto already set manual
         Settings.System.putInt(context.getContentResolver(),
@@ -59,7 +60,7 @@ public class DisplayController {
     /**
      * Turn automatic brightness mode off - set manual mode on
      */
-    private void setBrightnessToManual() {
+    public void setBrightnessToManual() {
         //int mode = displayMonitor.getDisplayInfo().getBrightnessMode();
         //if not manual already set auto
         Settings.System.putInt(

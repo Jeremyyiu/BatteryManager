@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.provider.Settings;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by Jeremy on 14/03/2018.
@@ -14,11 +19,17 @@ import android.provider.Settings;
 public class NetworkController {
     private Context context;
     private ConnectivityManager connectivityManager;
+    private WifiManager wifiManager;
 
     private final int HOTSPOT_ENABLED = 13;
 
+    public NetworkController(Context context) {
+        this.context = context;
+        connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    }
     //https://stackoverflow.com/questions/18735370/connectivitymanager-null-pointer
-    private boolean isWifiConnected() {
+    public boolean isWifiConnected() {
         NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if (wifiInfo != null) {
             return wifiInfo.isConnected();
@@ -26,7 +37,27 @@ public class NetworkController {
         return false;
     }
 
-    private boolean isMobileNetworkConnected() {
+    public void toggleWiFi(boolean value){
+        toggleWiFiTask task = new toggleWiFiTask();
+        task.execute(value);
+        //WifiManager wm = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+        //wm.setWifiEnabled(!isWifiAvailable());
+    }
+    public class toggleWiFiTask extends AsyncTask<Boolean,Void,Boolean>
+    {
+        WifiManager wm;
+        @Override
+        protected Boolean doInBackground(Boolean... params) {
+            wm = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+            return params[0];
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            wm.setWifiEnabled(result);
+        }
+    }
+
+    public boolean isMobileNetworkConnected() {
         NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         if (mobileNetworkInfo != null) {
             return mobileNetworkInfo.isConnected();
@@ -38,7 +69,7 @@ public class NetworkController {
     /**
      * Flight mode still allows you to connect to wifi but not mobile networks
      */
-    public static boolean isAirplaneModeOn(Context context) {
+    public boolean isAirplaneModeOn(Context context) {
         if (VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             /* API 17 and above */
             return Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
@@ -54,20 +85,47 @@ public class NetworkController {
      * https://stackoverflow.com/questions/14680978/monitoring-the-hotspot-state-in-android?noredirect=1&lq=1
      */
 
-    private void hotspotTogglePermission() {
+    /**
+    public boolean isHotspotConnected(Context context) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method method = wifiManager.getDeclaredMethod("getWifiApState");
+        method.setAccessible(true);
+        int actualState  = (Integer) method.invoke(wifiManager, (Object[]) null);
+    }
+
+     **/
+    public void hotspotTogglePermission() {
         Intent spot = new Intent();
         spot.setClassName("com.android.settings", "com.android.settings.TetherSettings");
         context.startActivity(spot);
     }
 
-    private void airplaneModeTogglePermission() {
+    public void airplaneModeTogglePermission() {
         Intent apModeToggle = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
         context.startActivity(apModeToggle);
     }
 
+
+
     /** Todo: check if hotspot is active, let the user turn on hotspot and flight mode via intent. */
 
     /** TODO: Add flight mode listener */
+
+    public class togglePlaneTask extends AsyncTask<Void,Void,Boolean>
+    {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean enabled = isAirplaneModeOn(context);
+            return !enabled;
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            //Settings.System.putInt(context.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,result?1:0);
+            Settings.Global.putInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON,result?1:0);
+            Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+            intent.putExtra("state",result);
+            context.sendBroadcast(intent);
+        }
+    }
 
     /**
      * TODO: Mobile hotspot, grps - type of data connection

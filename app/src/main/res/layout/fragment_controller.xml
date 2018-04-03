@@ -11,5 +11,7 @@
 
         <include layout="@layout/fragment_network" />
 
+        <include layout="@layout/fragment_display" />
+
     </LinearLayout>
 </ScrollView>

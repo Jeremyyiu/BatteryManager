@@ -1,19 +1,28 @@
 package com.example.jeremy.controller;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Network;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
+import android.widget.Switch;
+
+import com.example.jeremy.controller.controller.GPSController;
+import com.example.jeremy.controller.controller.NetworkController;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -28,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     private ControllerFragment controllerFragment;
     private GraphsFragment graphsFragment;
 
-    private Context context;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +47,16 @@ public class HomeActivity extends AppCompatActivity {
         mMainFrame = (FrameLayout) findViewById(R.id.main_container);
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
 
-        context = getApplicationContext();
+        mContext = getApplicationContext();
         batteryFragment = new BatteryFragment();
         controllerFragment = new ControllerFragment();
         graphsFragment = new GraphsFragment();
 
-
         //Sets the initial fragment upon startup.
         setFragment(batteryFragment);
         updateToolbarText("Battery");
+
+        //initControllerItems();
 
         setTheme(R.style.AppTheme_TranslucentNavigation);
         mBottomNav.setOnNavigationItemSelectedListener(
@@ -100,4 +110,12 @@ public class HomeActivity extends AppCompatActivity {
             actionBar.setTitle(text);
         }
     }
-}
+
+    public void brightnessOnClick(View view) {
+    }
+
+    public void autoBrightnessOnClick(View view) {
+        //toggle brightness
+    }
+
+    }
