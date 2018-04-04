@@ -3,4 +3,5 @@
     <string name="graphs">Graphs</string>
     <string name="controller">Controller</string>
     <string name="battery">Battery</string>
+    <string name="placeholder_text">Placeholder text</string>
 </resources>

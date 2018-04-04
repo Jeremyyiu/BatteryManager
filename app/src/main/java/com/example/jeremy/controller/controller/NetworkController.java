@@ -1,5 +1,7 @@
 package com.example.jeremy.controller.controller;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -8,6 +10,11 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.provider.Settings;
+import android.support.v7.widget.SwitchCompat;
+import android.view.View;
+import android.widget.TextView;
+
+import com.example.jeremy.controller.R;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,15 +25,95 @@ import java.lang.reflect.Method;
 
 public class NetworkController {
     private Context context;
+    private Activity activity;
     private ConnectivityManager connectivityManager;
     private WifiManager wifiManager;
 
+
     private final int HOTSPOT_ENABLED = 13;
 
-    public NetworkController(Context context) {
+    public NetworkController(Activity activity, Context context) {
+        this.activity = activity;
         this.context = context;
         connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    }
+
+    public void initNetworkItems() {
+        initNetworkSwitch();
+        initNetworkItemText();
+    }
+
+    private void initNetworkSwitch() {
+        if (isWifiConnected()) {
+            SwitchCompat wifiSwitch = activity.findViewById(R.id.wifiSwitch);
+            wifiSwitch.setChecked(true);
+        }
+
+        if (isMobileNetworkConnected()) {
+            SwitchCompat mobileDataSwitch = activity.findViewById(R.id.mobileDataSwitch);
+            mobileDataSwitch.setChecked(true);
+        }
+
+        if (isAirplaneModeOn(context)) {
+            SwitchCompat flightModeSwitch = activity.findViewById(R.id.flightModeSwitch);
+            flightModeSwitch.setChecked(true);
+        }
+
+        //TODO: hotspot
+    }
+
+    private void initNetworkItemText() {
+        final TextView wifiText = (TextView) activity.findViewById(R.id.wifiText);
+        wifiText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent wifi = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                activity.startActivity(wifi);
+            }
+        });
+
+        final TextView mobileDataText = (TextView) activity.findViewById(R.id.mobile_data_text);
+        mobileDataText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mobileData = new Intent();
+                mobileData.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                activity.startActivity(mobileData);
+            }
+        });
+
+        final TextView flightModeText = (TextView) activity.findViewById(R.id.flightModeText);
+        flightModeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent plane = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+                activity.startActivity(plane);
+            }
+        });
+
+        final TextView hotspotText = (TextView) activity.findViewById(R.id.hotspotText);
+        hotspotText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent spot = new Intent();
+                spot.setClassName("com.android.settings", "com.android.settings.TetherSettings");
+                context.startActivity(spot);
+            }
+        });
+
+        final TextView dataUsageText = (TextView) activity.findViewById(R.id.dataUsageText);
+        dataUsageText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dataUsage = new Intent();
+                dataUsage.setComponent(new ComponentName(
+                        "com.android.settings",
+                        "com.android.settings.Settings$DataUsageSummaryActivity"
+                ));
+                activity.startActivity(dataUsage);
+            }
+        });
     }
     //https://stackoverflow.com/questions/18735370/connectivitymanager-null-pointer
     public boolean isWifiConnected() {
@@ -40,15 +127,13 @@ public class NetworkController {
     public void toggleWiFi(boolean value){
         toggleWiFiTask task = new toggleWiFiTask();
         task.execute(value);
-        //WifiManager wm = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-        //wm.setWifiEnabled(!isWifiAvailable());
     }
     public class toggleWiFiTask extends AsyncTask<Boolean,Void,Boolean>
     {
         WifiManager wm;
         @Override
         protected Boolean doInBackground(Boolean... params) {
-            wm = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+            wm = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             return params[0];
         }
         @Override
