@@ -10,6 +10,10 @@ import android.widget.SeekBar;
 
 import com.example.jeremy.controller.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by Jeremy on 18/03/2018.
  */
@@ -18,27 +22,14 @@ public class DisplayController {
     private Context context;
     public static final String ACCESSIBILITY_DISPLAY_DALTONIZER = "accessibility_display_daltonizer";
     public static final String ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED = "accessibility_display_daltonizer_enabled";
-    private Activity activity;
 
-    public DisplayController(Activity activity, Context context) {
-        this.activity = activity;
+    public DisplayController(Context context) {
         this.context = context;
+
     }
 
     private void init() {
         //setup display monitor
-    }
-
-    public void initDisplayItems() {
-        SeekBar brightnessSlider = activity.findViewById(R.id.brightnessSlider);
-        if (checkIfAutoBrightness()) {
-            SwitchCompat autoBrightnessSwitch = activity.findViewById(R.id.autoBrightnessSwitch);
-            autoBrightnessSwitch.setChecked(true);
-            brightnessSlider.setProgress(0);
-        } else {
-            int currentBrightness = getCurrentBrightness();
-            brightnessSlider.setProgress(currentBrightness);
-        }
     }
 
     /**

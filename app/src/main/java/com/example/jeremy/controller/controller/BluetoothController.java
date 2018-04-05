@@ -17,34 +17,9 @@ import com.example.jeremy.controller.R;
 
 public class BluetoothController {
     private BluetoothAdapter btAdapter;
-    private Activity activity;
 
-    public BluetoothController(Activity activity) {
-        this.activity = activity;
+    public BluetoothController() {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
-    }
-
-    public void initBluetoothItems() {
-        initBluetoothSwitch();
-        initBluetoothText();
-    }
-
-    private void initBluetoothSwitch() {
-        if (isBluetoothOn()) {
-            SwitchCompat bluetoothSwitch = activity.findViewById(R.id.bluetoothSwitch);
-            bluetoothSwitch.setChecked(true);
-        }
-    }
-
-    private void initBluetoothText() {
-        final TextView bluetoothText = (TextView) activity.findViewById(R.id.bluetoothText);
-        bluetoothText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent bluetooth = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
-                activity.startActivity(bluetooth);
-            }
-        });
     }
 
     public boolean isBluetoothOn() {
