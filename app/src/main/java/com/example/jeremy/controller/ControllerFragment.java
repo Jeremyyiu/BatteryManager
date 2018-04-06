@@ -2,14 +2,17 @@ package com.example.jeremy.controller;
 
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import com.example.jeremy.controller.controller.NetworkController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import permissions.dispatcher.NeedsPermission;
@@ -86,6 +90,10 @@ public class ControllerFragment extends Fragment {
     private Context mContext;
     private Unbinder unbinder;
 
+    // Filters for broadcast receiver
+    IntentFilter intentFilter = null;
+    BroadcastReceiver mReceiver;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +103,7 @@ public class ControllerFragment extends Fragment {
         mContext = getActivity();
         gpsController = new GPSController(mContext);
         networkController = new NetworkController(mContext);
-        bluetoothController = new BluetoothController();
+        bluetoothController = new BluetoothController(mContext);
         displayController = new DisplayController(mContext);
 
         // Inflate the layout for this fragment
@@ -119,6 +127,30 @@ public class ControllerFragment extends Fragment {
         initBluetoothItems();
         initGpsItems();
         initDisplayItems();
+
+        Intent i = new Intent(this.getActivity(), ControllerService.class);
+        getActivity().startService(i);
+
+        // Set and register broadcast receiver
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.jeremy.controller.controllerservice");
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int wifi_result, tooth_result, data_result, plane_result, gps_result, hotspot_result;
+                wifi_result = intent.getIntExtra("wifi_state", 0);
+                data_result = intent.getIntExtra("data_state", 0);
+                plane_result = intent.getIntExtra("plane_state", 0);
+                gps_result = intent.getIntExtra("gps_state", 0);
+                tooth_result = intent.getIntExtra("tooth_state", 0);
+                hotspot_result = intent.getIntExtra("hotspot_state", 0);
+                editControllerItems edit = new editControllerItems();
+                //wifi,tooth,mobile data
+                Log.d("debug info", "receive signal " + wifi_result);
+                edit.execute(wifi_result, data_result, tooth_result, plane_result, hotspot_result, gps_result);
+            }
+        };
+        getActivity().registerReceiver(mReceiver, intentFilter);
     }
 
     public void initNetworkItems() {
@@ -132,34 +164,29 @@ public class ControllerFragment extends Fragment {
         //TODO: hotspot
     }
 
-    @OnClick ({R.id.wifiText, R.id.wifi_icon})
+    @OnClick({R.id.wifiText, R.id.wifi_icon})
     public void wifiSettings(View view) {
-        Intent wifi = new Intent(Settings.ACTION_WIFI_SETTINGS);
-        getActivity().startActivity(wifi);
+        networkController.wifiToggleSettings();
     }
 
-    @OnClick({R.id.flightModeText, R.id.flightMode_icon})
+    @OnCheckedChanged(R.id.wifiSwitch)
+    public void wifiSwitchToggle(boolean checked) {
+        networkController.toggleWiFi(checked);
+    }
+
+    @OnClick({R.id.flightModeRow})
     public void flightModeSettings(View view) {
-        Intent plane = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
-        getActivity().startActivity(plane);
+        networkController.flightModeTogglePermission();
     }
 
-    @OnClick({R.id.hotspotText, R.id.hotspot_icon})
+    @OnClick({R.id.hotspotRow})
     public void hotspotSettings(View view) {
-        Intent spot = new Intent();
-        spot.setClassName("com.android.settings", "com.android.settings.TetherSettings");
-        getActivity().startActivity(spot);
+        networkController.hotspotTogglePermission();
     }
 
-    @OnClick({R.id.dataUsageText, R.id.dataUsage_Icon, R.id.mobile_data_text, R.id.mobile_data_icon})
+    @OnClick({R.id.dataUsageRow, R.id.mobileDataRow})
     public void dataUsageSettings(View view) {
-        Intent dataUsage = new Intent();
-        dataUsage.setComponent(new ComponentName(
-                "com.android.settings",
-                "com.android.settings.Settings$DataUsageSummaryActivity"
-        ));
-        getActivity().startActivity(dataUsage);
-
+       networkController.dataUsageSettings();
     }
 
     private void initBluetoothItems() {
@@ -172,10 +199,14 @@ public class ControllerFragment extends Fragment {
         }
     }
 
+    @OnCheckedChanged(R.id.bluetoothSwitch)
+    public void bluetoothSwitchToggle(boolean checked) {
+        bluetoothController.toggleBluetooth(checked);
+    }
+
     @OnClick({R.id.bluetoothText, R.id.bluetooth_icon})
     public void bluetoothSettings(View view) {
-        Intent bluetooth = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
-        getActivity().startActivity(bluetooth);
+        bluetoothController.bluetoothSettings();
     }
 
     public void initDisplayItems() {
@@ -197,10 +228,87 @@ public class ControllerFragment extends Fragment {
         gpsSwitch.setChecked(gpsStatus);
     }
 
-    @OnClick({R.id.gpsText, R.id.gps_icon})
+    @OnClick({R.id.gpsRow})
     public void dataRoamingSettings(View view) {
-        Intent gprs = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
-        getActivity().startActivity(gprs);
+        gpsController.toggleGPS();
+    }
+
+    /**
+     * editControllerItems: Async task for toggling the switches
+     */
+    public class editControllerItems extends AsyncTask<Integer, Integer, Boolean> {
+        @Override
+        protected Boolean doInBackground(final Integer... params) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < params.length; i++) {
+                        switch (i) {
+                            case 0:
+                                if (params[i] == 1) {
+                                    wifiSwitch.setChecked(true);
+                                } else if (params[i] == -1) {
+                                    wifiSwitch.setChecked(false);
+                                }
+                                break;
+                            case 1:
+                                if (params[i] == 1) {
+                                    mobileDataSwitch.setChecked(true);
+                                } else if (params[i] == -1) {
+                                    mobileDataSwitch.setChecked(false);
+                                }
+                                break;
+                            case 2:
+                                if (params[i] == 1) {
+                                    bluetoothSwitch.setChecked(true);
+                                } else if (params[i] == -1) {
+                                    bluetoothSwitch.setChecked(false);
+                                }
+                                break;
+                            case 3:
+                                if (params[i] == 1) {
+                                    flightModeSwitch.setChecked(true);
+                                } else if (params[i] == -1) {
+                                    flightModeSwitch.setChecked(false);
+                                }
+                                break;
+                            case 4:
+                                if (params[i] == 1) {
+                                    hotspotSwitch.setChecked(true);
+                                } else if (params[i] == -1) {
+                                    hotspotSwitch.setChecked(false);
+                                }
+                                break;
+                            case 5:
+                                if (params[i] == 1) {
+                                    gpsSwitch.setChecked(true);
+                                } else if (params[i] == -1) {
+                                    gpsSwitch.setChecked(false);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            });
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+        }
+    }
+
+
+    /**
+     * onDestroy: unregister broadcast receiver
+     */
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
 /**

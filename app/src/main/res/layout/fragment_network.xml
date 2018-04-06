@@ -43,7 +43,9 @@
 
         <include layout="@layout/line_divider" />
 
-        <LinearLayout style="@style/cardLinearLayoutTheme">
+        <LinearLayout
+            android:id="@+id/mobileDataRow"
+            style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/mobile_data_icon"
@@ -52,13 +54,13 @@
 
             <TextView
                 android:id="@+id/mobile_data_text"
-                style="@style/cardItemTheme"
+                style="@style/cardItemDisabledTheme"
                 android:layout_weight="1"
                 android:text="Mobile Data" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/mobileDataSwitch"
-                style="@style/cardSwitchTheme" />
+                style="@style/cardSwitchDisabledTheme" />
 
         </LinearLayout>
 
@@ -85,7 +87,9 @@
 
         <include layout="@layout/line_divider" />
 
-        <LinearLayout style="@style/cardLinearLayoutTheme">
+        <LinearLayout
+            android:id="@+id/gpsRow"
+            style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/gps_icon"
@@ -94,19 +98,19 @@
 
             <TextView
                 android:id="@+id/gpsText"
-                style="@style/cardItemTheme"
+                style="@style/cardItemDisabledTheme"
                 android:layout_weight="1"
                 android:text="GPS" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/gpsSwitch"
-                style="@style/cardSwitchTheme" />
-
+                style="@style/cardSwitchDisabledTheme" />
         </LinearLayout>
 
         <include layout="@layout/line_divider" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/hotspotRow"
             style="@style/cardLinearLayoutTheme">
 
             <ImageView
@@ -116,13 +120,13 @@
 
             <TextView
                 android:id="@+id/hotspotText"
-                style="@style/cardItemTheme"
+                style="@style/cardItemDisabledTheme"
                 android:layout_weight="1"
                 android:text="Hotspot" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/hotspotSwitch"
-                style="@style/cardSwitchTheme" />
+                style="@style/cardSwitchDisabledTheme" />
 
         </LinearLayout>
 
@@ -130,6 +134,7 @@
         <include layout="@layout/line_divider" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/flightModeRow"
             style="@style/cardLinearLayoutTheme">
 
             <ImageView
@@ -139,19 +144,20 @@
 
             <TextView
                 android:id="@+id/flightModeText"
-                style="@style/cardItemTheme"
+                style="@style/cardItemDisabledTheme"
                 android:layout_weight="1"
                 android:text="Airplane Mode" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/flightModeSwitch"
-                style="@style/cardSwitchTheme" />
+                style="@style/cardSwitchDisabledTheme" />
 
         </LinearLayout>
 
         <include layout="@layout/line_divider" />
 
         <LinearLayout
+            android:id="@+id/dataUsageRow"
             style="@style/cardLinearLayoutTheme"
             android:paddingBottom="16dp"
             android:paddingTop="16dp">
@@ -163,7 +169,7 @@
 
             <TextView
                 android:id="@+id/dataUsageText"
-                style="@style/cardItemTheme"
+                style="@style/cardItemDisabledTheme"
                 android:layout_weight="1"
                 android:text="Data Usage" />
 

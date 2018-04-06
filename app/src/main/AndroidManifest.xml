@@ -19,6 +19,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:enabled="true"
+            android:exported="false"
+            android:name=".ControllerService">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED"/>
+                <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+
         <activity android:name="com.example.jeremy.controller.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

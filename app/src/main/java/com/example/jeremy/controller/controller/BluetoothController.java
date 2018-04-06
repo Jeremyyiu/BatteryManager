@@ -2,6 +2,7 @@ package com.example.jeremy.controller.controller;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -17,8 +18,10 @@ import com.example.jeremy.controller.R;
 
 public class BluetoothController {
     private BluetoothAdapter btAdapter;
+    private Context context;
 
-    public BluetoothController() {
+    public BluetoothController(Context context) {
+        this.context = context;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
@@ -27,6 +30,11 @@ public class BluetoothController {
         return status == btAdapter.STATE_ON;
         //else if (status == btAdapter.STATE_OFF) return 0
         //returns -1, as it is either STATE_TURNING_ON or STATE_TURNING_OFF
+    }
+
+    public void bluetoothSettings() {
+        Intent bluetooth = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+        context.startActivity(bluetooth);
     }
 
     /**

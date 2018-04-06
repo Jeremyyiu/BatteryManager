@@ -1,6 +1,5 @@
 package com.example.jeremy.controller.controller;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +9,6 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.provider.Settings;
-import android.support.v7.widget.SwitchCompat;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.jeremy.controller.R;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Created by Jeremy on 14/03/2018.
@@ -46,18 +37,20 @@ public class NetworkController {
         return false;
     }
 
-    public void toggleWiFi(boolean value){
+    public void toggleWiFi(boolean value) {
         toggleWiFiTask task = new toggleWiFiTask();
         task.execute(value);
     }
-    public class toggleWiFiTask extends AsyncTask<Boolean,Void,Boolean>
-    {
+
+    public class toggleWiFiTask extends AsyncTask<Boolean, Void, Boolean> {
         WifiManager wm;
+
         @Override
         protected Boolean doInBackground(Boolean... params) {
-            wm = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             return params[0];
         }
+
         @Override
         protected void onPostExecute(Boolean result) {
             wm.setWifiEnabled(result);
@@ -92,13 +85,17 @@ public class NetworkController {
      * https://stackoverflow.com/questions/14680978/monitoring-the-hotspot-state-in-android?noredirect=1&lq=1
      */
 
-    /**
-    public boolean isHotspotConnected(Context context) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method method = wifiManager.getDeclaredMethod("getWifiApState");
-        method.setAccessible(true);
-        int actualState  = (Integer) method.invoke(wifiManager, (Object[]) null);
+    public void wifiToggleSettings() {
+        Intent wifi = new Intent(Settings.ACTION_WIFI_SETTINGS);
+        context.startActivity(wifi);
     }
 
+    /**
+     * public boolean isHotspotConnected(Context context) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+     * Method method = wifiManager.getDeclaredMethod("getWifiApState");
+     * method.setAccessible(true);
+     * int actualState  = (Integer) method.invoke(wifiManager, (Object[]) null);
+     * }
      **/
     public void hotspotTogglePermission() {
         Intent spot = new Intent();
@@ -106,30 +103,40 @@ public class NetworkController {
         context.startActivity(spot);
     }
 
-    public void airplaneModeTogglePermission() {
+    public void flightModeTogglePermission() {
         Intent apModeToggle = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
         context.startActivity(apModeToggle);
     }
 
+    public void dataUsageSettings() {
+        Intent dataUsage = new Intent();
+        dataUsage.setComponent(new ComponentName(
+                "com.android.settings",
+                "com.android.settings.Settings$DataUsageSummaryActivity"
+        ));
+        context.startActivity(dataUsage);
+    }
 
 
     /** Todo: check if hotspot is active, let the user turn on hotspot and flight mode via intent. */
 
-    /** TODO: Add flight mode listener */
+    /**
+     * TODO: Add flight mode listener
+     */
 
-    public class togglePlaneTask extends AsyncTask<Void,Void,Boolean>
-    {
+    public class togglePlaneTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
             boolean enabled = isAirplaneModeOn(context);
             return !enabled;
         }
+
         @Override
         protected void onPostExecute(Boolean result) {
             //Settings.System.putInt(context.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,result?1:0);
-            Settings.Global.putInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON,result?1:0);
+            Settings.Global.putInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, result ? 1 : 0);
             Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-            intent.putExtra("state",result);
+            intent.putExtra("state", result);
             context.sendBroadcast(intent);
         }
     }
