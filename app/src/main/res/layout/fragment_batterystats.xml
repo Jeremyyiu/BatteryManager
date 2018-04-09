@@ -1,0 +1,154 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/batteryStats_cv"
+    style="@style/cardTheme"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5dp"
+    app:contentPaddingBottom="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/HeaderTheme"
+            android:text="Battery Statistics" />
+
+
+        <include layout="@layout/line_divider" />
+
+        <RelativeLayout
+            android:id="@+id/batteryTemp"
+            style="@style/smallerCardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/batteryTemp_Icon"
+                style="@style/cardImageTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/data_usage" />
+
+            <TextView
+                android:id="@+id/batteryTemp_Text"
+                style="@style/cardItemDisabledTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="36dp"
+                android:layout_marginStart="36dp"
+                android:text="Temperature" />
+
+            <TextView
+                android:id="@+id/batteryTemp_Text2"
+                style="@style/cardItemDisabledTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="##.##°" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <RelativeLayout
+            android:id="@+id/batteryVoltage"
+            style="@style/smallerCardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/batteryVoltage_Icon"
+                style="@style/cardImageTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/data_usage" />
+
+            <TextView
+                android:id="@+id/batteryVoltage_Text"
+                style="@style/cardItemDisabledTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="36dp"
+                android:layout_marginStart="36dp"
+                android:text="Voltage" />
+
+            <TextView
+                android:id="@+id/batteryVoltage_Text2"
+                style="@style/cardItemDisabledTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="##.#V" />
+        </RelativeLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <RelativeLayout
+            android:id="@+id/batteryHealth"
+            style="@style/smallerCardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/batteryHealth_Icon"
+                style="@style/cardImageTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/data_usage" />
+
+            <TextView
+                android:id="@+id/batteryHealth_Text"
+                style="@style/cardItemDisabledTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="36dp"
+                android:layout_marginStart="36dp"
+                android:text="Health" />
+
+            <TextView
+                android:id="@+id/batteryHealth_Text2"
+                style="@style/cardItemDisabledTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="########" />
+        </RelativeLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <RelativeLayout
+            android:id="@+id/batteryTech"
+            style="@style/smallerCardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/batteryTech_Icon"
+                style="@style/cardImageTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/data_usage" />
+
+            <TextView
+                android:id="@+id/batteryTech_Text"
+                style="@style/cardItemDisabledTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="36dp"
+                android:layout_marginStart="36dp"
+                android:text="Technology" />
+
+            <TextView
+                android:id="@+id/batteryTech_Text2"
+                style="@style/cardItemDisabledTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="########" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,9 +1,13 @@
 package com.example.jeremy.controller.controller;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.SeekBar;
@@ -83,4 +87,82 @@ public class DisplayController {
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                 Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
     }
+
+    public static void toggleMonochrome(int value, ContentResolver contentResolver) {
+        Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, value);
+        if (value == 0) {
+            Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, -1);
+        } else if (value == 1) {
+            Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, 0);
+        }
+    }
+
+/**
+    private void initMonochromeSwitch(View view) {
+        if (Settings.Secure.getInt(context.getContentResolver(), ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, 0) == 0) {
+            monochromeSwitch.setChecked(false);
+        } else {
+            monochromeSwitch.setChecked(true);
+        }
+
+        monochromeSwitch.setOncheckListener(new Switch.OnCheckListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onCheck(Switch view, boolean check) {
+                //Checks if this app can modify system settings
+                boolean canWriteSettings = getApplicationContext().checkCallingOrSelfPermission("android.permission.WRITE_SECURE_SETTINGS") == PackageManager.PERMISSION_GRANTED;
+
+                if (canWriteSettings) {
+                    if (check) {
+                        toggleMonochrome(1, context.getApplicationContext().getContentResolver());
+                    } else {
+                        toggleMonochrome(0, context.getApplicationContext().getContentResolver());
+                    }
+                } else {
+                    //If currently cant modify system settings, app will ask for permission
+                    showRootWorkaroundInstructions(context.getApplicationContext());
+                    monochromeSwitch.setChecked(false);
+                }
+            }
+        });
+    }
+
+    public void showRootWorkaroundInstructions(final Context context) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setMessage("Since your phone is not rooted, you must manually grant the permission " +
+                "'android.permission.WRITE_SECURE_SETTINGS' by going to adb and inputting the following command" +
+                " adb -d shell pm grant com.example.jeremy.monochrometoggler android.permission.WRITE_SECURE_SETTINGS")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Copy the command", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        setClipboard(context, "adb -d shell pm grant com.example.jeremy.monochrometoggler android.permission.WRITE_SECURE_SETTINGS");
+                        dialog.cancel();
+                    }
+                });
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
+    } **/
+
+    /**
+     * @param context
+     * @param text    - Copy the text passed in the parameters onto the clipboard
+     */
+    private void setClipboard(Context context, String text) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+    }
+
+
+
 }

@@ -1,0 +1,92 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/display_cv"
+    style="@style/cardTheme"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5dp"
+    app:contentPaddingBottom="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/HeaderTheme"
+            android:text="Display" />
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp">
+
+            <ImageView
+                android:id="@+id/brightness_Icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/brightness" />
+
+            <TextView
+                android:id="@+id/brightnessText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:onClick="brightnessOnClick"
+                android:text="Brightness" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/brightnessSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout
+            style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/autoBrightness_Icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/brightness" />
+
+            <TextView
+                android:id="@+id/autoBrightnessText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Auto Brightness" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/autoBrightnessSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/brightness_icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/brightness" />
+
+            <TextView
+                android:id="@+id/monochromeText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Monochrome" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/monochromeSwitch"
+                style="@style/cardSwitchTheme" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

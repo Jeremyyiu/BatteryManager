@@ -1,0 +1,135 @@
+package com.example.jeremy.controller;
+
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+public class BatteryService extends Service {
+
+    private int plugged;
+    private int status;
+    private int health;
+    private int level;
+    private int scale;
+    private boolean present;
+    private String technology;
+    private float temperature;
+    private float voltage;
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        private static final String tag = "Debug Info";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Intent broadcast_intent = new Intent();
+
+            if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
+                Log.d(tag, "Battery Changed");
+                present = intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
+                plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+                status = intent.getExtras().getInt(BatteryManager.EXTRA_STATUS, 0);
+                health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
+                technology = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
+                scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                temperature = ((float) intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)) / 10;
+                voltage = ((float) intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)) / 1000;
+            }
+
+            broadcast_intent.setAction("com.example.jeremy.controller.batteryservice");
+            sendBroadcast(broadcast_intent);
+        }
+    };
+
+    public String getHealth() {
+        String batteryStatus = "";
+        switch (health) {
+            case BatteryManager.BATTERY_HEALTH_COLD:
+                batteryStatus = "Cold";
+                break;
+            case BatteryManager.BATTERY_HEALTH_DEAD:
+                batteryStatus = "Dead";
+                break;
+            case BatteryManager.BATTERY_HEALTH_GOOD:
+                batteryStatus = "Good";
+                break;
+            case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+                batteryStatus = "Overheat";
+                break;
+            case BatteryManager.BATTERY_HEALTH_UNKNOWN:
+                batteryStatus = "Unknown";
+                break;
+            case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+                batteryStatus = "Over Voltage";
+                break;
+            case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+                batteryStatus = "Unspecified Failure";
+                break;
+            default:
+                batteryStatus = "Error - Could not receive";
+                break;
+        }
+        return batteryStatus;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public int getPlugged() {
+        return plugged;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public boolean isPresent() {
+        return present;
+    }
+
+    public String getTechnology() {
+        return technology;
+    }
+
+    public float temperature() {
+        return temperature;
+    }
+
+    public float voltage() {
+        return voltage;
+    }
+
+    /**
+     * Create filter and select the actions to be received and filters all other actions out.
+     */
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        IntentFilter mFilter = new IntentFilter();
+        //Select actions to be received
+        mFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(mReceiver, mFilter);
+    }
+
+    /**
+     * Unregisters the receiver
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
+}

@@ -117,13 +117,6 @@ public class NetworkController {
         context.startActivity(dataUsage);
     }
 
-
-    /** Todo: check if hotspot is active, let the user turn on hotspot and flight mode via intent. */
-
-    /**
-     * TODO: Add flight mode listener
-     */
-
     public class togglePlaneTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -140,8 +133,4 @@ public class NetworkController {
             context.sendBroadcast(intent);
         }
     }
-
-    /**
-     * TODO: Mobile hotspot, grps - type of data connection
-     **/
 }
