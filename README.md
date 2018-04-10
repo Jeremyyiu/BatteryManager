@@ -14,6 +14,7 @@ Features in progress! -
 Features to do:
 - Implement battery saving mode e.g. night mode.
 - Implement battery usage graphs
+- Implement machine learning in battery saving modes! - observe user usage patterns and react accordingly.
 
 Design stuff to do:
 - Revamp UI - make everything prettier!
