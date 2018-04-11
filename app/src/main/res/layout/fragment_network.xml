@@ -116,7 +116,7 @@
             <ImageView
                 android:id="@+id/hotspot_icon"
                 style="@style/cardImageTheme"
-                android:src="@drawable/flight_mode" />
+                android:src="@drawable/wifi_tethering" />
 
             <TextView
                 android:id="@+id/hotspotText"

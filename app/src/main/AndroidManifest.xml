@@ -31,6 +31,12 @@
             </intent-filter>
         </service>
 
+        <service
+            android:enabled="true"
+            android:exported="false"
+            android:name=".BatteryService">
+        </service>
+
         <activity android:name="com.example.jeremy.controller.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

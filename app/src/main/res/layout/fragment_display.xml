@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/brightness_Icon"
                 style="@style/cardImageTheme"
-                android:src="@drawable/brightness" />
+                android:src="@drawable/ic_brightness" />
 
             <TextView
                 android:id="@+id/brightnessText"
@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/autoBrightness_Icon"
                 style="@style/cardImageTheme"
-                android:src="@drawable/brightness" />
+                android:src="@drawable/ic_brightness_auto" />
 
             <TextView
                 android:id="@+id/autoBrightnessText"
@@ -73,9 +73,9 @@
         <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
-                android:id="@+id/brightness_icon"
+                android:id="@+id/monochrome_icon"
                 style="@style/cardImageTheme"
-                android:src="@drawable/brightness" />
+                android:src="@drawable/brightness_monochrome" />
 
             <TextView
                 android:id="@+id/monochromeText"

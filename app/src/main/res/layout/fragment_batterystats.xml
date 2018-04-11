@@ -32,7 +32,7 @@
                 style="@style/cardImageTheme"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/data_usage" />
+                android:src="@drawable/ic_thermometer" />
 
             <TextView
                 android:id="@+id/batteryTemp_Text"
@@ -65,7 +65,7 @@
                 style="@style/cardImageTheme"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/data_usage" />
+                android:src="@drawable/ic_voltage" />
 
             <TextView
                 android:id="@+id/batteryVoltage_Text"
@@ -97,7 +97,7 @@
                 style="@style/cardImageTheme"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/data_usage" />
+                android:src="@drawable/ic_health" />
 
             <TextView
                 android:id="@+id/batteryHealth_Text"
@@ -129,7 +129,7 @@
                 style="@style/cardImageTheme"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/data_usage" />
+                android:src="@drawable/ic_build" />
 
             <TextView
                 android:id="@+id/batteryTech_Text"

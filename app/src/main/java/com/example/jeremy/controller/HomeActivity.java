@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
@@ -88,9 +89,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //fragmentTransaction.addToBackStack("fragment");
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                 R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.addToBackStack("fragment");
         fragmentTransaction.commit();
     }
 
@@ -118,4 +121,4 @@ public class HomeActivity extends AppCompatActivity {
         //toggle brightness
     }
 
-    }
+}

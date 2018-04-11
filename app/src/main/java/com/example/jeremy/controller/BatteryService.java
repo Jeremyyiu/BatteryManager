@@ -10,6 +10,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import static android.content.ContentValues.TAG;
+
 public class BatteryService extends Service {
 
     private int plugged;
@@ -19,8 +21,8 @@ public class BatteryService extends Service {
     private int scale;
     private boolean present;
     private String technology;
-    private float temperature;
-    private float voltage;
+    private int temperature;
+    private int voltage;
 
     @Nullable
     @Override
@@ -33,6 +35,14 @@ public class BatteryService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (context == null) {
+                return;
+            }
+
+            if (intent == null) {
+                return;
+            }
+
             Intent broadcast_intent = new Intent();
 
             if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
@@ -44,8 +54,18 @@ public class BatteryService extends Service {
                 technology = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
                 scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
                 level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                temperature = ((float) intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)) / 10;
-                voltage = ((float) intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)) / 1000;
+                temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+                voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+
+                broadcast_intent.putExtra("present", present);
+                broadcast_intent.putExtra("plugged", plugged);
+                broadcast_intent.putExtra("status", status);
+                broadcast_intent.putExtra("health", health);
+                broadcast_intent.putExtra("technology", technology);
+                broadcast_intent.putExtra("scale", scale);
+                broadcast_intent.putExtra("level", level);
+                broadcast_intent.putExtra("temperature", temperature);
+                broadcast_intent.putExtra("voltage", voltage);
             }
 
             broadcast_intent.setAction("com.example.jeremy.controller.batteryservice");
@@ -104,11 +124,11 @@ public class BatteryService extends Service {
         return technology;
     }
 
-    public float temperature() {
+    public float getTemperature() {
         return temperature;
     }
 
-    public float voltage() {
+    public float getVoltage() {
         return voltage;
     }
 
@@ -131,5 +151,10 @@ public class BatteryService extends Service {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mReceiver);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
     }
 }
