@@ -114,11 +114,4 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void brightnessOnClick(View view) {
-    }
-
-    public void autoBrightnessOnClick(View view) {
-        //toggle brightness
-    }
-
 }

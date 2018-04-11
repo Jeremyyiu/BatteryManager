@@ -46,6 +46,7 @@ public class BatteryFragment extends Fragment {
     IntentFilter intentFilter = null;
     BroadcastReceiver mReceiver;
     BatteryService batteryService;
+    Bundle extras = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +67,34 @@ public class BatteryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initBatteryItems();
+        if(extras != null) {
+            String health = getHealth(extras.getInt("health"));
+            int level = extras.getInt("level");
+            String technology = extras.getString("technology");
+            int temperature = extras.getInt("temperature");
+            int voltage = extras.getInt("voltage");
+
+            batteryTech.setText(technology);
+
+            batteryProgressBar.setProgress(level);
+            batteryCurrentValue.setText("" + level);
+
+            batteryHealth.setTextColor(health.equals("Good") ? Color.GREEN : Color.RED);
+            batteryHealth.setText(health);
+
+            Float floatVoltage = (float) (voltage) / 1000;
+            batteryVoltage.setText("" + floatVoltage + " V");
+
+            Float floatTemperature = (float) (temperature) / 10;
+            if (floatTemperature > 45) {
+                batteryTemp.setTextColor(Color.RED);
+            } else if (floatTemperature <= 45 && floatTemperature > 35) {
+                batteryTemp.setTextColor(Color.YELLOW);
+            } else {
+                batteryTemp.setTextColor(Color.GREEN);
+            }
+            batteryTemp.setText("" + floatTemperature + " °C");
+        }
     }
 
 
@@ -111,7 +140,7 @@ public class BatteryFragment extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
 
-                Bundle extras = intent.getExtras();
+                extras = intent.getExtras();
 
                 if (extras != null) {
                     int plugged_result, status_result, health_result, level_result, scale_result;
