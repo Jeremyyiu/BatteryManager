@@ -1,12 +1,7 @@
 package com.example.jeremy.controller;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Network;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -14,21 +9,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SwitchCompat;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
-import android.widget.Switch;
-
-import com.example.jeremy.controller.controller.GPSController;
-import com.example.jeremy.controller.controller.NetworkController;
 
 public class HomeActivity extends AppCompatActivity {
 
     // UI
-
     private BottomNavigationView mBottomNav;
     private ViewPager mViewpager;
     private FrameLayout mMainFrame;

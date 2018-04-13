@@ -11,6 +11,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,17 +68,19 @@ public class BatteryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initBatteryItems();
-        if(extras != null) {
+        if (extras != null) {
             String health = getHealth(extras.getInt("health"));
             int level = extras.getInt("level");
             String technology = extras.getString("technology");
             int temperature = extras.getInt("temperature");
             int voltage = extras.getInt("voltage");
+            float batteryPct = extras.getFloat("batteryPct");
 
             batteryTech.setText(technology);
 
-            batteryProgressBar.setProgress(level);
-            batteryCurrentValue.setText("" + level);
+
+            batteryProgressBar.setProgress((int) (batteryPct * 100));
+            batteryCurrentValue.setText("" + (int) (batteryPct * 100));
 
             batteryHealth.setTextColor(health.equals("Good") ? Color.GREEN : Color.RED);
             batteryHealth.setText(health);
@@ -130,6 +133,7 @@ public class BatteryFragment extends Fragment {
     }
 
     public void initBatteryItems() {
+        batteryProgressBar.setMax(100);
         Intent i = new Intent(this.getActivity(), batteryService.getClass());
         getActivity().startService(i);
 
@@ -143,17 +147,12 @@ public class BatteryFragment extends Fragment {
                 extras = intent.getExtras();
 
                 if (extras != null) {
-                    int plugged_result, status_result, health_result, level_result, scale_result;
+                    int plugged_result, status_result, health_result, level_result, scale_result, temperature_result, voltage_result;
                     boolean present_result;
                     String technology_result;
-                    int temperature_result;
-                    int voltage_result;
 
-                    //present_result = intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
-                    //plugged_result = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-                    //status_result = intent.getExtras().getInt(BatteryManager.EXTRA_STATUS, 0);
-                    //health_result = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
                     present_result = extras.getBoolean("present");
+                    status_result = extras.getInt("status");
                     plugged_result = extras.getInt("plugged");
                     health_result = extras.getInt("health");
                     scale_result = extras.getInt("scale");
@@ -161,18 +160,16 @@ public class BatteryFragment extends Fragment {
                     technology_result = extras.getString("technology");
                     temperature_result = extras.getInt("temperature");
                     voltage_result = extras.getInt("voltage");
-                    //technology_result = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
-                    //scale_result = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    //level_result = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                    //temperature_result = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
-                    //voltage_result = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
-                    editBatteryItems edit = new editBatteryItems();
-                    editBatteryStringItems edit1 = new editBatteryStringItems();
 
-                    //wifi,tooth,mobile data
-                    //Log.d("debug info", "received signal " + present_result);
+                    extras.putFloat("batteryPct", level_result / (float) scale_result);
+                    editBatteryItems edit = new editBatteryItems();
+                    editBatteryStringItems editTechItem = new editBatteryStringItems();
+
+                    Log.d("Debug info", "Received signal: " + present_result);
+
+                    //Update the UI with the new values
                     edit.execute(plugged_result, health_result, scale_result, level_result, temperature_result, voltage_result);
-                    edit1.execute(technology_result);
+                    editTechItem.execute(technology_result);
                 }
             }
         };
@@ -207,6 +204,8 @@ public class BatteryFragment extends Fragment {
         int voltage = 0;
         int temperature = 0;
         int plugged = 0;
+        int scale = 0;
+        float batteryPct = 0;
 
         @Override
         protected Boolean doInBackground(final Integer... params) {
@@ -214,7 +213,10 @@ public class BatteryFragment extends Fragment {
                 @Override
                 public void run() {
                     plugged = params[0];
-                    level = params[2];
+                    scale = params[2];
+                    level = params[3];
+
+                    batteryPct = level / (float) scale;
                     health = getHealth(params[1]);
                     temperature = params[4];
                     voltage = params[5];
@@ -226,8 +228,8 @@ public class BatteryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            batteryProgressBar.setProgress(level);
-            batteryCurrentValue.setText("" + level);
+            batteryProgressBar.setProgress((int) (batteryPct * 100));
+            batteryCurrentValue.setText("" + (int) (batteryPct * 100));
 
             batteryHealth.setTextColor(health.equals("Good") ? Color.GREEN : Color.RED);
             batteryHealth.setText(health);
