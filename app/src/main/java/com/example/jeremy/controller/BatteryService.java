@@ -46,7 +46,7 @@ public class BatteryService extends Service {
             if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
                 Log.d(tag, "Battery Changed");
                 present = intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
-                plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+                plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
                 status = intent.getExtras().getInt(BatteryManager.EXTRA_STATUS, 0);
                 health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
                 technology = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
@@ -64,6 +64,7 @@ public class BatteryService extends Service {
                 broadcast_intent.putExtra("level", level);
                 broadcast_intent.putExtra("temperature", temperature);
                 broadcast_intent.putExtra("voltage", voltage);
+                broadcast_intent.putExtra("plugged", plugged);
             }
 
             broadcast_intent.setAction("com.example.jeremy.controller.batteryservice");

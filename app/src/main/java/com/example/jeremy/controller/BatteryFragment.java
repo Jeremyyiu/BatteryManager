@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +37,16 @@ public class BatteryFragment extends Fragment {
     TextView batteryTech;
     @BindView(R.id.batteryVoltage_Text2)
     TextView batteryVoltage;
+    @BindView(R.id.batteryPlugged_text2)
+    TextView batteryPlugged;
     @BindView(R.id.batteryProgressBar)
     ProgressBar batteryProgressBar;
     @BindView(R.id.batteryCurrentValue)
     TextView batteryCurrentValue;
+    @BindView(R.id.batteryTotal)
+    TextView batteryTotal;
+    @BindView(R.id.batteryCurrent)
+    TextView batteryCurrent;
 
     private Context mContext;
     private Unbinder unbinder;
@@ -75,9 +83,9 @@ public class BatteryFragment extends Fragment {
             int temperature = extras.getInt("temperature");
             int voltage = extras.getInt("voltage");
             float batteryPct = extras.getFloat("batteryPct");
+            int plugged = extras.getInt("plugged");
 
             batteryTech.setText(technology);
-
 
             batteryProgressBar.setProgress((int) (batteryPct * 100));
             batteryCurrentValue.setText("" + (int) (batteryPct * 100));
@@ -97,7 +105,44 @@ public class BatteryFragment extends Fragment {
                 batteryTemp.setTextColor(Color.GREEN);
             }
             batteryTemp.setText("" + floatTemperature + " °C");
+
+            if(plugged == BatteryManager.BATTERY_PLUGGED_AC) {
+                batteryPlugged.setText(" AC");
+                batteryPlugged.setTextColor(Color.GREEN);
+            } else if (plugged == BatteryManager.BATTERY_PLUGGED_USB) {
+                batteryPlugged.setText("USB");
+                batteryPlugged.setTextColor(Color.GREEN);
+            } else if (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
+                batteryPlugged.setText("Wireless");
+                batteryPlugged.setTextColor(Color.GREEN);
+            } else {
+                batteryPlugged.setText("Not Plugged");
+                batteryPlugged.setTextColor(Color.LTGRAY);
+            }
+            getBatteryStuff();
         }
+    }
+
+    public void getBatteryStuff() {
+        BatteryManager mBatteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
+        Long avgCurrent = null, currentNow = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            avgCurrent = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
+            currentNow = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+        }
+
+        batteryTotal.setText("Avg charge current: " + avgCurrent + " mAh");
+        batteryCurrent.setText("Charge Current: " + currentNow + " mAh");
+    }
+
+    public int getCurrent() {
+        int current = 0;
+        BatteryManager batteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            current = batteryManager.getIntProperty(BatteryManager
+                    .BATTERY_PROPERTY_CURRENT_NOW);
+        }
+        return current;
     }
 
 
@@ -152,6 +197,7 @@ public class BatteryFragment extends Fragment {
                     String technology_result;
 
                     present_result = extras.getBoolean("present");
+                    plugged_result = extras.getInt("plugged");
                     status_result = extras.getInt("status");
                     plugged_result = extras.getInt("plugged");
                     health_result = extras.getInt("health");
@@ -168,12 +214,36 @@ public class BatteryFragment extends Fragment {
                     Log.d("Debug info", "Received signal: " + present_result);
 
                     //Update the UI with the new values
-                    edit.execute(plugged_result, health_result, scale_result, level_result, temperature_result, voltage_result);
+                    edit.execute(plugged_result, health_result, scale_result, level_result, temperature_result, voltage_result, plugged_result);
                     editTechItem.execute(technology_result);
                 }
             }
         };
         getActivity().registerReceiver(mReceiver, intentFilter);
+    }
+
+    public double getBatteryCapacity() {
+        Object mPowerProfile_ = null;
+
+        final String POWER_PROFILE_CLASS = "com.android.internal.os.PowerProfile";
+
+        try {
+            mPowerProfile_ = Class.forName(POWER_PROFILE_CLASS)
+                    .getConstructor(Context.class).newInstance(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            double batteryCapacity = (double) Class
+                    .forName(POWER_PROFILE_CLASS)
+                    .getMethod("getAveragePower", java.lang.String.class)
+                    .invoke(mPowerProfile_, "battery.capacity");
+            return batteryCapacity;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public class editBatteryStringItems extends AsyncTask<String, String, Boolean> {
@@ -220,6 +290,7 @@ public class BatteryFragment extends Fragment {
                     health = getHealth(params[1]);
                     temperature = params[4];
                     voltage = params[5];
+                    plugged = params[6];
                 }
 
             });
@@ -246,8 +317,34 @@ public class BatteryFragment extends Fragment {
                 batteryTemp.setTextColor(Color.GREEN);
             }
             batteryTemp.setText("" + floatTemperature + " °C");
+
+            if(plugged == BatteryManager.BATTERY_PLUGGED_AC) {
+                batteryPlugged.setText(" AC");
+                batteryPlugged.setTextColor(Color.GREEN);
+            } else if (plugged == BatteryManager.BATTERY_PLUGGED_USB) {
+                batteryPlugged.setText("USB");
+                batteryPlugged.setTextColor(Color.GREEN);
+            } else if (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
+                batteryPlugged.setText("Wireless");
+                batteryPlugged.setTextColor(Color.GREEN);
+            } else {
+                batteryPlugged.setText("Not Plugged");
+                batteryPlugged.setTextColor(Color.LTGRAY);
+            }
+
+            getBatteryStuff();
         }
     }
+
+    public int getCharge() {
+        BatteryManager batteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
+        int energy = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            energy = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
+        }
+        return energy;
+    }
+
 
     /**
      * onDestroy: unregister broadcast receiver

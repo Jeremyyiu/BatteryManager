@@ -48,9 +48,9 @@
                 style="@style/cardItemDisabledTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:text="##.##°" />
+                android:layout_alignParentRight="true"
+                android:text="##.# °C" />
 
         </RelativeLayout>
 
@@ -81,9 +81,9 @@
                 style="@style/cardItemDisabledTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:text="##.#V" />
+                android:layout_alignParentRight="true"
+                android:text="#.### V" />
         </RelativeLayout>
 
         <include layout="@layout/line_divider" />
@@ -113,8 +113,8 @@
                 style="@style/cardItemDisabledTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:text="########" />
         </RelativeLayout>
 
@@ -145,8 +145,40 @@
                 style="@style/cardItemDisabledTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="########" />
+        </RelativeLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <RelativeLayout
+            android:id="@+id/batteryPlugged"
+            style="@style/smallerCardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/batteryPlugged_Icon"
+                style="@style/cardImageTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_usb" />
+
+            <TextView
+                android:id="@+id/batteryPlugged_text"
+                style="@style/cardItemDisabledTheme"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="36dp"
+                android:layout_marginStart="36dp"
+                android:text="Charge Status" />
+
+            <TextView
+                android:id="@+id/batteryPlugged_text2"
+                style="@style/cardItemDisabledTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:text="########" />
         </RelativeLayout>
 
