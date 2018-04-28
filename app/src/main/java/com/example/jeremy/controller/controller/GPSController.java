@@ -1,21 +1,18 @@
 package com.example.jeremy.controller.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.widget.SwitchCompat;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.jeremy.controller.R;
 
 /**
  * Created by Jeremy on 14/03/2018.
  */
 
-public class GPSController {
+public class GPSController implements LocationListener {
     Context mContext;
     private LocationManager locationManager;
 
@@ -31,6 +28,7 @@ public class GPSController {
         return GPSstatus;
     }
 
+
     /**
      * Because toggling the GPS/Location service cannot be done on the app, the user has to go into settings to change.
      */
@@ -40,4 +38,23 @@ public class GPSController {
         //TODO: Maybe add an alternative if the phone is rooted
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
