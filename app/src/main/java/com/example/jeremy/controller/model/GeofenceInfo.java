@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class GeofenceInfo {
 
-
     public static Map<String, Geofence> ITEM_MAP = new HashMap<>();
 
     public static class Geofence implements Serializable {
