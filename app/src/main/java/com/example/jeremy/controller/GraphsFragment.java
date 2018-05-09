@@ -22,7 +22,9 @@ public class GraphsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        showPowerUsageSummary();
+        //showPowerUsageSummary();
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_graphs, container, false);
     }

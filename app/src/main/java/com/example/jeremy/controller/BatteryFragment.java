@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,24 +105,29 @@ public class BatteryFragment extends Fragment {
             }
             batteryTemp.setText("" + floatTemperature + " °C");
 
-            if(plugged == BatteryManager.BATTERY_PLUGGED_AC) {
-                batteryPlugged.setText(" AC");
-                batteryPlugged.setTextColor(Color.GREEN);
-            } else if (plugged == BatteryManager.BATTERY_PLUGGED_USB) {
-                batteryPlugged.setText("USB");
-                batteryPlugged.setTextColor(Color.GREEN);
-            } else if (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
-                batteryPlugged.setText("Wireless");
-                batteryPlugged.setTextColor(Color.GREEN);
-            } else {
-                batteryPlugged.setText("Not Plugged");
-                batteryPlugged.setTextColor(Color.LTGRAY);
+            switch(plugged) {
+                case BatteryManager.BATTERY_PLUGGED_AC:
+                    batteryPlugged.setText("AC");
+                    batteryPlugged.setTextColor(Color.GREEN);
+                    break;
+                case BatteryManager.BATTERY_PLUGGED_USB:
+                    batteryPlugged.setText("USB");
+                    batteryPlugged.setTextColor(Color.GREEN);
+                    break;
+                case BatteryManager.BATTERY_PLUGGED_WIRELESS:
+                    batteryPlugged.setText("Wireless");
+                    batteryPlugged.setTextColor(Color.GREEN);
+                    break;
+                default:
+                    batteryPlugged.setText("Not Plugged");
+                    batteryPlugged.setTextColor(Color.LTGRAY);
+                    break;
             }
-            getBatteryStuff();
+            getBatteryCurrent();
         }
     }
 
-    public void getBatteryStuff() {
+    public void getBatteryCurrent() {
         BatteryManager mBatteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
         Long avgCurrent = null, currentNow = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -318,21 +322,26 @@ public class BatteryFragment extends Fragment {
             }
             batteryTemp.setText("" + floatTemperature + " °C");
 
-            if(plugged == BatteryManager.BATTERY_PLUGGED_AC) {
-                batteryPlugged.setText(" AC");
-                batteryPlugged.setTextColor(Color.GREEN);
-            } else if (plugged == BatteryManager.BATTERY_PLUGGED_USB) {
-                batteryPlugged.setText("USB");
-                batteryPlugged.setTextColor(Color.GREEN);
-            } else if (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
-                batteryPlugged.setText("Wireless");
-                batteryPlugged.setTextColor(Color.GREEN);
-            } else {
-                batteryPlugged.setText("Not Plugged");
-                batteryPlugged.setTextColor(Color.LTGRAY);
+            switch(plugged) {
+                case BatteryManager.BATTERY_PLUGGED_AC:
+                    batteryPlugged.setText("AC");
+                    batteryPlugged.setTextColor(Color.GREEN);
+                    break;
+                case BatteryManager.BATTERY_PLUGGED_USB:
+                    batteryPlugged.setText("USB");
+                    batteryPlugged.setTextColor(Color.GREEN);
+                    break;
+                case BatteryManager.BATTERY_PLUGGED_WIRELESS:
+                    batteryPlugged.setText("Wireless");
+                    batteryPlugged.setTextColor(Color.GREEN);
+                    break;
+                default:
+                    batteryPlugged.setText("Not Plugged");
+                    batteryPlugged.setTextColor(Color.LTGRAY);
+                    break;
             }
 
-            getBatteryStuff();
+            getBatteryCurrent();
         }
     }
 

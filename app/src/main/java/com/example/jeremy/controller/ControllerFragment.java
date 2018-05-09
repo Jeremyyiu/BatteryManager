@@ -3,13 +3,16 @@ package com.example.jeremy.controller;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
@@ -31,6 +34,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
+
+import static com.example.jeremy.controller.controller.DisplayController.ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED;
 
 
 /**
@@ -81,6 +86,8 @@ public class ControllerFragment extends Fragment {
     TextView brightnessText;
     @BindView(R.id.autoBrightnessSwitch)
     SwitchCompat autoBrightnessSwitch;
+    @BindView(R.id.monochromeSwitch)
+    SwitchCompat monochromeSwitch;
 
     GPSController gpsController = null;
     NetworkController networkController = null;
@@ -186,7 +193,7 @@ public class ControllerFragment extends Fragment {
 
     @OnClick({R.id.dataUsageRow, R.id.mobileDataRow})
     public void dataUsageSettings(View view) {
-       networkController.dataUsageSettings();
+        networkController.dataUsageSettings();
     }
 
     private void initBluetoothItems() {
@@ -196,6 +203,33 @@ public class ControllerFragment extends Fragment {
     public void initBluetoothSwitch() {
         if (bluetoothController.isBluetoothOn()) {
             bluetoothSwitch.setChecked(true);
+        }
+    }
+
+    public void initMonoChromeSwitch() {
+        if (Settings.Secure.getInt(mContext.getContentResolver(), ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, 0) == 0) {
+            monochromeSwitch.setChecked(false);
+        } else {
+            monochromeSwitch.setChecked(true);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @OnCheckedChanged(R.id.monochromeSwitch)
+    public void monochromeSwitchToggle(boolean checked) {
+        //Checks if this app can modify system settings
+        boolean canWriteSettings = mContext.checkCallingOrSelfPermission("android.permission.WRITE_SECURE_SETTINGS") == PackageManager.PERMISSION_GRANTED;
+
+        if (canWriteSettings) {
+            if (checked) {
+                displayController.toggleMonochrome(1, mContext.getContentResolver());
+            } else {
+                displayController.toggleMonochrome(0, mContext.getContentResolver());
+            }
+        } else {
+//If currently cant modify system settings, app will ask for permission
+            displayController.showRootWorkaroundInstructions(mContext.getApplicationContext());
+            monochromeSwitch.setChecked(false);
         }
     }
 
@@ -217,6 +251,8 @@ public class ControllerFragment extends Fragment {
             int currentBrightness = displayController.getCurrentBrightness();
             brightnessSlider.setProgress(currentBrightness);
         }
+
+        initMonoChromeSwitch();
     }
 
     public void initGpsItems() {
@@ -299,6 +335,7 @@ public class ControllerFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
 
         }
+
     }
 
 
@@ -318,6 +355,4 @@ public class ControllerFragment extends Fragment {
  * ControllerFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
  * }
  **/
-
-
 }
