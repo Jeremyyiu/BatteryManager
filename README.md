@@ -13,7 +13,8 @@ This project aims to help users maximise their usage of their battery life. The 
 
 <h2> Features - working in progress </h2>
 
-- Fix up the display functions - manual brightness, autobrightness and monochrome
+- Implement geofencing functionality
+- Implement battery saving modes by checking screen state and time.
 
 <h2> Features to do: </h2>
 
