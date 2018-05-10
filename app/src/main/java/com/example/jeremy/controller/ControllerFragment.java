@@ -19,13 +19,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.jeremy.controller.controller.BluetoothController;
 import com.example.jeremy.controller.controller.DisplayController;
 import com.example.jeremy.controller.controller.GPSController;
 import com.example.jeremy.controller.controller.NetworkController;
+import com.gc.materialdesign.views.Slider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +82,7 @@ public class ControllerFragment extends Fragment {
 
     //Display
     @BindView(R.id.brightnessSlider)
-    SeekBar brightnessSlider;
+    Slider brightnessSlider;
     @BindView(R.id.brightnessText)
     TextView brightnessText;
     @BindView(R.id.autoBrightnessSwitch)
@@ -111,12 +112,13 @@ public class ControllerFragment extends Fragment {
         gpsController = new GPSController(mContext);
         networkController = new NetworkController(mContext);
         bluetoothController = new BluetoothController(mContext);
-        displayController = new DisplayController(mContext);
+        displayController = new DisplayController(mContext, getActivity());
 
         // Inflate the layout for this fragment
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -128,6 +130,7 @@ public class ControllerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void initControllerItems() {
         initNetworkItems();
@@ -222,14 +225,23 @@ public class ControllerFragment extends Fragment {
 
         if (canWriteSettings) {
             if (checked) {
-                displayController.toggleMonochrome(1, mContext.getContentResolver());
+                displayController.toggleMonochrome(1, mContext.getApplicationContext().getContentResolver());
             } else {
-                displayController.toggleMonochrome(0, mContext.getContentResolver());
+                displayController.toggleMonochrome(0, mContext.getApplicationContext().getContentResolver());
             }
         } else {
 //If currently cant modify system settings, app will ask for permission
             displayController.showRootWorkaroundInstructions(mContext.getApplicationContext());
             monochromeSwitch.setChecked(false);
+        }
+    }
+
+    @OnCheckedChanged(R.id.autoBrightnessSwitch)
+    public void autoBrightnessSwitchToggle(boolean checked) {
+        if(autoBrightnessSwitch.isChecked()) {
+            displayController.setBrightnessToAuto();
+        } else {
+            displayController.setBrightnessToManual();
         }
     }
 
@@ -243,15 +255,10 @@ public class ControllerFragment extends Fragment {
         bluetoothController.bluetoothSettings();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void initDisplayItems() {
-        if (displayController.checkIfAutoBrightness()) {
-            autoBrightnessSwitch.setChecked(true);
-            brightnessSlider.setProgress(0);
-        } else {
-            int currentBrightness = displayController.getCurrentBrightness();
-            brightnessSlider.setProgress(currentBrightness);
-        }
-
+        displayController.init();
+        //initBrightnessAdjuster();
         initMonoChromeSwitch();
     }
 
@@ -335,9 +342,7 @@ public class ControllerFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
 
         }
-
     }
-
 
     /**
      * onDestroy: unregister broadcast receiver
