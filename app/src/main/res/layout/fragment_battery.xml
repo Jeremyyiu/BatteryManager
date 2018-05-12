@@ -86,8 +86,8 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-
         <include layout="@layout/fragment_batterystats"></include>
+        <include layout="@layout/fragment_battery_geofencing"></include>
         <include layout="@layout/fragment_batterymodes"></include>
     </LinearLayout>
 </ScrollView>

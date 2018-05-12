@@ -78,6 +78,7 @@ public class DisplayController {
         // set range of slider
         brightnessSlider.setMin(MIN_BRIGHTNESS_VALUE);
         brightnessSlider.setMax(MAX_BRIGHTNESS_VALUE);
+        brightnessSlider.setShowNumberIndicator(false);
 
         boolean canWriteSettings = Settings.System.canWrite(context);
 
@@ -192,13 +193,12 @@ public class DisplayController {
 
     private void autoBrightnessToggle() {
         SwitchCompat autoBrightnessSwitch = activity.findViewById(R.id.autoBrightnessSwitch);
-        if (checkIfAutoBrightness() == true) {
+        if (checkIfAutoBrightness()) {
             autoBrightnessSwitch.setChecked(true);
             brightnessSlider.setValue(0);
-        } else if (checkIfAutoBrightness() == false) {
+        } else {
             autoBrightnessSwitch.setChecked(false);
             brightnessSlider.setValue(getCurrentBrightness());
-
         }
     }
 
@@ -227,7 +227,7 @@ public class DisplayController {
      * AutoBrightnessObserver: Handle the change in brightness in real time and change the Slider Value
      */
     private class AutoBrightnessObserver extends ContentObserver {
-        public AutoBrightnessObserver(Handler h) {
+        AutoBrightnessObserver(Handler h) {
             super(h);
         }
 

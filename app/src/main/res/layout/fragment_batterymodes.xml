@@ -46,6 +46,11 @@
 
         <LinearLayout style="@style/cardLinearLayoutTheme">
 
+            <ImageView
+                android:id="@+id/suppressNotifications"
+                style="@style/cardImageTheme"
+                android:src="@drawable/ic_build" />
+
             <TextView
                 android:id="@+id/suppressNotificationsText"
                 style="@style/cardItemTheme"
@@ -119,8 +124,6 @@
                 style="@style/cardSwitchTheme" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
