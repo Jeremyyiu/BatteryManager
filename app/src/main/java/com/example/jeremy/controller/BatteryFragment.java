@@ -19,8 +19,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.jeremy.controller.view.GeofencesActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -46,6 +49,8 @@ public class BatteryFragment extends Fragment {
     TextView batteryTotal;
     @BindView(R.id.batteryCurrent)
     TextView batteryCurrent;
+    @BindView(R.id.geofencing_Text)
+    TextView geofencing;
 
     private Context mContext;
     private Unbinder unbinder;
@@ -125,6 +130,11 @@ public class BatteryFragment extends Fragment {
             }
             getBatteryCurrent();
         }
+    }
+    @OnClick (R.id.geofencing_Text)
+    public void geofencingStartup() {
+        Intent intent = new Intent(getContext(), GeofencesActivity.class);
+        startActivity(intent);
     }
 
     public void getBatteryCurrent() {

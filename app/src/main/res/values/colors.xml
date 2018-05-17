@@ -13,6 +13,14 @@
     <color name="grey">#4cdfdfdf</color>
 
 
+    <color name="primary">#32ABDF</color>
+    <color name="primary_dark">#3986A7</color>
+    <color name="accent">#32ABDF</color>
+
+    <color name="background">#f1f1f1</color>
+    <color name="button">#3986A7</color>
+    <color name="default_bubble_color_rcv">#32ABDF</color>
+
     <color name="headerColor">#17BDFF</color>
 
 </resources>
