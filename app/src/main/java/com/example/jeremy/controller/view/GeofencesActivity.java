@@ -299,7 +299,7 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
                 Fragment f = fragman.getFragment(new Bundle(), GeofenceFragment.TAG);
                 if (mGeofenceFragment == null)
                     mGeofenceFragment = f != null ? (GeofenceFragment) f : GeofenceFragment.newInstance("str1", "str2");
-                fragman.beginTransaction().replace(R.id.container, mGeofenceFragment, GeofenceFragment.TAG).commit();
+                fragman.beginTransaction().replace(R.id.main_container, mGeofenceFragment, GeofenceFragment.TAG).commit();
                 if (Geofences.ITEMS.size() == 0) {
                     load();
                 }
@@ -458,7 +458,7 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
                        dialog.dismiss();
                        FragmentTransaction transaction = fragmentManager.beginTransaction();
                        Geofences.ITEMS.add(fence);
-                       transaction.replace(R.id.container, mGeofenceFragment, GeofenceFragment.TAG).commit();
+                       transaction.replace(R.id.main_container, mGeofenceFragment, GeofenceFragment.TAG).commit();
                        setTitle(R.string.title_geofences);
                        mFabButton.show();
                    }

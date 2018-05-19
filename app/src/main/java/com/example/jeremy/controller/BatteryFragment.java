@@ -19,7 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.jeremy.controller.view.GeofencesActivity;
+import com.example.jeremy.controller.controller.AudioController;
+import com.example.jeremy.controller.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,8 +50,10 @@ public class BatteryFragment extends Fragment {
     TextView batteryTotal;
     @BindView(R.id.batteryCurrent)
     TextView batteryCurrent;
-    @BindView(R.id.geofencing_Text)
+    @BindView(R.id.geofencing_text)
     TextView geofencing;
+    @BindView(R.id.lowBatMuteText)
+    TextView lowBatMute;
 
     private Context mContext;
     private Unbinder unbinder;
@@ -61,13 +64,18 @@ public class BatteryFragment extends Fragment {
     BatteryService batteryService;
     Bundle extras = null;
 
+    AudioController audioController = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_battery, container, false);
         unbinder = ButterKnife.bind(this, view);
+        mContext = getActivity();
+
         batteryService = new BatteryService();
+        audioController = new AudioController(mContext);
         return view;
     }
 
@@ -131,9 +139,10 @@ public class BatteryFragment extends Fragment {
             getBatteryCurrent();
         }
     }
-    @OnClick (R.id.geofencing_Text)
-    public void geofencingStartup() {
-        Intent intent = new Intent(getContext(), GeofencesActivity.class);
+
+    @OnClick({R.id.geofencing_text})
+    public void geofencingStartup(View view) {
+        Intent intent = new Intent(getContext(), LocativeApplication.class);
         startActivity(intent);
     }
 
@@ -353,6 +362,15 @@ public class BatteryFragment extends Fragment {
 
             getBatteryCurrent();
         }
+    }
+
+    @OnClick({R.id.lowBatMuteText})
+    public void setSilentMode(View view) {
+        audioController.mutePhone(Constants.SILENT_MODE);
+    }
+
+    public void setVibrateMode(View View) {
+        audioController.mutePhone(Constants.VIBRATE_MODE);
     }
 
     public int getCharge() {

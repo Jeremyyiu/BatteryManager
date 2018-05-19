@@ -46,6 +46,11 @@
 
         <LinearLayout style="@style/cardLinearLayoutTheme">
 
+            <ImageView
+                android:id="@+id/suppressNotificationsIcon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/ic_build" />
+
             <TextView
                 android:id="@+id/suppressNotificationsText"
                 style="@style/cardItemTheme"

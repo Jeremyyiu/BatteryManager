@@ -18,8 +18,6 @@ public class LocativeApplication extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //setContentView(R.layout.activity_home);
-
         mInstance = this;
 
         mComponent = DaggerLocativeComponent.builder()
@@ -27,6 +25,9 @@ public class LocativeApplication extends Activity {
                 .persistencyModule(new PersistencyModule(this))
                 .build();
         //mComponent.inject(this);
+
+        //setContentView(R.layout.activity_home);
+
 
         super.onCreate(savedInstanceState);
     }
