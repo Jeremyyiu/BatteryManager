@@ -26,7 +26,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/cardview_light_background"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:paddingVertical="24dp"
+                android:paddingHorizontal="12dp">
 
                 <ProgressBar
                     android:id="@+id/batteryProgressBar"
@@ -48,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/batteryProgressBar"
                     android:layout_alignLeft="@+id/batteryProgressBar"
-                    android:layout_marginLeft="45dp"
+                    android:layout_marginLeft="40dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="--"

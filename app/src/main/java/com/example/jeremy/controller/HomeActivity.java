@@ -76,11 +76,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //fragmentTransaction.addToBackStack("fragment");
+        fragmentTransaction.addToBackStack("fragment");
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                 R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.main_container, fragment);
-        fragmentTransaction.addToBackStack("fragment");
         fragmentTransaction.commit();
     }
 
@@ -98,6 +97,14 @@ public class HomeActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(text);
+        }
+    }
+
+    @Override public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 
