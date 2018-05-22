@@ -4,4 +4,5 @@
     <string name="controller">Controller</string>
     <string name="battery">Battery</string>
     <string name="placeholder_text">Placeholder text</string>
+    <string name="geofencing">Geofencing</string>
 </resources>

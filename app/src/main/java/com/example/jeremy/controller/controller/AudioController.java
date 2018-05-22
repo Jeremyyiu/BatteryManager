@@ -7,6 +7,10 @@ import android.os.Build;
 
 import com.example.jeremy.controller.utils.Constants;
 
+import static com.example.jeremy.controller.utils.Constants.NORMAL_MODE;
+import static com.example.jeremy.controller.utils.Constants.SILENT_MODE;
+import static com.example.jeremy.controller.utils.Constants.VIBRATE_MODE;
+
 public class AudioController {
 
     private Context mContext;
@@ -41,7 +45,7 @@ public class AudioController {
                 case Constants.VIBRATE_MODE:
                     setRingerToVibrate();
                      break;
-                case Constants.SILENT_MODE:
+                case SILENT_MODE:
                     setRingerToSilent();
                     break;
                 default:
@@ -61,5 +65,18 @@ public class AudioController {
 
     public void setRingerToSilent() {
         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+    }
+
+    public int getRingerMode() {
+        switch (audioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_SILENT:
+                return SILENT_MODE;
+            case AudioManager.RINGER_MODE_VIBRATE:
+                return VIBRATE_MODE;
+            case AudioManager.RINGER_MODE_NORMAL:
+                return NORMAL_MODE;
+            default:
+                return 0;
+        }
     }
 }

@@ -27,6 +27,7 @@
         android:value="TO BE INPUTTED" />
 
     <application
+        android:name=".JnaBatteryManagerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -58,6 +59,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.example.jeremy.controller.view.GeofencesActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <provider
+            android:name="com.example.jeremy.controller.persistent.GeofenceProvider"
+            android:authorities="com.example.jeremy.controller"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.jeremy.controller.view.AddEditGeofenceActivity"
+            android:label="Add/Edit geofence" />
+
+        <activity
+            android:name="com.example.jeremy.controller.view.SettingsActivity"
+            android:label="Activity Settings">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="controller" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.LocativeService" />
+        <service android:name=".service.TransitionService" />
+        <service android:name="com.example.jeremy.controller.service.ReceiveTransitionsIntentService" />
+
+        <receiver android:name="com.example.jeremy.controller.geo.StartupBroadCastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

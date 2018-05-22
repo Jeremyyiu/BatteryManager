@@ -13,6 +13,6 @@
     <item
         android:id="@+id/menu_graphs"
         android:icon="@drawable/charts"
-        android:title="@string/graphs" />
+        android:title="@string/geofencing" />
 
 </menu>
