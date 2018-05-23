@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -21,6 +23,8 @@ import java.util.List;
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.model.Geofences;
 import com.example.jeremy.controller.utils.Constants;
+
+import static com.example.jeremy.controller.JnaBatteryManagerApplication.getAppContext;
 
 /**
  * A fragment representing a list of Items.
@@ -106,6 +110,7 @@ public class GeofenceFragment extends ListFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
 
     @Override
     public void onAttach(Context context) {

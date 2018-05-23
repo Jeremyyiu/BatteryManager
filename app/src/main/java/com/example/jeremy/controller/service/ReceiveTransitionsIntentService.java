@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 
@@ -48,7 +49,7 @@ public class ReceiveTransitionsIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        //((LocativeApplication) getApplication()).inject(this);
+        ((JnaBatteryManagerApplication) getApplication()).inject(this);
     }
 
     @Override

@@ -29,6 +29,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -115,6 +116,7 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
        // ((LocativeApplication) getApplication()).getComponent().inject(this);
 
         // Already existing (editing) Geofence?

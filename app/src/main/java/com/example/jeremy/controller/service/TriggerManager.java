@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.google.android.gms.location.Geofence;
 
 import java.util.Random;
@@ -17,6 +18,8 @@ import com.example.jeremy.controller.notification.NotificationManager;
 import com.example.jeremy.controller.utils.Constants;
 import com.example.jeremy.controller.utils.Preferences;
 
+import static com.example.jeremy.controller.JnaBatteryManagerApplication.getApplication;
+
 //import static com.example.jeremy.controller.LocativeApplication.getApplication;
 
 public class TriggerManager {
@@ -27,9 +30,10 @@ public class TriggerManager {
     @Inject
     NotificationManager mNotificationManager;
 
-   /** public TriggerManager() {
+   public TriggerManager() {
+       ((JnaBatteryManagerApplication) getApplication()).inject(this);
         //((LocativeApplication) getApplication()).inject(this);
-    } **/
+    }
 
     public void triggerTransition(Geofences.Geofence fence, int transitionType) {
         // not global url is set, bail out and show classic notification

@@ -8,11 +8,11 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.google.android.gms.location.Geofence;
 
 import javax.inject.Inject;
 
-//import com.example.jeremy.controller.LocativeApplication;
 import com.example.jeremy.controller.model.Geofences;
 import com.example.jeremy.controller.persistent.Storage;
 import com.example.jeremy.controller.utils.Constants;
@@ -52,7 +52,7 @@ public class TransitionService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        //((LocativeApplication) getApplication()).inject(this);
+        ((JnaBatteryManagerApplication) getApplication()).inject(this);
     }
 
     @Override

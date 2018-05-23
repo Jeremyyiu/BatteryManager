@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 //import com.example.jeremy.controller.LocativeApplication;
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.utils.Preferences;
 
@@ -80,6 +81,7 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
         //((LocativeApplication) getApplication()).getComponent().inject(this);
 
         mNotificationSuccessSwitch.setChecked(mPrefs.getBoolean(Preferences.NOTIFICATION_SUCCESS, false));

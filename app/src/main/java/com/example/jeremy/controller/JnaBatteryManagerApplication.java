@@ -5,6 +5,10 @@ import android.content.Context;
 
 import com.example.jeremy.controller.modules.AppModule;
 import com.example.jeremy.controller.modules.PersistencyModule;
+import com.example.jeremy.controller.notification.NotificationManager;
+import com.example.jeremy.controller.service.ReceiveTransitionsIntentService;
+import com.example.jeremy.controller.service.TransitionService;
+import com.example.jeremy.controller.service.TriggerManager;
 
 public class JnaBatteryManagerApplication extends Application {
     private static JnaBatteryManagerApplication mInstance;
@@ -17,12 +21,11 @@ public class JnaBatteryManagerApplication extends Application {
 
         mInstance = this;
 
-        /**
         mComponent = DaggerJnaBatteryManagerComponent.builder()
-                .appModule(new AppModule(this)
-                        .persistencyModule(new PersistencyModule(this))
+                .appModule(new AppModule(this))
+                .persistencyModule(new PersistencyModule(this))
                 .build();
-         **/
+
         mContext = getApplicationContext();
     }
 
@@ -37,5 +40,22 @@ public class JnaBatteryManagerApplication extends Application {
     public static JnaBatteryManagerApplication getApplication() {
         return mInstance;
     }
+
+    public void inject(ReceiveTransitionsIntentService object) {
+        mComponent.inject(object);
+    }
+
+    public void inject(TriggerManager object) {
+        mComponent.inject(object);
+    }
+
+    public void inject(TransitionService object) {
+        mComponent.inject(object);
+    }
+
+    public void inject(NotificationManager object) {
+        mComponent.inject(object);
+    }
+
 
 }

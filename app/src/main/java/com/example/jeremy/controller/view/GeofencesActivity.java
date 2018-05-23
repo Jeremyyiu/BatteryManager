@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 //import com.example.jeremy.controller.LocativeApplication;
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.geo.LocativeGeocoder;
 import com.example.jeremy.controller.model.Geofences;
@@ -67,6 +68,7 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
             }
         }
         super.onCreate(savedInstanceState);
+        ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
         //((LocativeApplication) getApplication()).getComponent().inject(this);
 
         /* never open drawer initially
