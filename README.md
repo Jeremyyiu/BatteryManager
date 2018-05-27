@@ -32,7 +32,7 @@ This is my capstone project - Battery Manager. This project aims to help users m
 - Create Logo
 
 <h2> How to use adb to grant permission to access features such as monochrome mode </h2>
-1. Go to Command prompt <br />
-2. Go to the location of where your adb.exe is located (For me it was - C:\Users\*Username*\Appdata\Local\Android\sdk\platform-tools) <br /> 
-3. adb-dshell pmgrantcom.example.jeremy.controllerandroid.permission.WRITE_SECURE_SETTINGS  <br />
-4. Now the permission should be granted and you should now be able to switch on and off monochrome mode!  <br />
+<b>1.</b> Go to Command prompt <br />
+<b>2.</b> Go to the location of where your adb.exe is located (For me it was C:\Users\*Username*\Appdata\Local\Android\sdk\platform-tools) <br /> 
+<b>3.</b> adb-dshell pmgrantcom.example.jeremy.controllerandroid.permission.WRITE_SECURE_SETTINGS  <br />
+<b>4.</b>  Now the permission should be granted and you should now be able to switch on and off monochrome mode!  <br />
