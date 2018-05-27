@@ -36,3 +36,15 @@ This is my capstone project - Battery Manager. This project aims to help users m
 <b>2.</b> Go to the location of where your adb.exe is located (For me it was C:\Users\*Username*\Appdata\Local\Android\sdk\platform-tools) <br /> 
 <b>3.</b> adb-dshell pmgrantcom.example.jeremy.controllerandroid.permission.WRITE_SECURE_SETTINGS  <br />
 <b>4.</b>  Now the permission should be granted and you should now be able to switch on and off monochrome mode!  <br />
+
+
+<h2> License </h2>
+MIT License
+
+Copyright (c) 2017
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
