@@ -253,11 +253,11 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         if (mMap.isMyLocationEnabled() && mMap.getMyLocation() != null && !mIsEditingGeofence) {
             location = mMap.getMyLocation();
             mMap.getMyLocation();
-        } else if (cursor != null) {
+        } /** else if (cursor != null) {
             location = new Location("location");
             location.setLatitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LATITUDE)));
-            location.setLongitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LONGITUDE)));
-        } else {
+            location.setLongitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LONGITUDE))); **/
+        else {
             // New York
             location = new Location("custom");
             location.setLatitude(40.7127);
@@ -269,8 +269,12 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         setupCircleManager();
         if (mIsEditingGeofence) {
             setCircleToLocation(location);
-            int radiusMeters = cursor.getInt(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_RADIUS));
-            mRadiusSlider.setProgress(radiusMeters);
+            if (cursor != null) {
+                int radiusMeters = cursor.getInt(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_RADIUS));
+                mRadiusSlider.setProgress(radiusMeters);
+            } else {
+                mRadiusSlider.setProgress(50);
+            }
         }
 
         updateRadius();

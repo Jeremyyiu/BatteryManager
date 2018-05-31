@@ -33,7 +33,7 @@ import static com.example.jeremy.controller.JnaBatteryManagerApplication.getAppC
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class GeofenceFragment extends ListFragment {
+public class GeofenceFragment extends android.support.v4.app.ListFragment {
 
     public Geofences geofences = new Geofences();
     public static final String TAG = "fragment.geofences";
@@ -154,7 +154,8 @@ public class GeofenceFragment extends ListFragment {
         setListShown(true);
         refresh();
 
-        setEmptyText("No Geofences");
+        setEmptyText("You currently don't have any Geofences. Click the \"+\" to add some and get started.");
+
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
                 //Get your item here with the position

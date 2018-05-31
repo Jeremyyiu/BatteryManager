@@ -49,9 +49,10 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
     @BindView(R.id.add_geofence)
     FloatingActionButton mFabButton;
 
+    /**
     @BindView(R.id.toolbar_actionbar)
     Toolbar mToolbar;
-
+**/
     @Inject
     Storage mStorage;
 
@@ -99,10 +100,13 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
     protected void onStart() {
         super.onStart();
 
-        FragmentManager fragman = getFragmentManager();
+        if (Geofences.ITEMS.size() == 0) {
+            load();
+        }
+        android.support.v4.app.FragmentManager fragman = getSupportFragmentManager();
         switch (fragmentTag) {
             case GeofenceFragment.TAG: {
-                Fragment f = fragman.getFragment(new Bundle(), GeofenceFragment.TAG);
+                android.support.v4.app.Fragment f = fragman.getFragment(new Bundle(), GeofenceFragment.TAG);
                 if (mGeofenceFragment == null)
                     mGeofenceFragment = f != null ? (GeofenceFragment) f : GeofenceFragment.newInstance("str1", "str2");
                 fragman.beginTransaction().replace(R.id.container, mGeofenceFragment, GeofenceFragment.TAG).commit();
@@ -246,12 +250,12 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
                    fence.name = address.getAddressLine(0);
                }
                mStorage.insertOrUpdateFence(fence);
-               final FragmentManager fragmentManager = getFragmentManager();
+               final android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                runOnUiThread(new Runnable() {
                    @Override
                    public void run() {
                        dialog.dismiss();
-                       FragmentTransaction transaction = fragmentManager.beginTransaction();
+                       android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
                        Geofences.ITEMS.add(fence);
                        transaction.replace(R.id.container, mGeofenceFragment, GeofenceFragment.TAG).commit();
                        setTitle("Geofences");
