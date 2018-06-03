@@ -70,7 +70,6 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
         }
         super.onCreate(savedInstanceState);
         ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
-        //((LocativeApplication) getApplication()).getComponent().inject(this);
 
         /* never open drawer initially
         if (savedInstanceState == null) {

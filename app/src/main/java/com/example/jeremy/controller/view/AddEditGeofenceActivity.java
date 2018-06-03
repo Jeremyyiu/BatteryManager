@@ -253,15 +253,15 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         if (mMap.isMyLocationEnabled() && mMap.getMyLocation() != null && !mIsEditingGeofence) {
             location = mMap.getMyLocation();
             mMap.getMyLocation();
-        } /** else if (cursor != null) {
+        }  else if (cursor != null) {
             location = new Location("location");
             location.setLatitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LATITUDE)));
-            location.setLongitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LONGITUDE))); **/
+            location.setLongitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LONGITUDE))); }
         else {
-            // New York
+            // Sydney
             location = new Location("custom");
-            location.setLatitude(40.7127);
-            location.setLongitude(74.0059);
+            location.setLatitude(-33.872055);
+            location.setLongitude(151.195314);
         }
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));

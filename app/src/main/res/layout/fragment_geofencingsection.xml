@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/battery_cv"
+            style="@style/cardTheme"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp"
+            app:contentPaddingBottom="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cardview_light_background"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/HeaderTheme"
+                    android:text="Geofencing" />
+
+                <include layout="@layout/line_divider" />
+
+                <LinearLayout
+                    android:id="@+id/geofencing"
+                    style="@style/cardLinearLayoutTheme"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/geofencing_Icon"
+                        style="@style/cardImageTheme"
+                        android:src="@drawable/data_usage" />
+
+                    <TextView
+                        android:id="@+id/geofencingText"
+                        style="@style/cardItemDisabledTheme"
+                        android:layout_weight="1"
+                        android:text="Geofencing activity" />
+
+                </LinearLayout>
+
+                <include layout="@layout/line_divider" />
+
+                <LinearLayout
+                    android:id="@+id/geofencingSettings"
+                    style="@style/cardLinearLayoutTheme"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/geofencingSettings_Icon"
+                        style="@style/cardImageTheme"
+                        android:src="@drawable/data_usage" />
+
+                    <TextView
+                        android:id="@+id/geofencingSettingsText"
+                        style="@style/cardItemDisabledTheme"
+                        android:layout_weight="1"
+                        android:text="Geofencing Settings" />
+
+                </LinearLayout>
+
+                <include layout="@layout/line_divider" />
+
+                <LinearLayout style="@style/cardLinearLayoutTheme">
+
+                    <ImageView
+                        android:id="@+id/wifiHomeToggle"
+                        style="@style/cardImageTheme"
+                        android:src="@drawable/ic_build" />
+
+                    <TextView
+                        android:id="@+id/wifiHomeToggleText"
+                        style="@style/cardItemTheme"
+                        android:layout_weight="1"
+                        android:text="Turn off WiFi when you leave home" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/wifiHomeToggleSwitch"
+                        style="@style/cardSwitchTheme" />
+
+                </LinearLayout>
+
+
+                <include layout="@layout/line_divider" />
+
+                <LinearLayout style="@style/cardLinearLayoutTheme">
+
+                    <ImageView
+                        android:id="@+id/bluetoothHomeToggle"
+                        style="@style/cardImageTheme"
+                        android:src="@drawable/ic_build" />
+
+                    <TextView
+                        android:id="@+id/bluetoothHomeToggleText"
+                        style="@style/cardItemTheme"
+                        android:layout_weight="1"
+                        android:text="Turn off Bluetooth when you leave home" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/bluetoothHomeToggleSwitch"
+                        style="@style/cardSwitchTheme" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

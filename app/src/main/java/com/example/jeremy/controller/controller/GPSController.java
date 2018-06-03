@@ -16,6 +16,16 @@ public class GPSController implements LocationListener {
     Context mContext;
     private LocationManager locationManager;
 
+    private static GPSController mInstance;
+    protected GPSController(){}
+
+    public static GPSController getInstance() {
+        if(mInstance == null) {
+            mInstance = new GPSController();
+        }
+        return mInstance;
+    }
+
     public GPSController(Context context) {
         this.mContext = context;
         // Acquire a reference to the system Location Manager

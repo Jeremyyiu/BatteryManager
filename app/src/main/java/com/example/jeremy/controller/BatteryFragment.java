@@ -1,10 +1,12 @@
 package com.example.jeremy.controller;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
@@ -20,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jeremy.controller.controller.AudioController;
+import com.example.jeremy.controller.view.GeofencesActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +102,7 @@ public class BatteryFragment extends Fragment {
             batteryProgressBar.setProgress((int) (batteryPct * 100));
             batteryCurrentValue.setText("" + (int) (batteryPct * 100));
 
-            batteryHealth.setTextColor(health.equals("Good") ? Color.GREEN : Color.RED);
+            batteryHealth.setTextColor(health.equals("Good") ? getResources().getColor(R.color.green) : getResources().getColor(R.color.red));
             batteryHealth.setText(health);
 
             Float floatVoltage = (float) (voltage) / 1000;
@@ -107,26 +110,26 @@ public class BatteryFragment extends Fragment {
 
             Float floatTemperature = (float) (temperature) / 10;
             if (floatTemperature > 45) {
-                batteryTemp.setTextColor(Color.RED);
+                batteryTemp.setTextColor(getResources().getColor(R.color.red));
             } else if (floatTemperature <= 45 && floatTemperature > 35) {
-                batteryTemp.setTextColor(Color.YELLOW);
+                batteryTemp.setTextColor(getResources().getColor(R.color.yellow));
             } else {
-                batteryTemp.setTextColor(Color.GREEN);
+                batteryTemp.setTextColor(getResources().getColor(R.color.green));
             }
             batteryTemp.setText("" + floatTemperature + " °C");
 
-            switch(plugged) {
+            switch (plugged) {
                 case BatteryManager.BATTERY_PLUGGED_AC:
                     batteryPlugged.setText("AC");
-                    batteryPlugged.setTextColor(Color.GREEN);
+                    batteryPlugged.setTextColor(getResources().getColor(R.color.green));
                     break;
                 case BatteryManager.BATTERY_PLUGGED_USB:
                     batteryPlugged.setText("USB");
-                    batteryPlugged.setTextColor(Color.GREEN);
+                    batteryPlugged.setTextColor(getResources().getColor(R.color.green));
                     break;
                 case BatteryManager.BATTERY_PLUGGED_WIRELESS:
                     batteryPlugged.setText("Wireless");
-                    batteryPlugged.setTextColor(Color.GREEN);
+                    batteryPlugged.setTextColor(getResources().getColor(R.color.green));
                     break;
                 default:
                     batteryPlugged.setText("Not Plugged");
@@ -316,7 +319,7 @@ public class BatteryFragment extends Fragment {
             batteryProgressBar.setProgress((int) (batteryPct * 100));
             batteryCurrentValue.setText("" + (int) (batteryPct * 100));
 
-            batteryHealth.setTextColor(health.equals("Good") ? Color.GREEN : Color.RED);
+            batteryHealth.setTextColor(health.equals("Good") ? getResources().getColor(R.color.green) : getResources().getColor(R.color.red));
             batteryHealth.setText(health);
 
             Float floatVoltage = (float) (voltage) / 1000;
@@ -324,26 +327,26 @@ public class BatteryFragment extends Fragment {
 
             Float floatTemperature = (float) (temperature) / 10;
             if (floatTemperature > 45) {
-                batteryTemp.setTextColor(Color.RED);
+                batteryTemp.setTextColor(getResources().getColor(R.color.red));
             } else if (floatTemperature <= 45 && floatTemperature > 35) {
-                batteryTemp.setTextColor(Color.YELLOW);
+                batteryTemp.setTextColor(getResources().getColor(R.color.yellow));
             } else {
-                batteryTemp.setTextColor(Color.GREEN);
+                batteryTemp.setTextColor(getResources().getColor(R.color.green));
             }
             batteryTemp.setText("" + floatTemperature + " °C");
 
-            switch(plugged) {
+            switch (plugged) {
                 case BatteryManager.BATTERY_PLUGGED_AC:
                     batteryPlugged.setText("AC");
-                    batteryPlugged.setTextColor(Color.GREEN);
+                    batteryPlugged.setTextColor(getResources().getColor(R.color.green));
                     break;
                 case BatteryManager.BATTERY_PLUGGED_USB:
                     batteryPlugged.setText("USB");
-                    batteryPlugged.setTextColor(Color.GREEN);
+                    batteryPlugged.setTextColor(getResources().getColor(R.color.green));
                     break;
                 case BatteryManager.BATTERY_PLUGGED_WIRELESS:
                     batteryPlugged.setText("Wireless");
-                    batteryPlugged.setTextColor(Color.GREEN);
+                    batteryPlugged.setTextColor(getResources().getColor(R.color.green));
                     break;
                 default:
                     batteryPlugged.setText("Not Plugged");
@@ -353,6 +356,11 @@ public class BatteryFragment extends Fragment {
 
             getBatteryCurrent();
         }
+    }
+
+    public void showGeofencingFrag(View view) {
+        Intent i = new Intent(getActivity(), GeofencesActivity.class);
+        startActivity(i);
     }
 
     @OnClick({R.id.lowBatMuteText})
@@ -367,6 +375,21 @@ public class BatteryFragment extends Fragment {
             energy = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
         }
         return energy;
+    }
+
+    private void showPowerUsageSummary() {
+        try {
+            Intent powerUsageSummary = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+            Context context = getContext();
+            ResolveInfo resolveInfo = context.getPackageManager().resolveActivity(powerUsageSummary, 0);
+            if (resolveInfo != null) {
+                startActivity(powerUsageSummary);
+            } else {
+                //blah blah
+            }
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

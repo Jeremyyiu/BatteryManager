@@ -19,8 +19,17 @@ public class NetworkController {
     private ConnectivityManager connectivityManager;
     private WifiManager wifiManager;
 
-
     private final int HOTSPOT_ENABLED = 13;
+
+    private static NetworkController mInstance;
+    protected NetworkController(){}
+
+    public static NetworkController getInstance() {
+        if(mInstance == null) {
+            mInstance = new NetworkController();
+        }
+        return mInstance;
+    }
 
     public NetworkController(Context context) {
         this.context = context;

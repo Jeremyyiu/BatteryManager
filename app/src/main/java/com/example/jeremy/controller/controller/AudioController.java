@@ -16,6 +16,16 @@ public class AudioController {
     private Context mContext;
     private AudioManager audioManager;
 
+    private static AudioController mInstance;
+    protected AudioController(){}
+
+    public static AudioController getInstance() {
+        if(mInstance == null) {
+            mInstance = new AudioController();
+        }
+        return mInstance;
+    }
+
     public AudioController(Context context) {
         this.mContext = context;
         audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);

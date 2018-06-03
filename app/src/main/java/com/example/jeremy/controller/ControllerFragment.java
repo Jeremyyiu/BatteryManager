@@ -199,6 +199,11 @@ public class ControllerFragment extends Fragment {
         networkController.dataUsageSettings();
     }
 
+    @OnClick({R.id.brightnessText})
+    public void brightnessSettings(View view) {
+
+    }
+
     private void initBluetoothItems() {
         initBluetoothSwitch();
     }
@@ -236,7 +241,7 @@ public class ControllerFragment extends Fragment {
         }
     }
 
-    @OnCheckedChanged(R.id.autoBrightnessSwitch)
+    @OnCheckedChanged({R.id.autoBrightnessSwitch})
     public void autoBrightnessSwitchToggle(boolean checked) {
         if(autoBrightnessSwitch.isChecked()) {
             displayController.setBrightnessToAuto();

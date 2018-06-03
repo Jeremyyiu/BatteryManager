@@ -67,27 +67,6 @@
         <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
-                android:id="@+id/wifiHomeToggle"
-                style="@style/cardImageTheme"
-                android:src="@drawable/ic_build" />
-
-            <TextView
-                android:id="@+id/wifiHomeToggleText"
-                style="@style/cardItemTheme"
-                android:layout_weight="1"
-                android:text="Turn off WiFi when you leave home" />
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/wifiHomeToggleSwitch"
-                style="@style/cardSwitchTheme" />
-
-        </LinearLayout>
-
-        <include layout="@layout/line_divider" />
-
-        <LinearLayout style="@style/cardLinearLayoutTheme">
-
-            <ImageView
                 android:id="@+id/lowBatBtl_Icon"
                 style="@style/cardImageTheme"
                 android:src="@drawable/ic_build" />

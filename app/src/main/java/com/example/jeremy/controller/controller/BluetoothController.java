@@ -20,6 +20,16 @@ public class BluetoothController {
     private BluetoothAdapter btAdapter;
     private Context context;
 
+    private static BluetoothController mInstance;
+    protected BluetoothController(){}
+
+    public static BluetoothController getInstance() {
+        if(mInstance == null) {
+            mInstance = new BluetoothController();
+        }
+        return mInstance;
+    }
+
     public BluetoothController(Context context) {
         this.context = context;
         btAdapter = BluetoothAdapter.getDefaultAdapter();

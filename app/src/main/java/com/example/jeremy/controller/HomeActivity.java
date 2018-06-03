@@ -1,16 +1,6 @@
 package com.example.jeremy.controller;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.location.Address;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -19,29 +9,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
-import com.example.jeremy.controller.geo.LocativeGeocoder;
-import com.example.jeremy.controller.model.Geofences;
-import com.example.jeremy.controller.persistent.GeofenceProvider;
 import com.example.jeremy.controller.persistent.Storage;
-import com.example.jeremy.controller.service.LocativeService;
-import com.example.jeremy.controller.utils.Dialog;
-import com.example.jeremy.controller.view.AddEditGeofenceActivity;
-import com.example.jeremy.controller.view.BaseActivity;
 import com.example.jeremy.controller.view.GeofenceFragment;
-import com.example.jeremy.controller.view.GeofencesActivity;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -67,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
     //Fragments
     private BatteryFragment batteryFragment;
     private ControllerFragment controllerFragment;
-    private GraphsFragment graphsFragment;
+    private GeofencingFragment geofencingFragment;
     //private GeofenceFragment mGeofenceFragment;
 
     private String fragmentTag = GeofenceFragment.TAG;
@@ -87,15 +65,13 @@ public class HomeActivity extends AppCompatActivity {
         ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
         setContentView(R.layout.activity_home);
 
-        final Activity activity = this;
-
         mMainFrame = (FrameLayout) findViewById(R.id.main_container);
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
 
         mContext = getApplicationContext();
         batteryFragment = new BatteryFragment();
         controllerFragment = new ControllerFragment();
-        graphsFragment = new GraphsFragment();
+        geofencingFragment = new GeofencingFragment();
 
         //Sets the initial fragment upon startup.
         setFragment(batteryFragment);
@@ -119,9 +95,9 @@ public class HomeActivity extends AppCompatActivity {
                                 refresh();
                                 return true;
                             case R.id.menu_graphs:
+                                setFragment(geofencingFragment);
                                 updateToolbarText("Geofencing");
-                                Intent i = new Intent(activity, GeofencesActivity.class);
-                                startActivity(i);
+                                refresh();
                                 return true;
                             default:
                                 return false;
@@ -179,9 +155,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        setFragment(batteryFragment);
-        updateToolbarText("Battery");
     }
 
 

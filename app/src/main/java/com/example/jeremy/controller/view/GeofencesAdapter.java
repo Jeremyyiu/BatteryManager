@@ -25,7 +25,7 @@ public class GeofencesAdapter extends SimpleAdapter {
         View view = super.getView(position, convertView, parent);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        imageView.setImageResource(R.drawable.ic_launcher_foreground);
+        imageView.setImageResource(R.drawable.gps);
 
         return view;
     }

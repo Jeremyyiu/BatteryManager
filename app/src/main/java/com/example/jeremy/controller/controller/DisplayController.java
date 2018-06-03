@@ -35,6 +35,16 @@ public class DisplayController {
 
     private Slider brightnessSlider;
 
+    private static DisplayController mInstance;
+    protected DisplayController(){}
+
+    public static DisplayController getInstance() {
+        if(mInstance == null) {
+            mInstance = new DisplayController();
+        }
+        return mInstance;
+    }
+
     public DisplayController(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
