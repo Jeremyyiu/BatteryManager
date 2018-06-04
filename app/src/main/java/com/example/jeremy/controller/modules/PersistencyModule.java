@@ -9,8 +9,6 @@ import com.example.jeremy.controller.persistent.Storage;
 
 import dagger.Module;
 import dagger.Provides;
-import com.example.jeremy.controller.JnaBatteryManagerApplication;
-import com.example.jeremy.controller.persistent.Storage;
 
 @Module
 public class PersistencyModule {

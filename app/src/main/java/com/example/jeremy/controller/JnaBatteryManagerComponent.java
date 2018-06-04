@@ -19,12 +19,20 @@ import dagger.Component;
 @Component(modules = {AppModule.class, PersistencyModule.class})
 public interface JnaBatteryManagerComponent {
     void inject(ReceiveTransitionsIntentService object);
+
     void inject(GeofencesActivity object);
+
     void inject(SettingsActivity object);
+
     void inject(BaseActivity object);
+
     void inject(AddEditGeofenceActivity object);
+
     void inject(TriggerManager object);
+
     void inject(TransitionService object);
+
     void inject(NotificationManager object);
+
     void inject(HomeActivity object);
 }

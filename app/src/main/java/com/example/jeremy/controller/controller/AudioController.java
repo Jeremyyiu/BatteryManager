@@ -17,20 +17,18 @@ public class AudioController {
     private AudioManager audioManager;
 
     private static AudioController mInstance;
-    protected AudioController(){}
 
-    public static AudioController getInstance() {
-        if(mInstance == null) {
-            mInstance = new AudioController();
-        }
-        return mInstance;
-    }
-
-    public AudioController(Context context) {
+    protected AudioController(Context context) {
         this.mContext = context;
         audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
     }
 
+    public static AudioController getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new AudioController(context);
+        }
+        return mInstance;
+    }
 
     /**
      * Sets phone to silent without vibrate
@@ -48,13 +46,13 @@ public class AudioController {
 
             mContext.startActivity(intent);
         } else {
-            switch(modeSetting) {
+            switch (modeSetting) {
                 case Constants.NORMAL_MODE:
                     setRingerToNormal();
                     break;
                 case Constants.VIBRATE_MODE:
                     setRingerToVibrate();
-                     break;
+                    break;
                 case SILENT_MODE:
                     setRingerToSilent();
                     break;
@@ -63,7 +61,7 @@ public class AudioController {
             }
         }
         //https://stackoverflow.com/questions/11599406/using-notificationmanager-into-an-android-service
-}
+    }
 
     public void setRingerToNormal() {
         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);

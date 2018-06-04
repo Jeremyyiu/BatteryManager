@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jeremy.controller.model.CustomProfile;
 import com.example.jeremy.controller.view.GeofencesActivity;
 import com.example.jeremy.controller.view.SettingsActivity;
 
@@ -49,12 +48,14 @@ public class GeofencingFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
     @OnClick({R.id.geofencingText})
     public void geofencingLaunch() {
         Intent i = new Intent(mContext, GeofencesActivity.class);
         startActivity(i);
 
     }
+
     @OnClick({R.id.geofencingSettingsText})
     public void geofencingSettingLaunch() {
         Intent i = new Intent(mContext, SettingsActivity.class);

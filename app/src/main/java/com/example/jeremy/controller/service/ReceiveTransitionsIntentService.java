@@ -24,6 +24,8 @@ import com.example.jeremy.controller.persistent.GeofenceProvider;
 import com.example.jeremy.controller.persistent.Storage;
 import com.example.jeremy.controller.utils.Preferences;
 
+import static com.example.jeremy.controller.JnaBatteryManagerApplication.getApplication;
+
 public class ReceiveTransitionsIntentService extends IntentService {
 
     public static final String TRANSITION_INTENT_SERVICE = "ReceiveTransitionsIntentService";
@@ -139,6 +141,10 @@ public class ReceiveTransitionsIntentService extends IntentService {
     }
 
      **/
+
+    private JnaBatteryManagerApplication getApp() {
+        return (JnaBatteryManagerApplication) getApplication();
+    }
 
     private void removeGeofences(List<String> requestIds) {
         Intent intent = new Intent(getApplicationContext(), LocativeService.class);

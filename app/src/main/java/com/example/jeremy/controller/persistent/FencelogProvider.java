@@ -3,7 +3,6 @@ package com.example.jeremy.controller.persistent;
 import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
-import com.example.jeremy.controller.R;
 
 public class FencelogProvider extends AbstractProvider {
 

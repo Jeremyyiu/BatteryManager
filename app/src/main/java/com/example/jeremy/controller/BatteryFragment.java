@@ -75,7 +75,7 @@ public class BatteryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_battery, container, false);
         unbinder = ButterKnife.bind(this, view);
         batteryService = new BatteryService();
-        audioController = new AudioController(mContext);
+        audioController = AudioController.getInstance(mContext);
         return view;
     }
 

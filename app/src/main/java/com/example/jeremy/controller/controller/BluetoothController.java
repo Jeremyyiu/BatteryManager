@@ -1,16 +1,10 @@
 package com.example.jeremy.controller.controller;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
-import android.support.v7.widget.SwitchCompat;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.jeremy.controller.R;
 
 /**
  * Created by Jeremy on 14/03/2018.
@@ -21,18 +15,17 @@ public class BluetoothController {
     private Context context;
 
     private static BluetoothController mInstance;
-    protected BluetoothController(){}
 
-    public static BluetoothController getInstance() {
-        if(mInstance == null) {
-            mInstance = new BluetoothController();
-        }
-        return mInstance;
-    }
-
-    public BluetoothController(Context context) {
+    protected BluetoothController(Context context) {
         this.context = context;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
+    }
+
+    public static BluetoothController getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new BluetoothController(context);
+        }
+        return mInstance;
     }
 
     public boolean isBluetoothOn() {

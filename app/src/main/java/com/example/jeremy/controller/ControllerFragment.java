@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.jeremy.controller.controller.BluetoothController;
@@ -109,10 +108,12 @@ public class ControllerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_controller, container, false);
         unbinder = ButterKnife.bind(this, view);
         mContext = getActivity();
-        gpsController = new GPSController(mContext);
-        networkController = new NetworkController(mContext);
-        bluetoothController = new BluetoothController(mContext);
-        displayController = new DisplayController(mContext, getActivity());
+
+        gpsController = GPSController.getInstance(mContext);
+        networkController = NetworkController.getInstance(mContext);
+        bluetoothController = BluetoothController.getInstance(mContext);
+        displayController = DisplayController.getInstance(mContext, getActivity());
+
 
         // Inflate the layout for this fragment
         return view;
@@ -243,7 +244,7 @@ public class ControllerFragment extends Fragment {
 
     @OnCheckedChanged({R.id.autoBrightnessSwitch})
     public void autoBrightnessSwitchToggle(boolean checked) {
-        if(autoBrightnessSwitch.isChecked()) {
+        if (autoBrightnessSwitch.isChecked()) {
             displayController.setBrightnessToAuto();
         } else {
             displayController.setBrightnessToManual();

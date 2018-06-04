@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
+import com.example.jeremy.controller.controller.BluetoothController;
+import com.example.jeremy.controller.controller.DisplayController;
+import com.example.jeremy.controller.controller.GPSController;
+import com.example.jeremy.controller.controller.NetworkController;
 import com.example.jeremy.controller.persistent.Storage;
 import com.example.jeremy.controller.view.GeofenceFragment;
 
@@ -51,6 +55,11 @@ public class HomeActivity extends AppCompatActivity {
     private String fragmentTag = GeofenceFragment.TAG;
     private static final String FRAGMENTTAG = "current.fragment";
 
+    private GPSController gpsController = null;
+    private NetworkController networkController = null;
+    private BluetoothController bluetoothController = null;
+    private DisplayController displayController = null;
+
     private Context mContext;
 
     @Override
@@ -72,6 +81,12 @@ public class HomeActivity extends AppCompatActivity {
         batteryFragment = new BatteryFragment();
         controllerFragment = new ControllerFragment();
         geofencingFragment = new GeofencingFragment();
+
+        gpsController = GPSController.getInstance(mContext);
+        networkController = NetworkController.getInstance(mContext);
+        bluetoothController = BluetoothController.getInstance(mContext);
+        displayController = DisplayController.getInstance(mContext, this);
+
 
         //Sets the initial fragment upon startup.
         setFragment(batteryFragment);

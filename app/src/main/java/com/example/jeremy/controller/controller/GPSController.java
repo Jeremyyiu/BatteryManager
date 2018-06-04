@@ -17,19 +17,18 @@ public class GPSController implements LocationListener {
     private LocationManager locationManager;
 
     private static GPSController mInstance;
-    protected GPSController(){}
 
-    public static GPSController getInstance() {
-        if(mInstance == null) {
-            mInstance = new GPSController();
-        }
-        return mInstance;
-    }
-
-    public GPSController(Context context) {
+    protected GPSController(Context context) {
         this.mContext = context;
         // Acquire a reference to the system Location Manager
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    }
+
+    public static GPSController getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new GPSController(context);
+        }
+        return mInstance;
     }
 
     public boolean isGPSOn() {
@@ -50,7 +49,7 @@ public class GPSController implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        
+
     }
 
     @Override

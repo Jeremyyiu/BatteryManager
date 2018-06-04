@@ -15,7 +15,6 @@ public class DataReader {
     private int voltage;
 
 
-
     public String getHealth() {
         String batteryStatus = "";
         switch (health) {

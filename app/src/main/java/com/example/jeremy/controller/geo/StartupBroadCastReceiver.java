@@ -9,12 +9,11 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
-import java.util.ArrayList;
-
-import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.model.Geofences;
 import com.example.jeremy.controller.persistent.GeofenceProvider;
 import com.example.jeremy.controller.service.LocativeService;
+
+import java.util.ArrayList;
 
 public class StartupBroadCastReceiver extends BroadcastReceiver {
 

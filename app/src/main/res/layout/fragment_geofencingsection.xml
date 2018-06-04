@@ -86,7 +86,7 @@
                         android:id="@+id/wifiHomeToggleText"
                         style="@style/cardItemTheme"
                         android:layout_weight="1"
-                        android:text="Turn off WiFi when you leave home" />
+                        android:text="Toggle WiFi when you enter/exit a geofence" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/wifiHomeToggleSwitch"
@@ -108,7 +108,7 @@
                         android:id="@+id/bluetoothHomeToggleText"
                         style="@style/cardItemTheme"
                         android:layout_weight="1"
-                        android:text="Turn off Bluetooth when you leave home" />
+                        android:text="Toggle Bluetooth when you enter/exit a geofence" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/bluetoothHomeToggleSwitch"

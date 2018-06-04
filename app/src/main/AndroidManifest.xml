@@ -78,7 +78,7 @@
 
         <activity
             android:name="com.example.jeremy.controller.view.SettingsActivity"
-            android:label="Activity Settings">
+            android:label="Geofencing Settings">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

@@ -17,7 +17,9 @@ import dagger.Provides;
 public class AppModule {
     private JnaBatteryManagerApplication mApp;
 
-    public AppModule(JnaBatteryManagerApplication application) { mApp = application; }
+    public AppModule(JnaBatteryManagerApplication application) {
+        mApp = application;
+    }
 
 
     @Provides

@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.model.Geofences;
 
 public class Storage {
@@ -21,7 +20,7 @@ public class Storage {
 
     public boolean fenceExistsWithCustomId(Geofences.Geofence fence) {
         final String QUERY = GeofenceProvider.Geofence.KEY_CUSTOMID + " = ?";
-        final String[] PARAMETERS = new String[] {
+        final String[] PARAMETERS = new String[]{
                 fence.customId
         };
         final Uri URL = Uri.parse("content://" + "com.example.jeremy.controller" + "/geofences");
@@ -38,7 +37,7 @@ public class Storage {
     @Nullable
     public void insertOrUpdateFence(Geofences.Geofence fence) {
         final String QUERY = GeofenceProvider.Geofence.KEY_CUSTOMID + " = ?";
-        final String[] PARAMETERS = new String[] {
+        final String[] PARAMETERS = new String[]{
                 fence.customId
         };
         final Uri URL = Uri.parse("content://" + "com.example.jeremy.controller" + "/geofences");

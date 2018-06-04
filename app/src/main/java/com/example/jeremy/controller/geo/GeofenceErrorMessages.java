@@ -5,8 +5,6 @@ import android.content.res.Resources;
 
 import com.google.android.gms.location.GeofenceStatusCodes;
 
-import com.example.jeremy.controller.R;
-
 /**
  * Geofence error codes mapped to error messages.
  */

@@ -1,16 +1,15 @@
 package com.example.jeremy.controller.persistent;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.example.jeremy.controller.model.Geofences;
+
 import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
-import com.example.jeremy.controller.R;
-import com.example.jeremy.controller.model.Geofences;
 
 public class GeofenceProvider extends AbstractProvider {
 
@@ -51,7 +50,7 @@ public class GeofenceProvider extends AbstractProvider {
                 cursor.getInt(cursor.getColumnIndex(Geofence.KEY_ENTER_METHOD)),
                 cursor.getInt(cursor.getColumnIndex(Geofence.KEY_EXIT_METHOD)),
                 cursor.getInt(cursor.getColumnIndex(Geofence.KEY_CURRENTLY_ENTERED))
-                );
+        );
         return geofence;
     }
 

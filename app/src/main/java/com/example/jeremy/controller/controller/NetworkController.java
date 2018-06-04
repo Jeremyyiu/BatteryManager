@@ -22,19 +22,19 @@ public class NetworkController {
     private final int HOTSPOT_ENABLED = 13;
 
     private static NetworkController mInstance;
-    protected NetworkController(){}
 
-    public static NetworkController getInstance() {
-        if(mInstance == null) {
-            mInstance = new NetworkController();
-        }
-        return mInstance;
-    }
+    protected NetworkController(Context context) {
 
-    public NetworkController(Context context) {
         this.context = context;
         connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    }
+
+    public static NetworkController getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new NetworkController(context);
+        }
+        return mInstance;
     }
 
     //https://stackoverflow.com/questions/18735370/connectivitymanager-null-pointer

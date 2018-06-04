@@ -6,32 +6,37 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.utils.Preferences;
 import com.example.jeremy.controller.utils.ResourceUtils;
 import com.example.jeremy.controller.view.GeofencesActivity;
 import com.google.android.gms.location.Geofence;
 
+import javax.inject.Inject;
+
+import static com.example.jeremy.controller.JnaBatteryManagerApplication.getApplication;
+
 ////import com.example.jeremy.controller.LocativeApplication;
 
 public class NotificationManager {
-    /**
-     * @Inject
-     **/
+
+    @Inject
     SharedPreferences mPrefs;
-    /**
-     * @Inject
-     **/
+
+    @Inject
     ResourceUtils mResourceUtils;
 
     private Context mContext;
 
     public NotificationManager(Context context) {
+        ((JnaBatteryManagerApplication) getApplication()).inject(this);
         mContext = context;
     }
 
     public NotificationManager(SharedPreferences mPrefs, ResourceUtils mResourceUtils) {
         //((LocativeApplication) getApplication()).inject(this);
+        ((JnaBatteryManagerApplication) getApplication()).inject(this);
         this.mPrefs = mPrefs;
         this.mResourceUtils = mResourceUtils;
     }
@@ -68,6 +73,7 @@ public class NotificationManager {
          builder.setSound(mResourceUtils.rawResourceUri(R.raw.notification));
          }
          **/
+
 
         return builder;
     }
