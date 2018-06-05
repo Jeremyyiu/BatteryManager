@@ -13,10 +13,11 @@ This is my capstone project - Battery Manager. This project aims to help users m
 - Users can also toggle their brightness manually, switch on/off autobrightness and also switch on/off monochrome mode (This requires adb).
 
 - Users can view their battery statistics - battery life percentage, temperature, voltage, health and technology.
+- Users can create geofences and be notified when they enter/leave a geofence.
 
 <h2> Features - working in progress </h2>
 
-- Implement geofencing functionality
+- Allow users to toggle WiFi/bluetooth when entering/leaving a geofence.
 - Implement battery saving modes by checking screen state and time.
     - Changing ringtone states - from normal modes to vibrate/silent modes during night time.
 
