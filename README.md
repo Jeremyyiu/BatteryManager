@@ -2,9 +2,13 @@
 
 Hi there!
 
-This is my capstone project - Battery Manager. This project aims to help users maximise their usage of their battery life. The app observes the user's activities and react accordingly to maximise battery life using machine learning.
+This is my capstone project - Battery Manager. This project aims to help users maximise their usage of their battery life. Users can use the app to adjust their settings such as WiFi, bluetooth as well as view battery statistics e.g. battery temperature. Users are also given the option to turn on monochrome mode allowing them to save battery life. However this only affects phones with LED screens, LCD screens on the other hand, still produce the same amount of light and uses a light filter to block out the light. Thus, LCD will still use the same amount of battery in monochrome mode as using colour display. 
 
-- Implemented butterknife to reduce boilerplate view code.
+Eventually, the app aims to be more automated by being able to observe the user's activities and react accordingly to maximise the battery life using machine learning.
+
+Libraries implemented:
+- Butterknife to reduce boilerplate view code.
+- Partially implemented Dagger 2 - Will expand this to the entire application later.
 
 <h2> Current Features </h2>
 
