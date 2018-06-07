@@ -35,4 +35,6 @@ public interface JnaBatteryManagerComponent {
     void inject(NotificationManager object);
 
     void inject(HomeActivity object);
+
+    void inject(BatteryLevelReceiver object);
 }

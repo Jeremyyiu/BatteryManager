@@ -62,6 +62,28 @@
                 style="@style/cardSwitchTheme" />
 
         </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout style="@style/cardLinearLayoutTheme">
+
+            <ImageView
+                android:id="@+id/lowWifiTrig_Icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/ic_build" />
+
+            <TextView
+                android:id="@+id/lowWifiTrigText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Turn off WiFi when battery is low" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/lowWifiTrigSwitch"
+                style="@style/cardSwitchTheme" />
+
+        </LinearLayout>
+
         <include layout="@layout/line_divider" />
 
         <LinearLayout style="@style/cardLinearLayoutTheme">

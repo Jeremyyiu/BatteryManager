@@ -57,5 +57,7 @@ public class JnaBatteryManagerApplication extends Application {
         mComponent.inject(object);
     }
 
+    public void inject(BatteryLevelReceiver object) { mComponent.inject(object); }
+
 
 }

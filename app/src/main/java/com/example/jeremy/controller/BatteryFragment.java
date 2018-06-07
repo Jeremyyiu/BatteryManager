@@ -20,12 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jeremy.controller.controller.AudioController;
+import com.example.jeremy.controller.utils.Preferences;
 import com.example.jeremy.controller.view.GeofencesActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -361,6 +364,21 @@ public class BatteryFragment extends Fragment {
     public void showGeofencingFrag(View view) {
         Intent i = new Intent(getActivity(), GeofencesActivity.class);
         startActivity(i);
+    }
+
+    @OnCheckedChanged(R.id.lowBatBtlSwitch)
+    public void bluetoothLowBatTrigger(boolean checked) {
+        Preferences.BLUETOOTH_LOW_BATTERY_TRIGGER = checked;
+    }
+
+    @OnCheckedChanged(R.id.lowWifiTrigSwitch)
+    public void wifiLowBatTrigger(boolean checked) {
+        Preferences.WIFI_LOW_BATTERY_TRIGGER = checked;
+    }
+
+    @OnCheckedChanged(R.id.lowBatMuteSwitch)
+    public void muteLowBatTrigger(boolean checked) {
+        Preferences.SILENT_LOW_BATTERY_TRIGGER = checked;
     }
 
     @OnClick({R.id.lowBatMuteText})

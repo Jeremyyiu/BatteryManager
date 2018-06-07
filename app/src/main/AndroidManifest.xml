@@ -36,6 +36,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA2XKrTTMbyD6E9uLjJw4Dohigao3I_Ybc" />
 
+        <receiver android:name=".BatteryLevelReceiver" >
+            <intent-filter>
+               <!-- <action android:name="android.intent.action.BATTERY_OKAY" /> -->
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".ControllerService"
             android:enabled="true"

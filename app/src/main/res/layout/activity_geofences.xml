@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_health"
+        android:src="@drawable/ic_add_white_24px"
         app:fabSize="normal" />
 
 </RelativeLayout>
