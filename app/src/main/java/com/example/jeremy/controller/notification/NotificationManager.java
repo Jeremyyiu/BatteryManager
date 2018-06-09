@@ -17,7 +17,6 @@ import javax.inject.Inject;
 
 import static com.example.jeremy.controller.JnaBatteryManagerApplication.getApplication;
 
-////import com.example.jeremy.controller.LocativeApplication;
 
 public class NotificationManager {
 
@@ -73,7 +72,6 @@ public class NotificationManager {
          builder.setSound(mResourceUtils.rawResourceUri(R.raw.notification));
          }
          **/
-
 
         return builder;
     }

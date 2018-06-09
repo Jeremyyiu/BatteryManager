@@ -22,29 +22,7 @@
 
         <include layout="@layout/line_divider" />
 
-        <LinearLayout style="@style/cardLinearLayoutTheme">
-
-            <ImageView
-                android:id="@+id/nightMode_icon"
-                style="@style/cardImageTheme"
-                android:src="@drawable/ic_build" />
-
-            <TextView
-                android:id="@+id/nightModeText"
-                style="@style/cardItemTheme"
-                android:layout_weight="1"
-                android:text="Night Mode" />
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/nightModeSwitch"
-                style="@style/cardSwitchTheme" />
-
-        </LinearLayout>
-
-
-        <include layout="@layout/line_divider" />
-
-        <LinearLayout style="@style/cardLinearLayoutTheme">
+          <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
                 android:id="@+id/suppressNotifications"
@@ -97,7 +75,7 @@
                 android:id="@+id/lowBatBtlText"
                 style="@style/cardItemTheme"
                 android:layout_weight="1"
-                android:text="Turn off Bluetooth when battery is low" />
+                android:text="Turn off bluetooth when battery is low" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/lowBatBtlSwitch"
@@ -118,7 +96,7 @@
                 android:id="@+id/lowBatMuteText"
                 style="@style/cardItemTheme"
                 android:layout_weight="1"
-                android:text="Mute ringtone and vibration when battery is low" />
+                android:text="Silent mode when battery is low" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/lowBatMuteSwitch"

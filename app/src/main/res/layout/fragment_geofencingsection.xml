@@ -117,6 +117,25 @@
                 </LinearLayout>
 
 
+                <LinearLayout style="@style/cardLinearLayoutTheme">
+
+                    <ImageView
+                        android:id="@+id/UnmuteWhenHomeToggle"
+                        style="@style/cardImageTheme"
+                        android:src="@drawable/ic_build" />
+
+                    <TextView
+                        android:id="@+id/unmuteWhenHomeToggleText"
+                        style="@style/cardItemTheme"
+                        android:layout_weight="1"
+                        android:text="Unmute your phone when you enter a geofence" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/UnmuteWhenHomeToggleSwitch"
+                        style="@style/cardSwitchTheme" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
 

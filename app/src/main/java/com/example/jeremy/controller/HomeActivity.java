@@ -32,25 +32,12 @@ public class HomeActivity extends AppCompatActivity {
     private ViewPager mViewpager;
     private FrameLayout mMainFrame;
 
-
-    /**
-     * @BindView(R.id.container) FrameLayout mContentFrame;
-     **/
-
-    @BindView(R.id.add_geofence)
-    FloatingActionButton mFabButton;
-
-    /**
-     * @BindView(R.id.toolbar_actionbar) Toolbar mToolbar;
-     **/
-
     @Inject
     Storage mStorage;
     //Fragments
     private BatteryFragment batteryFragment;
     private ControllerFragment controllerFragment;
     private GeofencingFragment geofencingFragment;
-    //private GeofenceFragment mGeofenceFragment;
 
     private String fragmentTag = GeofenceFragment.TAG;
     private static final String FRAGMENTTAG = "current.fragment";
@@ -147,10 +134,11 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
         } else {
             super.onBackPressed();
         }

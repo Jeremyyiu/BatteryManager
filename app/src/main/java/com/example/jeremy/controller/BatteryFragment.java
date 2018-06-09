@@ -6,21 +6,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jeremy.controller.controller.AudioController;
 import com.example.jeremy.controller.utils.Preferences;
@@ -32,6 +34,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.example.jeremy.controller.JnaBatteryManagerApplication.getAppContext;
 import static com.example.jeremy.controller.utils.Constants.SILENT_MODE;
 
 
@@ -59,6 +62,14 @@ public class BatteryFragment extends Fragment {
     TextView batteryCurrent;
     @BindView(R.id.lowBatMuteText)
     TextView lowBatMute;
+    @BindView(R.id.lowBatMuteSwitch)
+    SwitchCompat lowBatMuteSwitch;
+
+    @BindView(R.id.lowBatBtlSwitch)
+    SwitchCompat lowBatBtlSwitch;
+
+    @BindView(R.id.lowWifiTrigSwitch)
+    SwitchCompat lowBatWifiSwitch;
 
     private Context mContext;
     private Unbinder unbinder;
@@ -69,6 +80,7 @@ public class BatteryFragment extends Fragment {
     BroadcastReceiver mReceiver;
     BatteryService batteryService;
     Bundle extras = null;
+    SharedPreferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,12 +91,22 @@ public class BatteryFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         batteryService = new BatteryService();
         audioController = AudioController.getInstance(mContext);
+        preferences =
+                PreferenceManager.getDefaultSharedPreferences(getAppContext());
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        lowBatWifiSwitch.setChecked(preferences.getBoolean(Preferences.WIFI_LOW_BAT_TRIGGER, false));
+        lowBatBtlSwitch.setChecked(preferences.getBoolean(Preferences.BLUETOOTH_LOW_BAT_TRIGGER, false));
+        lowBatMuteSwitch.setChecked(preferences.getBoolean(Preferences.SILENT_LOW_BAT_TRIGGER, false));
     }
 
     @Override
@@ -140,6 +162,10 @@ public class BatteryFragment extends Fragment {
                     break;
             }
             getBatteryCurrent();
+
+            /*lowBatWifiSwitch.setChecked(preferences.getBoolean(Preferences.WIFI_LOW_BAT_TRIGGER, false));
+            lowBatBtlSwitch.setChecked(preferences.getBoolean(Preferences.BLUETOOTH_LOW_BAT_TRIGGER, false));
+            lowBatMuteSwitch.setChecked(preferences.getBoolean(Preferences.SILENT_LOW_BAT_TRIGGER, false));*/
         }
     }
 
@@ -368,17 +394,23 @@ public class BatteryFragment extends Fragment {
 
     @OnCheckedChanged(R.id.lowBatBtlSwitch)
     public void bluetoothLowBatTrigger(boolean checked) {
-        Preferences.BLUETOOTH_LOW_BATTERY_TRIGGER = checked;
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Preferences.BLUETOOTH_LOW_BAT_TRIGGER, checked);
+        editor.apply();
     }
 
     @OnCheckedChanged(R.id.lowWifiTrigSwitch)
     public void wifiLowBatTrigger(boolean checked) {
-        Preferences.WIFI_LOW_BATTERY_TRIGGER = checked;
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Preferences.WIFI_LOW_BAT_TRIGGER, checked);
+        editor.apply();
     }
 
     @OnCheckedChanged(R.id.lowBatMuteSwitch)
     public void muteLowBatTrigger(boolean checked) {
-        Preferences.SILENT_LOW_BATTERY_TRIGGER = checked;
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Preferences.SILENT_LOW_BAT_TRIGGER, checked);
+        editor.apply();
     }
 
     @OnClick({R.id.lowBatMuteText})
