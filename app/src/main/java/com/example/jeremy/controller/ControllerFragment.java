@@ -264,7 +264,6 @@ public class ControllerFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void initDisplayItems() {
         displayController.init();
-        //initBrightnessAdjuster();
         initMonoChromeSwitch();
     }
 
@@ -359,11 +358,9 @@ public class ControllerFragment extends Fragment {
         super.onDestroy();
     }
 
-/**
- * @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
- * super.onRequestPermissionsResult(requestCode, permissions, grantResults);
- * // NOTE: delegate the permission handling to generated method
- * ControllerFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
- * }
- **/
+    /*  @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+     * super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+     * // NOTE: delegate the permission handling to generated method
+     * ControllerFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+     * } */
 }

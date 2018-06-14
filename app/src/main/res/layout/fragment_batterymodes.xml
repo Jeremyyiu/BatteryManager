@@ -22,27 +22,6 @@
 
         <include layout="@layout/line_divider" />
 
-          <LinearLayout style="@style/cardLinearLayoutTheme">
-
-            <ImageView
-                android:id="@+id/suppressNotifications"
-                style="@style/cardImageTheme"
-                android:src="@drawable/ic_build" />
-
-            <TextView
-                android:id="@+id/suppressNotificationsText"
-                style="@style/cardItemTheme"
-                android:layout_weight="1"
-                android:text="Suppress Notifications during night mode until screen state is back on" />
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/suppressNotificationsSwitch"
-                style="@style/cardSwitchTheme" />
-
-        </LinearLayout>
-
-        <include layout="@layout/line_divider" />
-
         <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
@@ -54,7 +33,7 @@
                 android:id="@+id/lowWifiTrigText"
                 style="@style/cardItemTheme"
                 android:layout_weight="1"
-                android:text="Turn off WiFi when battery is low" />
+                android:text="@string/lowBatWiFiOff" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/lowWifiTrigSwitch"
@@ -75,7 +54,7 @@
                 android:id="@+id/lowBatBtlText"
                 style="@style/cardItemTheme"
                 android:layout_weight="1"
-                android:text="Turn off bluetooth when battery is low" />
+                android:text="@string/lowBatTurnOffbtl" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/lowBatBtlSwitch"
@@ -96,7 +75,7 @@
                 android:id="@+id/lowBatMuteText"
                 style="@style/cardItemTheme"
                 android:layout_weight="1"
-                android:text="Silent mode when battery is low" />
+                android:text="@string/lowBatSilentMode" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/lowBatMuteSwitch"

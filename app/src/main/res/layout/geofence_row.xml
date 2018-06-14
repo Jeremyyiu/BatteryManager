@@ -3,19 +3,23 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp" >
+    android:paddingBottom="15dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="10dp">
 
-    <LinearLayout android:id="@+id/thumbnail"
+    <LinearLayout
+        android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="5dp">
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dp"
+        android:padding="3dp">
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
 
     </LinearLayout>
 
@@ -24,22 +28,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail"
         android:text="2 Roslyn St, Potts Point, Sydney 2011"
         android:textColor="#ff040404"
-        android:typeface="sans"
         android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:typeface="sans" />
 
     <TextView
         android:id="@+id/subtitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:textColor="#ff343434"
-        android:textSize="10sp"
         android:layout_marginTop="1dp"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:text="ID number" />
+        android:layout_toEndOf="@+id/thumbnail"
+        android:text="ID number"
+        android:textColor="#ff343434"
+        android:textSize="12sp" />
 
 </RelativeLayout>

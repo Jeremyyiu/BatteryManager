@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 
+import com.example.jeremy.controller.R;
+
 import java.util.List;
 import java.util.Map;
-
-import com.example.jeremy.controller.R;
 
 /**
  * Created by mkida on 4/08/2014.
@@ -25,7 +25,7 @@ public class GeofencesAdapter extends SimpleAdapter {
         View view = super.getView(position, convertView, parent);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        imageView.setImageResource(R.drawable.gps);
+        imageView.setImageResource(R.drawable.location_black);
 
         return view;
     }

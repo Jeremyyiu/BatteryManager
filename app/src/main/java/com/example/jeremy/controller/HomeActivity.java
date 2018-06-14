@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -14,16 +13,10 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
-import com.example.jeremy.controller.controller.BluetoothController;
-import com.example.jeremy.controller.controller.DisplayController;
-import com.example.jeremy.controller.controller.GPSController;
-import com.example.jeremy.controller.controller.NetworkController;
 import com.example.jeremy.controller.persistent.Storage;
 import com.example.jeremy.controller.view.GeofenceFragment;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -41,11 +34,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private String fragmentTag = GeofenceFragment.TAG;
     private static final String FRAGMENTTAG = "current.fragment";
-
-    private GPSController gpsController = null;
-    private NetworkController networkController = null;
-    private BluetoothController bluetoothController = null;
-    private DisplayController displayController = null;
 
     private Context mContext;
 
@@ -69,12 +57,6 @@ public class HomeActivity extends AppCompatActivity {
         controllerFragment = new ControllerFragment();
         geofencingFragment = new GeofencingFragment();
 
-        gpsController = GPSController.getInstance(mContext);
-        networkController = NetworkController.getInstance(mContext);
-        bluetoothController = BluetoothController.getInstance(mContext);
-        displayController = DisplayController.getInstance(mContext, this);
-
-
         //Sets the initial fragment upon startup.
         setFragment(batteryFragment);
         updateToolbarText("Battery");
@@ -96,7 +78,7 @@ public class HomeActivity extends AppCompatActivity {
                                 updateToolbarText("Controller");
                                 refresh();
                                 return true;
-                            case R.id.menu_graphs:
+                            case R.id.menu_geofencing:
                                 setFragment(geofencingFragment);
                                 updateToolbarText("Geofencing");
                                 refresh();
@@ -127,7 +109,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void updateToolbarText(CharSequence text) {
+    /**
+     * TODO: maybe make this a global function?
+     **/
+    public void updateToolbarText(CharSequence text) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(text);

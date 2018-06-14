@@ -23,6 +23,7 @@ import com.gc.materialdesign.views.Slider;
 
 
 public class DisplayController {
+
     private Context context;
     private Activity activity;
     public static final String ACCESSIBILITY_DISPLAY_DALTONIZER = "accessibility_display_daltonizer";
@@ -30,9 +31,11 @@ public class DisplayController {
     public static final int MAX_BRIGHTNESS_VALUE = 255;
     public static final int MIN_BRIGHTNESS_VALUE = 0;
 
-    BrightnessObserver brightnessObserver = null;
-    AutoBrightnessObserver autobrightnessObserver = null;
+    private BrightnessObserver brightnessObserver = null;
+    private AutoBrightnessObserver autobrightnessObserver = null;
 
+    //    private Slider brightnessSlider;
+    private SwitchCompat autoBrightnessSwitch;
     private Slider brightnessSlider;
 
     private static DisplayController mInstance;
@@ -51,9 +54,8 @@ public class DisplayController {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void init() {
-        //brightnessSlider.setShowNumberIndicator(true);
         brightnessSlider = (Slider) activity.findViewById(R.id.brightnessSlider);
-        SwitchCompat autoBrightnessSwitch = (SwitchCompat) activity.findViewById(R.id.autoBrightnessSwitch);
+        autoBrightnessSwitch = (SwitchCompat) activity.findViewById(R.id.autoBrightnessSwitch);
         initSlider(brightnessSlider);
 
         final Uri BRIGHTNESS_URL = Settings.System.getUriFor(android.provider.Settings.System.SCREEN_BRIGHTNESS);
@@ -66,6 +68,9 @@ public class DisplayController {
         context.getContentResolver()
                 .registerContentObserver(AUTOBRIGHTNESS_URL, true, autobrightnessObserver);
 
+        int value = Settings.Secure.getInt(context.getContentResolver(), ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, 0);
+        toggleMonochrome(value, context.getContentResolver());
+
         if (checkIfAutoBrightness()) {
             autoBrightnessSwitch.setChecked(true);
             brightnessSlider.setValue(0);
@@ -75,18 +80,15 @@ public class DisplayController {
     }
 
     public boolean checkIfAutoBrightness() {
-        if (Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, 0) == 1) {
-            return true;
-        }
-        return false;
+        return Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, 0) == 1;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initSlider(Slider slider) {
         // set range of slider
-        brightnessSlider.setMin(MIN_BRIGHTNESS_VALUE);
-        brightnessSlider.setMax(MAX_BRIGHTNESS_VALUE);
-        brightnessSlider.setShowNumberIndicator(false);
+        slider.setMin(MIN_BRIGHTNESS_VALUE);
+        slider.setMax(MAX_BRIGHTNESS_VALUE);
+        slider.setShowNumberIndicator(false);
 
         boolean canWriteSettings = Settings.System.canWrite(context);
 
@@ -110,6 +112,7 @@ public class DisplayController {
     /**
      * Shows the modify system settings panel to allow the user to add WRITE_SETTINGS permissions for this app.
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void askWritePermissions() {
         Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
         context.startActivity(intent);
@@ -132,7 +135,6 @@ public class DisplayController {
      * Turn automatic brightness mode on - set manual mode off
      */
     public void setBrightnessToAuto() {
-        //int mode = displayMonitor.getDisplayInfo().getBrightnessMode();
         //if not auto already set manual
         Settings.System.putInt(context.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -144,7 +146,6 @@ public class DisplayController {
      * Turn automatic brightness mode off - set manual mode on
      */
     public void setBrightnessToManual() {
-        //int mode = displayMonitor.getDisplayInfo().getBrightnessMode();
         //if not manual already set auto
         Settings.System.putInt(
                 context.getContentResolver(),
@@ -176,7 +177,7 @@ public class DisplayController {
                 })
                 .setNegativeButton("Copy the command", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        setClipboard(context, "adb -d shell pm grant com.example.jeremy.monochrometoggler android.permission.WRITE_SECURE_SETTINGS");
+                        setClipboard(context, "adb -d shell pm grant com.example.jeremy.controller android.permission.WRITE_SECURE_SETTINGS");
                         dialog.cancel();
                     }
                 });
@@ -199,8 +200,8 @@ public class DisplayController {
         }
     }
 
+
     private void autoBrightnessToggle() {
-        SwitchCompat autoBrightnessSwitch = activity.findViewById(R.id.autoBrightnessSwitch);
         if (checkIfAutoBrightness()) {
             autoBrightnessSwitch.setChecked(true);
             brightnessSlider.setValue(0);
@@ -230,6 +231,7 @@ public class DisplayController {
             brightnessSlider.setValue(getCurrentBrightness());
         }
     }
+
 
     /**
      * AutoBrightnessObserver: Handle the change in brightness in real time and change the Slider Value

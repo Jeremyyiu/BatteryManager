@@ -11,8 +11,8 @@
         android:title="@string/controller" />
 
     <item
-        android:id="@+id/menu_graphs"
-        android:icon="@drawable/charts"
+        android:id="@+id/menu_geofencing"
+        android:icon="@drawable/location_black"
         android:title="@string/geofencing" />
 
 </menu>

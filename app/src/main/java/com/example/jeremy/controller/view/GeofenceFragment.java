@@ -1,7 +1,6 @@
 package com.example.jeremy.controller.view;
 
 import android.app.AlertDialog;
-import android.app.ListFragment;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,21 +9,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.model.Geofences;
 import com.example.jeremy.controller.utils.Constants;
 
-import static com.example.jeremy.controller.JnaBatteryManagerApplication.getAppContext;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -162,7 +157,7 @@ public class GeofenceFragment extends android.support.v4.app.ListFragment {
                 final int pos = position;
                 final View aView = v;
                 new AlertDialog.Builder(v.getContext())
-                        .setTitle("Delete entry")
+                        .setTitle(" Delete entry")
                         .setMessage("Are you sure you want to delete this entry?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -183,7 +178,7 @@ public class GeofenceFragment extends android.support.v4.app.ListFragment {
                                 // do nothing
                             }
                         })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIcon(R.drawable.warning_black)
                         .show();
                 return true;
             }

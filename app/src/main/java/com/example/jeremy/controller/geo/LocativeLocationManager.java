@@ -21,11 +21,11 @@ public class LocativeLocationManager {
 
     private static final String TAG = "location";
 
-    Timer timer1;
-    LocationManager lm;
-    LocationResult locationResult;
-    boolean gps_enabled = false;
-    boolean network_enabled = false;
+    private Timer timer1;
+    private LocationManager lm;
+    private LocationResult locationResult;
+    private boolean gps_enabled = false;
+    private boolean network_enabled = false;
 
     public boolean getLocation(Activity context, LocationResult result) {
         //I use LocationResult callback class to pass location value from MyLocation to user code.
@@ -90,13 +90,13 @@ public class LocativeLocationManager {
 
     private void requestUpdates() {
         try {
-            Log.i(TAG, "Requesting location updates every 20 sec");
+            Log.i(TAG, "Requesting location updates every 30 sec");
             if (gps_enabled)
                 lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
             if (network_enabled)
                 lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork);
             timer1 = new Timer();
-            timer1.schedule(new GetLastLocation(), 20000);
+            timer1.schedule(new GetLastLocation(), 30000);
         } catch (SecurityException e) {
             Log.e(TAG, e.getMessage(), e);
         }
@@ -104,7 +104,7 @@ public class LocativeLocationManager {
 
     LocationListener locationListenerGps = new LocationListener() {
         public void onLocationChanged(Location location) {
-            Log.i(TAG, "Canceling location updater"); //TODO: Fix tag - was spelling mistake here
+            Log.i(TAG, "Cancelling location updater");
             timer1.cancel();
             locationResult.gotLocation(location);
             try {

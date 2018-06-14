@@ -10,7 +10,6 @@ import android.util.Log;
 import com.example.jeremy.controller.controller.AudioController;
 import com.example.jeremy.controller.controller.BluetoothController;
 import com.example.jeremy.controller.controller.NetworkController;
-import com.example.jeremy.controller.utils.Preferences;
 
 import static com.example.jeremy.controller.JnaBatteryManagerApplication.getAppContext;
 import static com.example.jeremy.controller.JnaBatteryManagerApplication.getApplication;
@@ -42,10 +41,11 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
         bluetoothTrigger = preferences.getBoolean("bluetoothLowBatTriggerEnabled", false);
         ringerTrigger = preferences.getBoolean("silentLowBatTriggerEnabled", false);
 
-        if(wifiTrigger) {
+        if (wifiTrigger) {
             networkController.toggleWiFi(false);
         }
-        if(bluetoothTrigger) {
+
+        if (bluetoothTrigger) {
             bluetoothController.toggleBluetooth(false);
         }
 

@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
@@ -162,19 +163,18 @@ public class BatteryFragment extends Fragment {
                     break;
             }
             getBatteryCurrent();
-
-            /*lowBatWifiSwitch.setChecked(preferences.getBoolean(Preferences.WIFI_LOW_BAT_TRIGGER, false));
-            lowBatBtlSwitch.setChecked(preferences.getBoolean(Preferences.BLUETOOTH_LOW_BAT_TRIGGER, false));
-            lowBatMuteSwitch.setChecked(preferences.getBoolean(Preferences.SILENT_LOW_BAT_TRIGGER, false));*/
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void getBatteryCurrent() {
         BatteryManager mBatteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
         Long avgCurrent = null, currentNow = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            avgCurrent = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
-            currentNow = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+            if (mBatteryManager != null) {
+                avgCurrent = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
+                currentNow = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+            }
         }
 
         batteryTotal.setText("Avg charge current: " + avgCurrent + " mAh");
@@ -434,9 +434,8 @@ public class BatteryFragment extends Fragment {
             ResolveInfo resolveInfo = context.getPackageManager().resolveActivity(powerUsageSummary, 0);
             if (resolveInfo != null) {
                 startActivity(powerUsageSummary);
-            } else {
-                //blah blah
             }
+
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }

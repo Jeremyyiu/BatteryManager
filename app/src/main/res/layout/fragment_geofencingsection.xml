@@ -116,6 +116,7 @@
 
                 </LinearLayout>
 
+                <include layout="@layout/line_divider" />
 
                 <LinearLayout style="@style/cardLinearLayoutTheme">
 
@@ -137,7 +138,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
         </android.support.v7.widget.CardView>
     </LinearLayout>

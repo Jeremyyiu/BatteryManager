@@ -34,7 +34,6 @@ public class NotificationManager {
     }
 
     public NotificationManager(SharedPreferences mPrefs, ResourceUtils mResourceUtils) {
-        //((LocativeApplication) getApplication()).inject(this);
         ((JnaBatteryManagerApplication) getApplication()).inject(this);
         this.mPrefs = mPrefs;
         this.mResourceUtils = mResourceUtils;
@@ -44,9 +43,10 @@ public class NotificationManager {
         notify(getDefaultBuilder(title).setContentText(body), 0);
     }
 
-    public void showNotification(String title, int id, int transitionType) {
+    public void showNotification(String title, int id, int transitionType, String additionalNotification) {
+
         NotificationCompat.Builder builder = getDefaultBuilder(title)
-                .setContentText("Has been " + getTransitionTypeString(transitionType));
+                .setContentText("Has been " + getTransitionTypeString(transitionType) + additionalNotification);
         notify(builder, transitionType * 100 + id);
     }
 
@@ -60,18 +60,18 @@ public class NotificationManager {
 
     private NotificationCompat.Builder getDefaultBuilder(String title) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
-                .setSmallIcon(R.drawable.ic_brightness) //TODO: Change
-                .setColor(0x29aae1)
+                .setSmallIcon(R.drawable.location_black)
+                .setColor(0x17BDFF)
                 .setContentTitle(title)
                 .setVibrate(new long[]{500, 500})
+                //.setLights(0x17BDFF, 3000, 3000) //LED
                 .setContentIntent(getActivityIntent())
                 .setAutoCancel(true);
 
-        /**
-         if (mPrefs.getBoolean(Preferences.NOTIFICATION_SOUND, false)) {
+
+       /*  if (mPrefs.getBoolean(Preferences.NOTIFICATION_SOUND, false)) {
          builder.setSound(mResourceUtils.rawResourceUri(R.raw.notification));
-         }
-         **/
+         }*/
 
         return builder;
     }

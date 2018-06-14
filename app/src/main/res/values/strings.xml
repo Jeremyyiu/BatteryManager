@@ -5,4 +5,7 @@
     <string name="battery">Battery</string>
     <string name="placeholder_text">Placeholder text</string>
     <string name="geofencing">Geofencing</string>
+    <string name="lowBatWiFiOff">Turn off WiFi when battery is low</string>
+    <string name="lowBatTurnOffbtl">Turn off bluetooth when battery is low</string>
+    <string name="lowBatSilentMode">Silent mode when battery is low</string>
 </resources>
