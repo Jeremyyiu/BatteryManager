@@ -18,10 +18,9 @@ Libraries implemented:
 
 - Users can view their battery statistics - battery life percentage, temperature, voltage, health and technology.
 - Users can create geofences and be notified when they enter/leave a geofence.
+- Users can choose whether or not to toggle WiFi/bluetooth when entering/leaving a geofence. (Currently affects all geofences)
 
 <h2> Features - working in progress </h2>
-
-- Allow users to toggle WiFi/bluetooth when entering/leaving a geofence.
 - Implement battery saving modes by checking screen state and time.
     - Changing ringtone states - from normal modes to vibrate/silent modes during night time.
 
