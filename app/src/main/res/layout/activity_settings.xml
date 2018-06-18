@@ -39,13 +39,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="Notifications"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp" />
+                        style="@style/GeofencingHeaderTheme"
+                        android:text="Notifications" />
+
+                    <include layout="@layout/line_divider" />
 
                     <Switch
                         android:id="@+id/notification_success_switch"
@@ -102,13 +99,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="Advanced"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp"/>
+                        style="@style/GeofencingHeaderTheme"
+                        android:text="Advanced"/>
+
+                    <include layout="@layout/line_divider" />
 
                     <Switch
                         android:id="@+id/trigger_threshold_enabled_switch"

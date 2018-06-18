@@ -33,7 +33,7 @@
                 android:id="@+id/wifiText"
                 style="@style/cardItemTheme"
                 android:layout_weight="1"
-                android:text="Wifi" />
+                android:text="WiFi" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/wifiSwitch"
@@ -159,8 +159,8 @@
         <LinearLayout
             android:id="@+id/dataUsageRow"
             style="@style/cardLinearLayoutTheme"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp">
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp">
 
             <ImageView
                 android:id="@+id/dataUsage_Icon"

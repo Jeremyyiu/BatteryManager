@@ -25,7 +25,7 @@
 
         <LinearLayout
             style="@style/cardLinearLayoutTheme"
-            android:paddingBottom="16dp"
+            android:paddingBottom="0dp"
             android:paddingTop="16dp">
 
             <ImageView

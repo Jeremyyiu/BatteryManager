@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Turn wifi on...">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="on_unlock"
+            android:title="When device gets unlocked" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="on_at" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="on_every" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="power_connected"
+            android:summary="Also ignores the when screen is off setting while charging"
+            android:title="When charging" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Turn wifi off when...">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="off_screen_off"
+            android:title="Screen is off" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="off_no_network"
+            android:title="Not connected to any network" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="off_at" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="General Settings">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="airplane"
+            android:summary="Don't enable WiFi during Airplane mode"
+            android:title="airplane" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

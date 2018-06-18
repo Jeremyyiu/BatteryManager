@@ -25,6 +25,22 @@
         <LinearLayout style="@style/cardLinearLayoutTheme">
 
             <ImageView
+                android:id="@+id/nightMode_Icon"
+                style="@style/cardImageTheme"
+                android:src="@drawable/ic_build" />
+
+            <TextView
+                android:id="@+id/nightModeText"
+                style="@style/cardItemTheme"
+                android:layout_weight="1"
+                android:text="Night Mode" />
+        </LinearLayout>
+
+        <include layout="@layout/line_divider" />
+
+        <LinearLayout style="@style/cardLinearLayoutTheme">
+
+            <ImageView
                 android:id="@+id/lowWifiTrig_Icon"
                 style="@style/cardImageTheme"
                 android:src="@drawable/ic_build" />

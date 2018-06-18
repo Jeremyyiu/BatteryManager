@@ -38,7 +38,6 @@ import butterknife.Unbinder;
 import static com.example.jeremy.controller.JnaBatteryManagerApplication.getAppContext;
 import static com.example.jeremy.controller.utils.Constants.SILENT_MODE;
 
-
 /**
  * Fragment class for battery
  */
@@ -65,12 +64,13 @@ public class BatteryFragment extends Fragment {
     TextView lowBatMute;
     @BindView(R.id.lowBatMuteSwitch)
     SwitchCompat lowBatMuteSwitch;
-
     @BindView(R.id.lowBatBtlSwitch)
     SwitchCompat lowBatBtlSwitch;
-
     @BindView(R.id.lowWifiTrigSwitch)
     SwitchCompat lowBatWifiSwitch;
+    @BindView(R.id.nightModeText)
+    TextView nightModeText;
+
 
     private Context mContext;
     private Unbinder unbinder;
@@ -162,7 +162,9 @@ public class BatteryFragment extends Fragment {
                     batteryPlugged.setTextColor(Color.LTGRAY);
                     break;
             }
-            getBatteryCurrent();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getBatteryCurrent();
+            }
         }
     }
 
@@ -383,7 +385,9 @@ public class BatteryFragment extends Fragment {
                     break;
             }
 
-            getBatteryCurrent();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getBatteryCurrent();
+            }
         }
     }
 
@@ -411,6 +415,12 @@ public class BatteryFragment extends Fragment {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(Preferences.SILENT_LOW_BAT_TRIGGER, checked);
         editor.apply();
+    }
+
+    @OnClick({R.id.nightModeText})
+    public void nightMode() {
+        Intent i = new Intent(mContext, com.example.jeremy.controller.Preferences.class);
+        startActivity(i);
     }
 
     @OnClick({R.id.lowBatMuteText})

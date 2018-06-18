@@ -43,6 +43,40 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".Receiver">
+            <intent-filter>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.net.wifi.p2p.CONNECTION_STATE_CHANGE"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".UnlockReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".ScreenChangeReceiver"/>
+
+        <receiver android:name=".StartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <data
+                    android:path="com.example.jeremy.controller"
+                    android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+
         <service
             android:name=".ControllerService"
             android:enabled="true"
@@ -71,6 +105,9 @@
         <activity
             android:name="com.example.jeremy.controller.view.GeofencesActivity"
             android:label="Geofences" />
+
+        <activity android:name="com.example.jeremy.controller.Preferences"
+            android:label="Night Mode" />
 
         <provider
             android:name="com.example.jeremy.controller.persistent.GeofenceProvider"

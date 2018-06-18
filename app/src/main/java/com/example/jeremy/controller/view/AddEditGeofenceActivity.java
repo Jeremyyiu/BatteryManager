@@ -35,7 +35,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import mapareas.MapAreaManager;
-import mapareas.MapAreaManager.CircleManagerListener;
 import mapareas.MapAreaMeasure;
 import mapareas.MapAreaWrapper;
 
@@ -117,7 +116,6 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
-       // ((LocativeApplication) getApplication()).getComponent().inject(this);
 
         // Already existing (editing) Geofence?
         mEditGeofenceId = getIntent().getStringExtra("geofenceId");
