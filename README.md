@@ -18,10 +18,9 @@ Libraries implemented:
 
 - Users can view their battery statistics - battery life percentage, temperature, voltage, health and technology.
 - Users can create geofences and be notified when they enter/leave a geofence.
+- Users can choose whether or not to toggle WiFi/bluetooth when entering/leaving a geofence. (Currently affects all geofences)
 
 <h2> Features - working in progress </h2>
-
-- Allow users to toggle WiFi/bluetooth when entering/leaving a geofence.
 - Implement battery saving modes by checking screen state and time.
     - Changing ringtone states - from normal modes to vibrate/silent modes during night time.
 
@@ -39,7 +38,7 @@ Libraries implemented:
 <h2> How to use adb to grant permission to access features such as monochrome mode </h2>
 <b>1.</b> Go to Command prompt <br />
 <b>2.</b> Go to the location of where your adb.exe is located (For me it was C:\Users\*Username*\Appdata\Local\Android\sdk\platform-tools) <br /> 
-<b>3.</b> adb-dshell pmgrantcom.example.jeremy.controllerandroid.permission.WRITE_SECURE_SETTINGS  <br />
+<b>3.</b> adb -d shell pm grant com.example.jeremy.controller android.permission.WRITE_SECURE_SETTINGS <br />
 <b>4.</b>  Now the permission should be granted and you should now be able to switch on and off monochrome mode!  <br />
 
 
