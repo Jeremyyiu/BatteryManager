@@ -8,35 +8,20 @@
         android:layout_height="wrap_content"
         android:background="@color/cardview_light_background"
         android:orientation="vertical">
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/battery_cv"
-            style="@style/cardTheme"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardElevation="2dp"
-            app:cardMaxElevation="2dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="5dp"
-            app:contentPaddingBottom="0dp">
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/cardview_light_background"
                 android:orientation="vertical"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="24dp">
+                android:paddingVertical="16dp">
 
                 <ProgressBar
                     android:id="@+id/batteryProgressBar"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_width="165dp"
+                    android:layout_height="152dp"
+                    android:layout_centerInParent="true"
                     android:background="@drawable/circle_shape"
                     android:indeterminate="false"
                     android:max="100"
@@ -51,9 +36,9 @@
                     android:layout_alignTop="@+id/batteryProgressBar"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="43dp"
+                    android:layout_marginStart="66dp"
                     android:text="---"
-                    android:textSize="23sp" />
+                    android:textSize="28sp" />
 
                 <TextView
                     android:id="@+id/batteryPercentageSign"
@@ -67,23 +52,7 @@
                     android:text="%"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/batteryTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="Avg Charge Current: ### mAh" />
-
-                <TextView
-                    android:id="@+id/batteryCurrent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="30dp"
-                    android:text="Charge Current: ### mAh" />
-
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
 
         <include layout="@layout/fragment_batterystats" />
 

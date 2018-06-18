@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jeremy.controller.controller.AudioController;
 import com.example.jeremy.controller.utils.Preferences;
@@ -56,10 +57,10 @@ public class BatteryFragment extends Fragment {
     ProgressBar batteryProgressBar;
     @BindView(R.id.batteryCurrentValue)
     TextView batteryCurrentValue;
-    @BindView(R.id.batteryTotal)
+ /*   @BindView(R.id.batteryTotal)
     TextView batteryTotal;
     @BindView(R.id.batteryCurrent)
-    TextView batteryCurrent;
+    TextView batteryCurrent;*/
     @BindView(R.id.lowBatMuteText)
     TextView lowBatMute;
     @BindView(R.id.lowBatMuteSwitch)
@@ -162,37 +163,26 @@ public class BatteryFragment extends Fragment {
                     batteryPlugged.setTextColor(Color.LTGRAY);
                     break;
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+/*            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getBatteryCurrent();
-            }
+            }*/
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+/*    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void getBatteryCurrent() {
         BatteryManager mBatteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
-        Long avgCurrent = null, currentNow = null;
+        int avgCurrent = 0, currentNow = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             if (mBatteryManager != null) {
-                avgCurrent = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
-                currentNow = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+                avgCurrent = mBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
+                currentNow = mBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
             }
         }
 
         batteryTotal.setText("Avg charge current: " + avgCurrent + " mAh");
         batteryCurrent.setText("Charge Current: " + currentNow + " mAh");
-    }
-
-    public int getCurrent() {
-        int current = 0;
-        BatteryManager batteryManager = (BatteryManager) getActivity().getSystemService(Context.BATTERY_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            current = batteryManager.getIntProperty(BatteryManager
-                    .BATTERY_PROPERTY_CURRENT_NOW);
-        }
-        return current;
-    }
-
+    }*/
 
     public String getHealth(int health) {
         String batteryStatus = "";
@@ -385,9 +375,9 @@ public class BatteryFragment extends Fragment {
                     break;
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getBatteryCurrent();
-            }
+            }*/
         }
     }
 

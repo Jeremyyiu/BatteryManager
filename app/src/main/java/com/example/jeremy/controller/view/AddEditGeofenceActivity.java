@@ -393,7 +393,7 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         }
 
         mSaved = false;
-        Log.i(Constants.LOG, "Saved #2: " + (mSaved ? "true" : "false"));
+       // Log.i(Constants.LOG, "Saved #2: " + (mSaved ? "true" : "false"));
 
     }
 
