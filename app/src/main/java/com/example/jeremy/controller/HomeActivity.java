@@ -132,10 +132,11 @@ public class HomeActivity extends AppCompatActivity {
         return null;
     }
 
+
     /**
-     * Finishes this activity as well as all activities immediately below it in the current
-     * that have the same affinity.  Follows Google's material design guidelines.
-     * Doesn't return to the initial home page though.
+     * Checks if the fragment is the battery fragment (or Home Fragment). If not then it will set
+     * the current fragment as the battery fragment. If it is the battery fragment, then close the app
+     * (the app will still be running however).
      */
     @Override
     public void onBackPressed() {
@@ -144,6 +145,11 @@ public class HomeActivity extends AppCompatActivity {
             String nameFragment = getVisibleFragment().toString();
             if (nameFragment.contains("Battery")) {
                 this.finishAffinity();
+                /**
+                 * finishAffinity();
+                 * Finishes this activity as well as all activities immediately below it in the current
+                 * that have the same affinity.  Follows Google's material design guidelines.
+                 */
             } else {
                 setFragment(batteryFragment, "Battery");
                 mBottomNav.setSelectedItemId(R.id.menu_battery);
@@ -152,19 +158,6 @@ public class HomeActivity extends AppCompatActivity {
             setFragment(batteryFragment, "Battery");
             mBottomNav.setSelectedItemId(R.id.menu_battery);
         }
-        //  this.finishAffinity();
-
-/*      this.finishAffinity();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-
-        super.onBackPressed();
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            finish();
-        } else {
-            super.onBackPressed();
-        }*/
     }
 
     @Override

@@ -13,13 +13,11 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -220,10 +218,16 @@ public class ControllerFragment extends Fragment {
     }
 
     public void initMonoChromeSwitch() {
-        if (Settings.Secure.getInt(mContext.getContentResolver(), ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, 0) == 0) {
-            monochromeSwitch.setChecked(false);
+        boolean canWriteSettings = mContext.checkCallingOrSelfPermission("android.permission.WRITE_SECURE_SETTINGS") == PackageManager.PERMISSION_GRANTED;
+
+        if (canWriteSettings) {
+            if (Settings.Secure.getInt(mContext.getContentResolver(), ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, 0) == 0) {
+                monochromeSwitch.setChecked(false);
+            } else {
+                monochromeSwitch.setChecked(true);
+            }
         } else {
-            monochromeSwitch.setChecked(true);
+            monochromeSwitch.setChecked(false);
         }
     }
 

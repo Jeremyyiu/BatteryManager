@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Build;
@@ -155,12 +156,20 @@ public class DisplayController {
     }
 
     //TODO: have the monochrome switch to toggle automatically according to external events
-    public static void toggleMonochrome(int value, ContentResolver contentResolver) {
-        Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, value);
-        if (value == 0) {
-            Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, -1);
-        } else if (value == 1) {
-            Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, 0);
+    public void toggleMonochrome(int value, ContentResolver contentResolver) {
+        boolean canWriteSettings = context.checkCallingOrSelfPermission("android.permission.WRITE_SECURE_SETTINGS") == PackageManager.PERMISSION_GRANTED;
+
+        if (canWriteSettings) {
+            Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER_ENABLED, value);
+            if (value == 0) {
+                Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, -1);
+            } else if (value == 1) {
+                Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, 0);
+            }
+        }
+        else {
+            //do nothing
+            //showRootWorkaroundInstructions(context);
         }
     }
 
@@ -178,6 +187,8 @@ public class DisplayController {
                 .setNegativeButton("Copy the command", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         setClipboard(context, "adb -d shell pm grant com.example.jeremy.controller android.permission.WRITE_SECURE_SETTINGS");
+                        Toast.makeText(context, "Command copied", Toast.LENGTH_SHORT)
+                                .show();
                         dialog.cancel();
                     }
                 });
