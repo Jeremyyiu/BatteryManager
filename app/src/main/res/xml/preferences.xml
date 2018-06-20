@@ -38,6 +38,12 @@
             android:key="airplane"
             android:summary="@string/airplane_summary"
             android:title="@string/airplane_title"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="low_battery"
+            android:summary="Don't enable WiFi when low battery mode is set"
+            android:title="Low battery Mode"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -11,8 +11,6 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
@@ -95,6 +93,7 @@
             android:exported="false" />
 
         <activity android:name="com.example.jeremy.controller.HomeActivity">
+            <!-- android:theme="@style/MyTheme.TranslucentNavigation"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -107,7 +106,7 @@
             android:label="Geofences" />
 
         <activity android:name="com.example.jeremy.controller.Preferences"
-            android:label="Night Mode" />
+            android:label="WiFi Automation" />
 
         <provider
             android:name="com.example.jeremy.controller.persistent.GeofenceProvider"

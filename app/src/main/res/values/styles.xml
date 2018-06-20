@@ -1,11 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="MyTheme.TranslucentNavigation" parent="AppTheme">
+        <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">true</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- <item name="android:navigationBarColor">@color/colorPrimary</item> -->
     </style>
 
     <!--use Theme.AppCompat.Light.NoActionBar to prevent crash with support AppCompatActivity  -->
@@ -164,6 +169,8 @@
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
     </style>
+
+    <style name="MyTheme">MyTheme</style>
 
 
 </resources>

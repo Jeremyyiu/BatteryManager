@@ -48,6 +48,12 @@
             android:summary="Don't enable WiFi during Airplane mode"
             android:title="airplane" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="low_battery"
+            android:summary="Don't enable WiFi when low battery"
+            android:title="low_battery" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

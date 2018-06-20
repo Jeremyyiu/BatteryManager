@@ -37,6 +37,7 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "Low Battery broadcast received.");
 
+
         wifiTrigger = preferences.getBoolean("wifiLowBatTriggerEnabled", false);
         bluetoothTrigger = preferences.getBoolean("bluetoothLowBatTriggerEnabled", false);
         ringerTrigger = preferences.getBoolean("silentLowBatTriggerEnabled", false);

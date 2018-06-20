@@ -61,7 +61,8 @@ public class HomeActivity extends AppCompatActivity {
         setFragment(batteryFragment);
         updateToolbarText("Battery");
 
-        setTheme(R.style.AppTheme_TranslucentNavigation);
+        //Enable translucent navigation
+        //setTheme(R.style.AppTheme_TranslucentNavigation);
 
         mBottomNav.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -95,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack("fragment");
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                 R.anim.fade_in, R.anim.fade_out);
-        fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.replace(R.id.main_container, fragment, fragment.getClass().toString());
         fragmentTransaction.commit();
     }
 
@@ -109,9 +110,6 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * TODO: maybe make this a global function?
-     **/
     public void updateToolbarText(CharSequence text) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -120,13 +118,26 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Finishes this activity as well as all activities immediately below it in the current
+     * that have the same affinity.  Follows Google's material design guidelines.
+     * Doesn't return to the initial home page though.
+     */
     @Override
     public void onBackPressed() {
+        this.finishAffinity();
+
+/*      this.finishAffinity();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+
+        super.onBackPressed();
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             finish();
         } else {
             super.onBackPressed();
-        }
+        }*/
     }
 
     @Override
@@ -149,7 +160,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
     }
 
     @Override

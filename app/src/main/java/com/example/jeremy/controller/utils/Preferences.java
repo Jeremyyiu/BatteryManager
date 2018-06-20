@@ -18,6 +18,8 @@ public class Preferences {
     public static String WIFI_TOGGLE_GEOFENCE = "wifiGeofenceToggleEnabled";
     public static String BLUETOOTH_TOGGLE_GEOFENCE = "bluetoothGeofenceToggleEnabled";
 
+    public static boolean LOW_BATTERY_TRIGGERED = false;
+
     // Default Value
     public static final int TRIGGER_THRESHOLD_VALUE_DEFAULT = 8000;
 }

@@ -148,6 +148,10 @@ public class Receiver extends BroadcastReceiver {
                 e.printStackTrace();
             }
         }
+        if(on && prefs.getBoolean("low_battery", true)) {
+
+            return;
+        }
         if (on) {
             // check WiFi hotspot state (dont turn on WiFi if hotspot is active)
             WifiManager wifi = (WifiManager) context.getApplicationContext()
