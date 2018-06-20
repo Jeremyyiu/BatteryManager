@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,8 @@ import android.widget.ScrollView;
 
 import com.example.jeremy.controller.persistent.Storage;
 import com.example.jeremy.controller.view.GeofenceFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -58,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
         geofencingFragment = new GeofencingFragment();
 
         //Sets the initial fragment upon startup.
-        setFragment(batteryFragment);
+        setFragment(batteryFragment, "Battery");
         updateToolbarText("Battery");
 
         //Enable translucent navigation
@@ -70,17 +73,17 @@ public class HomeActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_battery:
-                                setFragment(batteryFragment);
+                                setFragment(batteryFragment, "Battery");
                                 updateToolbarText("Battery");
                                 refresh();
                                 return true;
                             case R.id.menu_controller:
-                                setFragment(controllerFragment);
+                                setFragment(controllerFragment, "Controller");
                                 updateToolbarText("Controller");
                                 refresh();
                                 return true;
                             case R.id.menu_geofencing:
-                                setFragment(geofencingFragment);
+                                setFragment(geofencingFragment, "Geofencing");
                                 updateToolbarText("Geofencing");
                                 refresh();
                                 return true;
@@ -91,12 +94,12 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
-    private void setFragment(Fragment fragment) {
+    private void setFragment(Fragment fragment, String name) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.addToBackStack("fragment");
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                 R.anim.fade_in, R.anim.fade_out);
-        fragmentTransaction.replace(R.id.main_container, fragment, fragment.getClass().toString());
+        fragmentTransaction.replace(R.id.main_container, fragment, name);
         fragmentTransaction.commit();
     }
 
@@ -117,6 +120,17 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public Fragment getVisibleFragment() {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment != null && fragment.isVisible())
+                    return fragment;
+            }
+        }
+        return null;
+    }
 
     /**
      * Finishes this activity as well as all activities immediately below it in the current
@@ -125,7 +139,20 @@ public class HomeActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        this.finishAffinity();
+        //super.onBackPressed();
+        if (getVisibleFragment() != null) {
+            String nameFragment = getVisibleFragment().toString();
+            if (nameFragment.contains("Battery")) {
+                this.finishAffinity();
+            } else {
+                setFragment(batteryFragment, "Battery");
+                mBottomNav.setSelectedItemId(R.id.menu_battery);
+            }
+        } else {
+            setFragment(batteryFragment, "Battery");
+            mBottomNav.setSelectedItemId(R.id.menu_battery);
+        }
+        //  this.finishAffinity();
 
 /*      this.finishAffinity();
         Intent intent = new Intent(this, HomeActivity.class);
