@@ -37,7 +37,7 @@ Libraries implemented:
 
 <h2> How to use adb to grant permission to access features such as monochrome mode </h2>
 <b>1.</b> Go to Command prompt <br />
-<b>2.</b> Go to the location of where your adb.exe is located (For me it was C:\Users\*Username*\Appdata\Local\Android\sdk\platform-tools) <br /> 
+<b>2.</b> Go to the location of where your adb.exe is located (For me it was cd C:\Users\*Username*\Appdata\Local\Android\sdk\platform-tools) <br /> 
 <b>3.</b> adb -d shell pm grant com.example.jeremy.controller android.permission.WRITE_SECURE_SETTINGS <br />
 <b>4.</b>  Now the permission should be granted and you should now be able to switch on and off monochrome mode!  <br />
 
