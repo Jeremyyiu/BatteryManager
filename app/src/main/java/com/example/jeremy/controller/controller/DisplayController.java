@@ -1,5 +1,6 @@
 package com.example.jeremy.controller.controller;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -53,7 +54,7 @@ public class DisplayController {
         return mInstance;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @TargetApi(Build.VERSION_CODES.M)
     public void init() {
         brightnessSlider = (Slider) activity.findViewById(R.id.brightnessSlider);
         autoBrightnessSwitch = (SwitchCompat) activity.findViewById(R.id.autoBrightnessSwitch);
@@ -84,9 +85,10 @@ public class DisplayController {
         return Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, 0) == 1;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @TargetApi(Build.VERSION_CODES.M)
     private void initSlider(Slider slider) {
         // set range of slider
+        slider.setValue(0);
         slider.setMin(MIN_BRIGHTNESS_VALUE);
         slider.setMax(MAX_BRIGHTNESS_VALUE);
         slider.setShowNumberIndicator(false);
@@ -95,10 +97,12 @@ public class DisplayController {
 
         if (!canWriteSettings) {
             //if currently cant modify system settings, app will ask for permission
+
+            brightnessSlider.setEnabled(false);
+            autoBrightnessSwitch.setEnabled(false);
             Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
             askWritePermissions();
         }
-
         int screenBrightness = getCurrentBrightness();
         slider.setValue(screenBrightness);
         slider.setOnValueChangedListener(new Slider.OnValueChangedListener() {
@@ -127,32 +131,52 @@ public class DisplayController {
     }
 
     public void setCurrentBrightness(int screenBrightnessValue) {
+
         Settings.System.putInt(context.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS,
                 screenBrightnessValue);
+
     }
 
     /**
      * Turn automatic brightness mode on - set manual mode off
      */
+    @TargetApi(Build.VERSION_CODES.M)
     public void setBrightnessToAuto() {
         //if not auto already set manual
-        Settings.System.putInt(context.getContentResolver(),
-                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-        brightnessSlider.setValue(0);
+        boolean canWriteSettings = Settings.System.canWrite(context);
+
+        if (!canWriteSettings) {
+            //if currently cant modify system settings, app will ask for permission
+            /*Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+            askWritePermissions();*/
+        } else {
+            Settings.System.putInt(context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+            brightnessSlider.setValue(0);
+        }
     }
 
     /**
      * Turn automatic brightness mode off - set manual mode on
      */
+    @TargetApi(Build.VERSION_CODES.M)
     public void setBrightnessToManual() {
         //if not manual already set auto
-        Settings.System.putInt(
-                context.getContentResolver(),
-                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-        brightnessSlider.setValue(getCurrentBrightness());
+        boolean canWriteSettings = Settings.System.canWrite(context);
+
+        if (!canWriteSettings) {
+            //if currently cant modify system settings, app will ask for permission
+            Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+            askWritePermissions();
+        } else {
+            Settings.System.putInt(
+                    context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+            brightnessSlider.setValue(getCurrentBrightness());
+        }
     }
 
     //TODO: have the monochrome switch to toggle automatically according to external events
@@ -167,10 +191,7 @@ public class DisplayController {
                 Settings.Secure.putInt(contentResolver, ACCESSIBILITY_DISPLAY_DALTONIZER, 0);
             }
         }
-        else {
-            //do nothing
-            //showRootWorkaroundInstructions(context);
-        }
+        //otherwise do nothing
     }
 
     public void showRootWorkaroundInstructions(final Context context) {
@@ -212,13 +233,22 @@ public class DisplayController {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void autoBrightnessToggle() {
-        if (checkIfAutoBrightness()) {
-            autoBrightnessSwitch.setChecked(true);
-            brightnessSlider.setValue(0);
+        boolean canWriteSettings = Settings.System.canWrite(context);
+
+        if (!canWriteSettings) {
+            //if currently cant modify system settings, app will ask for permission
+            /*Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+            askWritePermissions();*/
         } else {
-            autoBrightnessSwitch.setChecked(false);
-            brightnessSlider.setValue(getCurrentBrightness());
+            if (checkIfAutoBrightness()) {
+                autoBrightnessSwitch.setChecked(true);
+                brightnessSlider.setValue(0);
+            } else {
+                autoBrightnessSwitch.setChecked(false);
+                brightnessSlider.setValue(getCurrentBrightness());
+            }
         }
     }
 
@@ -235,11 +265,22 @@ public class DisplayController {
             return true;
         }
 
+        @TargetApi(Build.VERSION_CODES.M)
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            autoBrightnessToggle();
-            brightnessSlider.setValue(getCurrentBrightness());
+            boolean canWriteSettings = Settings.System.canWrite(context);
+
+            if (!canWriteSettings) {
+                //if currently cant modify system settings, app will ask for permission
+                brightnessSlider.setEnabled(false);
+                Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+                askWritePermissions();
+            } else {
+                brightnessSlider.setEnabled(true);
+                autoBrightnessToggle();
+                brightnessSlider.setValue(getCurrentBrightness());
+            }
         }
     }
 
@@ -257,10 +298,22 @@ public class DisplayController {
             return true;
         }
 
+        @TargetApi(Build.VERSION_CODES.M)
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            autoBrightnessToggle();
+
+            boolean canWriteSettings = Settings.System.canWrite(context);
+
+            if (!canWriteSettings) {
+                //if currently cant modify system settings, app will ask for permission
+                brightnessSlider.setEnabled(false);
+                Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+                askWritePermissions();
+            } else {
+                brightnessSlider.setEnabled(true);
+                autoBrightnessToggle();
+            }
         }
     }
 }

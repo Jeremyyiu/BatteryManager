@@ -2,6 +2,7 @@ package com.example.jeremy.controller;
 
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jeremy.controller.controller.BluetoothController;
 import com.example.jeremy.controller.controller.DisplayController;
@@ -357,12 +359,22 @@ public class ControllerFragment extends Fragment {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle("Controller");
+        if (actionBar != null) {
+            actionBar.setTitle("Controller");
+        }
+
+
+        boolean canWriteSettings = Settings.System.canWrite(mContext);
+        if (canWriteSettings) {
+            brightnessSlider.setEnabled(true);
+            autoBrightnessSwitch.setEnabled(true);
+        }
     }
 
     /**
