@@ -11,9 +11,6 @@
             android:key="on_at"/>
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="on_every"/>
-        <CheckBoxPreference
-            android:defaultValue="false"
             android:key="power_connected"
             android:summary="@string/power_summary"
             android:title="@string/power_title"/>
@@ -39,11 +36,11 @@
             android:summary="@string/airplane_summary"
             android:title="@string/airplane_title"/>
 
-        <CheckBoxPreference
+  <!--      <CheckBoxPreference
             android:defaultValue="true"
             android:key="low_battery"
             android:summary="Don't enable WiFi when low battery mode is set"
-            android:title="Low battery Mode"/>
+            android:title="Low battery Mode"/>-->
     </PreferenceCategory>
 
 </PreferenceScreen>

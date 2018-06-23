@@ -261,7 +261,7 @@ public class BatteryFragment extends Fragment {
                 }
             }
         };
-        getActivity().registerReceiver(mReceiver, intentFilter);
+        getAppContext().registerReceiver(mReceiver, intentFilter);
     }
 
     public double getBatteryCapacity() {
@@ -385,11 +385,6 @@ public class BatteryFragment extends Fragment {
         }
     }
 
-    public void showGeofencingFrag(View view) {
-        Intent i = new Intent(getActivity(), GeofencesActivity.class);
-        startActivity(i);
-    }
-
     @OnCheckedChanged(R.id.lowBatBtlSwitch)
     public void bluetoothLowBatTrigger(boolean checked) {
         SharedPreferences.Editor editor = preferences.edit();
@@ -458,7 +453,16 @@ public class BatteryFragment extends Fragment {
      */
     @Override
     public void onDestroy() {
-        getActivity().unregisterReceiver(mReceiver);
+        if(mReceiver != null) {
+            try {
+                getActivity().unregisterReceiver(mReceiver);
+                mReceiver = null;
+            } catch (IllegalArgumentException e) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
+            }
+        }
         super.onDestroy();
     }
 
@@ -474,4 +478,5 @@ public class BatteryFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
+
 }

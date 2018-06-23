@@ -12,8 +12,8 @@
     <string name="wifi_sleep_policy">Your WiFi sleep policy is set to automatically disable WiFi as soon\n" +
                                 "        as the display goes off. You can change the policy in the Android \\'Advanced WiFi settings\\'</string>
     <string name="minutes_before_turning_off_wifi">Minutes before turning off WiFi:</string>
-    <string name="at_summary">everyday at %s</string>
-    <string name="every_summary">every %s</string>
+    <string name="at_summary">Everyday at %s</string>
+    <string name="every_summary">Every %s</string>
     <string name="advanced_wifi_settings">Advanced WiFi settings</string>
     <string name="turn_wifi_on_at_">Turn WiFi on at:</string>
     <string name="turn_wifi_off_at_">Turn WiFi off at:</string>
@@ -29,50 +29,28 @@
     </string-array>
 
 
-    <string name="turn_wifi_on_every">Turn WiFi on every &#8230;</string> <!-- this is a horizontal eclipse -->
-    <string name="invalid_input_number_has_to_be_">Invalid input: Number has to be >= %1$d and &lt;=
+   <string name="invalid_input_number_has_to_be_">Invalid input: Number has to be >= %1$d and &lt;=
         %2$d
     </string>
 
     <string name="turn_wifi_on_">Turn WiFi on&#8230;</string>
-    <string name="when_device_gets_unlocked">when device gets unlocked</string>
+    <string name="when_device_gets_unlocked">When device gets unlocked</string>
     <string name="turn_wifi_off_when_">Turn WiFi off when&#8230;</string>
-    <string name="screen_is_off">screen is off</string>
-    <string name="not_connected_to_any_network">not connected to any network</string>
+    <string name="screen_is_off">Screen is off</string>
+    <string name="not_connected_to_any_network">Not connected to any network</string>
     <string name="sleep_policy">Your WiFi sleep policy is set to automatically disable WiFi as soon
         as the display goes off. You can change the policy in the Android \'Advanced WiFi settings\'
     </string>
-    <string name="adv_wifi_settings">Adv. WiFi settings</string>
-    <string name="settings_not_found_">Settings not found!</string>
-    <string name="minutes_before_turning_off_wifi_">Minutes before turning off WiFi:</string>
-    <string name="power_title">when charging</string>
+    <string name="adv_wifi_settings">Adv. WiFi Settings</string>
+    <string name="settings_not_found_">Settings Not Found!</string>
+    <string name="minutes_before_turning_off_wifi_">Minutes Before Turning Off WiFi:</string>
+    <string name="power_title">When charging</string>
     <string name="power_summary">Also ignores the \"when screen is off\" setting while charging
     </string>
 
-    <string name="general_settings">General settings</string>
-    <string name="airplane_title">Airplane mode</string>
+    <string name="general_settings">General Settings</string>
+    <string name="airplane_title">Airplane Mode</string>
     <string name="airplane_summary">Don\'t enable WiFi when in airplane mode</string>
-    <string name="when_entering_location">when entering these locations</string>
-    <string name="buy_pro">Only one location is support in the free version of the app. Do you want
-        to upgrade to the pro version now?
-    </string>
-    <string name="location_text">Turn on WiFi when entering these locations:</string>
-    <string name="location_summary">Use cell location information to turn WiFi on at specified
-        locations
-    </string>
-    <string name="no_connected">WiFi disconnected</string>
-    <string name="click_to_select_network">Click to select WiFi network</string>
-    <string name="wifi_not_enabled">WiFi disabled</string>
-    <string name="click_to_turn_on">Click to turn on</string>
-    <string name="location_settings_warning">Your settings prevent the app from detect your
-        location
-    </string>
-    <string name="interval">Interval:</string>
-    <string name="active_location_scan">Active location scanning</string>
-    <string name="more_info">More info</string>
-    <string name="no_permission">App does not have permission to access your location</string>
-    <string name="log_empty">No log entries yet</string>
-    <string name="log_summary">Shows the last events which triggered a WiFi change</string>
     <string name="log_title">Log</string>
     <string name="event_airplane">Not turning WiFi on because device is in airplane mode</string>
     <string name="event_turn_on">Turning WiFi on</string>

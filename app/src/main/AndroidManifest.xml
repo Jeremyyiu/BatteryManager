@@ -30,6 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA2XKrTTMbyD6E9uLjJw4Dohigao3I_Ybc" />
@@ -106,7 +107,7 @@
             android:label="Geofences" />
 
         <activity android:name="com.example.jeremy.controller.Preferences"
-            android:label="WiFi Automation" />
+            android:label="WiFi Toggle Automation" />
 
         <provider
             android:name="com.example.jeremy.controller.persistent.GeofenceProvider"

@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jeremy.controller.controller.BluetoothController;
 import com.example.jeremy.controller.controller.DisplayController;
@@ -84,8 +83,6 @@ public class ControllerFragment extends Fragment {
     TextView bluetoothText;
 
     //Display
-    @BindView(R.id.brightnessSlider)
-    Slider brightnessSlider;
     @BindView(R.id.brightnessText)
     TextView brightnessText;
     @BindView(R.id.autoBrightnessSwitch)
@@ -93,17 +90,17 @@ public class ControllerFragment extends Fragment {
     @BindView(R.id.monochromeSwitch)
     SwitchCompat monochromeSwitch;
 
-    GPSController gpsController = null;
-    NetworkController networkController = null;
-    BluetoothController bluetoothController = null;
-    DisplayController displayController = null;
+    GPSController gpsController;
+    NetworkController networkController;
+    BluetoothController bluetoothController;
+    DisplayController displayController;
 
     private Context mContext;
     private Unbinder unbinder;
 
     // Filters for broadcast receiver
     IntentFilter intentFilter = null;
-    BroadcastReceiver mReceiver;
+    BroadcastReceiver mReceiver = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -165,11 +162,13 @@ public class ControllerFragment extends Fragment {
                 edit.execute(wifi_result, data_result, tooth_result, plane_result, hotspot_result, gps_result);
             }
         };
-        getActivity().registerReceiver(mReceiver, intentFilter);
+        if (mReceiver == null) {
+            getActivity().registerReceiver(mReceiver, intentFilter);
+        }
     }
 
     public void initNetworkItems() {
-        initNetworkSwitch();
+       initNetworkSwitch();
     }
 
     private void initNetworkSwitch() {
@@ -361,6 +360,13 @@ public class ControllerFragment extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
+    public void onStart() {
+        super.onStart();
+        //initControllerItems();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
     public void onResume() {
         super.onResume();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -372,8 +378,7 @@ public class ControllerFragment extends Fragment {
 
         boolean canWriteSettings = Settings.System.canWrite(mContext);
         if (canWriteSettings) {
-            brightnessSlider.setEnabled(true);
-            autoBrightnessSwitch.setEnabled(true);
+           displayController.enableBrightnessSettings();
         }
     }
 
@@ -382,7 +387,16 @@ public class ControllerFragment extends Fragment {
      */
     @Override
     public void onDestroy() {
-        getActivity().unregisterReceiver(mReceiver);
+        if (mReceiver != null) {
+            try {
+                getActivity().unregisterReceiver(mReceiver);
+                mReceiver = null;
+            } catch (IllegalArgumentException e) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
+            }
+        }
         super.onDestroy();
     }
 

@@ -36,7 +36,7 @@ public class DisplayController {
     private BrightnessObserver brightnessObserver = null;
     private AutoBrightnessObserver autobrightnessObserver = null;
 
-    //    private Slider brightnessSlider;
+    //private Slider brightnessSlider;
     private SwitchCompat autoBrightnessSwitch;
     private Slider brightnessSlider;
 
@@ -54,11 +54,11 @@ public class DisplayController {
         return mInstance;
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void init() {
         brightnessSlider = (Slider) activity.findViewById(R.id.brightnessSlider);
         autoBrightnessSwitch = (SwitchCompat) activity.findViewById(R.id.autoBrightnessSwitch);
-        initSlider(brightnessSlider);
+       initSlider(brightnessSlider);
 
         final Uri BRIGHTNESS_URL = Settings.System.getUriFor(android.provider.Settings.System.SCREEN_BRIGHTNESS);
         brightnessObserver = new BrightnessObserver(new Handler());
@@ -85,7 +85,7 @@ public class DisplayController {
         return Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, 0) == 1;
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initSlider(Slider slider) {
         // set range of slider
         slider.setValue(0);
@@ -148,7 +148,7 @@ public class DisplayController {
 
         if (!canWriteSettings) {
             //if currently cant modify system settings, app will ask for permission
-            /*Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+          /*  Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
             askWritePermissions();*/
         } else {
             Settings.System.putInt(context.getContentResolver(),
@@ -168,8 +168,8 @@ public class DisplayController {
 
         if (!canWriteSettings) {
             //if currently cant modify system settings, app will ask for permission
-            Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
-            askWritePermissions();
+            /*Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+            askWritePermissions();*/
         } else {
             Settings.System.putInt(
                     context.getContentResolver(),
@@ -239,7 +239,7 @@ public class DisplayController {
 
         if (!canWriteSettings) {
             //if currently cant modify system settings, app will ask for permission
-            /*Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+         /*   Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
             askWritePermissions();*/
         } else {
             if (checkIfAutoBrightness()) {
@@ -250,6 +250,11 @@ public class DisplayController {
                 brightnessSlider.setValue(getCurrentBrightness());
             }
         }
+    }
+
+    public void enableBrightnessSettings() {
+        brightnessSlider.setEnabled(true);
+        autoBrightnessSwitch.setEnabled(true);
     }
 
     /**
@@ -274,8 +279,8 @@ public class DisplayController {
             if (!canWriteSettings) {
                 //if currently cant modify system settings, app will ask for permission
                 brightnessSlider.setEnabled(false);
-                Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
-                askWritePermissions();
+          /*      Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+                askWritePermissions();*/
             } else {
                 brightnessSlider.setEnabled(true);
                 autoBrightnessToggle();
@@ -308,8 +313,8 @@ public class DisplayController {
             if (!canWriteSettings) {
                 //if currently cant modify system settings, app will ask for permission
                 brightnessSlider.setEnabled(false);
-                Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
-                askWritePermissions();
+            /*    Toast.makeText(context, "Please Enable Write Permissions", Toast.LENGTH_SHORT).show();
+                askWritePermissions();*/
             } else {
                 brightnessSlider.setEnabled(true);
                 autoBrightnessToggle();

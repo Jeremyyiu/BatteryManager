@@ -338,7 +338,7 @@ public class Preferences extends PreferenceActivity {
             }
         });
 
-        final Preference on_every = findPreference("on_every");
+/*        final Preference on_every = findPreference("on_every");
         final String[] time_names = getResources().getStringArray(R.array.time_names);
         // default 2 hours
         on_every.setTitle(
@@ -361,7 +361,7 @@ public class Preferences extends PreferenceActivity {
                 }
                 return true;
             }
-        });
+        });*/
 
           final Preference power = findPreference("power_connected");
         power.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
