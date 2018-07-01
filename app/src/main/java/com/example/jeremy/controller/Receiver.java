@@ -79,12 +79,7 @@ public class Receiver extends BroadcastReceiver {
                                 PendingIntent.getBroadcast(context, id, timerIntent,
                                         PendingIntent.FLAG_UPDATE_CURRENT));
             }
-           /* Log.insert(context, context.getString(
-                    id == TIMER_SCREEN_OFF ? R.string.event_screen_off_timer :
-                            R.string.event_no_network_timer, time), Log.Type.TIMER);*/
-        } /*else if (BuildConfig.DEBUG) {
-            Logger.log("timer for action " + action + " already set");
-        }*/
+        }
     }
 
     /**
@@ -143,8 +138,6 @@ public class Receiver extends BroadcastReceiver {
                 }
             } catch (final Settings.SettingNotFoundException e) {
                 // not airplane setting found? Handle like not in airplane mode
-                // then
-                /* if (BuildConfig.DEBUG) Logger.log(e);*/
                 e.printStackTrace();
             }
         }

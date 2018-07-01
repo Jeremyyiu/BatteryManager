@@ -35,6 +35,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA2XKrTTMbyD6E9uLjJw4Dohigao3I_Ybc" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <receiver android:name=".BatteryLevelReceiver">
             <intent-filter>
                 <!-- <action android:name="android.intent.action.BATTERY_OKAY" /> -->
@@ -42,36 +46,34 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".Receiver">
+        <receiver android:name=".Receiver">
             <intent-filter>
-                <action android:name="android.net.wifi.STATE_CHANGE"/>
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
-                <action android:name="android.net.wifi.p2p.CONNECTION_STATE_CHANGE"/>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.p2p.CONNECTION_STATE_CHANGE" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".UnlockReceiver">
+        <receiver android:name=".UnlockReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".ScreenChangeReceiver"/>
+        <service android:name=".ScreenChangeReceiver" />
 
         <receiver android:name=".StartReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <data
                     android:path="com.example.jeremy.controller"
-                    android:scheme="package"/>
+                    android:scheme="package" />
             </intent-filter>
         </receiver>
 
@@ -106,7 +108,8 @@
             android:name="com.example.jeremy.controller.view.GeofencesActivity"
             android:label="Geofences" />
 
-        <activity android:name="com.example.jeremy.controller.Preferences"
+        <activity
+            android:name="com.example.jeremy.controller.Preferences"
             android:label="WiFi Toggle Automation" />
 
         <provider

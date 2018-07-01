@@ -36,7 +36,6 @@ public class DisplayController {
     private BrightnessObserver brightnessObserver = null;
     private AutoBrightnessObserver autobrightnessObserver = null;
 
-    //private Slider brightnessSlider;
     private SwitchCompat autoBrightnessSwitch;
     private Slider brightnessSlider;
 

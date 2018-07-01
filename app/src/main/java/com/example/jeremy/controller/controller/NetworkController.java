@@ -135,7 +135,7 @@ public class NetworkController {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            //Settings.System.putInt(context.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,result?1:0);
+            //Settings.System.putInt(context.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,result ? 1 : 0);
             Settings.Global.putInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, result ? 1 : 0);
             Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
             intent.putExtra("state", result);

@@ -28,7 +28,6 @@ import com.example.jeremy.controller.controller.BluetoothController;
 import com.example.jeremy.controller.controller.DisplayController;
 import com.example.jeremy.controller.controller.GPSController;
 import com.example.jeremy.controller.controller.NetworkController;
-import com.gc.materialdesign.views.Slider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,7 +114,6 @@ public class ControllerFragment extends Fragment {
         bluetoothController = BluetoothController.getInstance(mContext);
         displayController = DisplayController.getInstance(mContext, getActivity());
 
-
         // Inflate the layout for this fragment
         return view;
     }
@@ -154,7 +152,7 @@ public class ControllerFragment extends Fragment {
                 data_result = intent.getIntExtra("data_state", 0);
                 plane_result = intent.getIntExtra("plane_state", 0);
                 gps_result = intent.getIntExtra("gps_state", 0);
-                tooth_result = intent.getIntExtra("tooth_state", 0);
+                tooth_result = intent.getIntExtra("bluetooth_state", 0);
                 hotspot_result = intent.getIntExtra("hotspot_state", 0);
                 editControllerItems edit = new editControllerItems();
                 //wifi,tooth,mobile data
@@ -162,13 +160,11 @@ public class ControllerFragment extends Fragment {
                 edit.execute(wifi_result, data_result, tooth_result, plane_result, hotspot_result, gps_result);
             }
         };
-        if (mReceiver == null) {
-            getActivity().registerReceiver(mReceiver, intentFilter);
-        }
+        getActivity().registerReceiver(mReceiver, intentFilter);
     }
 
     public void initNetworkItems() {
-       initNetworkSwitch();
+        initNetworkSwitch();
     }
 
     private void initNetworkSwitch() {
@@ -362,7 +358,6 @@ public class ControllerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //initControllerItems();
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -378,7 +373,7 @@ public class ControllerFragment extends Fragment {
 
         boolean canWriteSettings = Settings.System.canWrite(mContext);
         if (canWriteSettings) {
-           displayController.enableBrightnessSettings();
+            displayController.enableBrightnessSettings();
         }
     }
 

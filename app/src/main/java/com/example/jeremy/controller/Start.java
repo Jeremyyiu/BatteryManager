@@ -123,22 +123,6 @@ abstract class Start {
     static void start(final Context c) {
         createTimers(c);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-        AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
-       /* if (prefs.getBoolean("on_every", false)) {
-            long interval = prefs.contains("on_every_time_min") ?
-                    1000 * 60 * prefs.getInt("on_every_time_min", Receiver.ON_EVERY_TIME_MIN) :
-                    AlarmManager.INTERVAL_HOUR *
-                            prefs.getInt("on_every_time", Receiver.ON_EVERY_TIME_MIN / 60);
-            am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval,
-                    PendingIntent.getBroadcast(c, Receiver.TIMER_ON_EVERY,
-                            new Intent(c, Receiver.class).putExtra("changeWiFi", true)
-                                    .setAction("ON_EVERY"), PendingIntent.FLAG_UPDATE_CURRENT));
-        } else { // stop timer
-            am.cancel(PendingIntent.getBroadcast(c, Receiver.TIMER_ON_EVERY,
-                    new Intent(c, Receiver.class).putExtra("changeWiFi", true)
-                            .setAction("ON_EVERY"), PendingIntent.FLAG_UPDATE_CURRENT));
-        }*/
-
         c.getPackageManager().setComponentEnabledSetting(new ComponentName(c, UnlockReceiver.class),
                 prefs.getBoolean("on_unlock", true) ?
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
