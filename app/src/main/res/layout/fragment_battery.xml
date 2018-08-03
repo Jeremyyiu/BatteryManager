@@ -6,12 +6,24 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background"
+        android:background="#f2f2f2"
         android:orientation="vertical">
+
+        <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/batteryLevel_cv"
+            style="@style/cardTheme"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp"
+            app:contentPaddingBottom="0dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_light_background"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="16dp">
@@ -26,7 +38,8 @@
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="65"
-                    android:progressDrawable="@drawable/circular_progress_bar" />
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/batteryCurrentValue"
@@ -38,6 +51,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="66dp"
                     android:text="---"
+                    android:textColor="@color/black"
                     android:textSize="28sp" />
 
                 <TextView
@@ -50,9 +64,12 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/batteryCurrentValue"
                     android:text="%"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
         <include layout="@layout/fragment_batterystats" />
 

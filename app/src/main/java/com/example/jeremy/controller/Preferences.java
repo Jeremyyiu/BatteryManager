@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Thomas Hoffmann
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,10 +16,8 @@
 
 package com.example.jeremy.controller;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ComponentName;
@@ -36,7 +34,6 @@ import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -46,11 +43,8 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.support.annotation.LayoutRes;
-import android.support.v4.content.PermissionChecker;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,8 +56,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import java.util.List;
 
 public class Preferences extends PreferenceActivity {
 
@@ -190,6 +182,9 @@ public class Preferences extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+
+        android.app.ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.toolbar));
 
         addPreferencesFromResource(R.xml.preferences);
 
@@ -338,32 +333,7 @@ public class Preferences extends PreferenceActivity {
             }
         });
 
-/*        final Preference on_every = findPreference("on_every");
-        final String[] time_names = getResources().getStringArray(R.array.time_names);
-        // default 2 hours
-        on_every.setTitle(
-                getString(R.string.every_summary, prefs.getString("on_every_str", time_names[4])));
-        on_every.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(final Preference preference, final Object newValue) {
-                if ((Boolean) newValue) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this);
-                    builder.setTitle(R.string.turn_wifi_on_every)
-                            .setItems(time_names, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    prefs.edit().putInt("on_every_time_min", time_values[which])
-                                            .putString("on_every_str", time_names[which]).commit();
-                                    on_every.setTitle(
-                                            getString(R.string.every_summary, time_names[which]));
-                                }
-                            });
-                    builder.create().show();
-                }
-                return true;
-            }
-        });*/
-
-          final Preference power = findPreference("power_connected");
+        final Preference power = findPreference("power_connected");
         power.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -414,7 +384,7 @@ public class Preferences extends PreferenceActivity {
                 }).create().show();
     }
 
-      private AppCompatDelegate getDelegate() {
+    private AppCompatDelegate getDelegate() {
         if (mDelegate == null) {
             mDelegate = AppCompatDelegate.create(this, null);
         }

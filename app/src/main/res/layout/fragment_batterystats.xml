@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/batteryStats_cv"
     style="@style/cardTheme"
-    app:cardBackgroundColor="@android:color/white"
+    app:cardBackgroundColor="@color/white"
     app:cardElevation="2dp"
     app:cardMaxElevation="2dp"
     app:cardPreventCornerOverlap="true"
@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView

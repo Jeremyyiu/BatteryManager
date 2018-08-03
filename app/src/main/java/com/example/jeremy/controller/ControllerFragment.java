@@ -370,7 +370,6 @@ public class ControllerFragment extends Fragment {
             actionBar.setTitle("Controller");
         }
 
-
         boolean canWriteSettings = Settings.System.canWrite(mContext);
         if (canWriteSettings) {
             displayController.enableBrightnessSettings();
@@ -394,10 +393,4 @@ public class ControllerFragment extends Fragment {
         }
         super.onDestroy();
     }
-
-    /*  @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-     * super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-     * // NOTE: delegate the permission handling to generated method
-     * ControllerFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-     * } */
 }

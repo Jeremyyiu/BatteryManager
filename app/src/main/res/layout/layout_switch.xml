@@ -32,6 +32,6 @@
         android:id="@+id/switch_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background" />
+        android:background="@color/white" />
 
 </LinearLayout>

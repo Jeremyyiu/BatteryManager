@@ -99,13 +99,6 @@ public class NetworkController {
         context.startActivity(wifi);
     }
 
-    /**
-     * public boolean isHotspotConnected(Context context) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-     * Method method = wifiManager.getDeclaredMethod("getWifiApState");
-     * method.setAccessible(true);
-     * int actualState  = (Integer) method.invoke(wifiManager, (Object[]) null);
-     * }
-     **/
     public void hotspotTogglePermission() {
         Intent spot = new Intent();
         spot.setClassName("com.android.settings", "com.android.settings.TetherSettings");

@@ -60,6 +60,10 @@ public class HomeActivity extends AppCompatActivity {
         controllerFragment = new ControllerFragment();
         geofencingFragment = new GeofencingFragment();
 
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.toolbar));
+        }
         //Sets the initial fragment upon startup.
         setFragment(batteryFragment, "Battery");
         updateToolbarText("Battery");

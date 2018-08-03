@@ -41,7 +41,6 @@
 
         <receiver android:name=".BatteryLevelReceiver">
             <intent-filter>
-                <!-- <action android:name="android.intent.action.BATTERY_OKAY" /> -->
                 <action android:name="android.intent.action.BATTERY_LOW" />
             </intent-filter>
         </receiver>

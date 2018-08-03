@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#24292C</color>
-    <color name="colorPrimaryDark">#26333a</color>
-    <color name="colorAccent">#17BDFF</color>
-    <color name="colorInactive">#747474</color>
-    <color name="colorActiveSmall">#FFFFFF</color>
+    <color name="colorPrimary">#F9F9FA
+    </color> <!-- this adjusts the bars top (header) and bottom (bot Nav) -->
+    <color name="colorPrimaryDark">#6f68e2</color>
+    <color name="colorAccent">#766FFC</color>
+    <color name="colorInactive">#878890</color>
+    <color name="colorActiveSmall">#7771ec</color>
     <color name="colorInactiveSmall">#50FFFFFF</color>
-
     <color name="color_notification_back">#ffcd33</color>
     <color name="color_notification_text">#3E4757</color>
-    <color name="white">#FFFFFF</color>
-    <color name="grey">#4cdfdfdf</color>
+    <color name="white">#F9F9FA</color>
+    <color name="black">#000000</color>
+    <color name="grey">#f0efef</color>
 
-    <color name="headerColor">#008dcc</color>
-    <color name="green">#4ce725</color>
-    <color name="red">#ff3c3c</color>
-    <color name="yellow">#ffcf3d</color>
+    <color name="headerColor">#6e68eb</color>
+    <color name="green">#5ce4a2</color>
+    <color name="red">#f65454</color>
+    <color name="yellow">#ffd964</color>
 </resources>

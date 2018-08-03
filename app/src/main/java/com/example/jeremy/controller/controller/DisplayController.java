@@ -57,7 +57,7 @@ public class DisplayController {
     public void init() {
         brightnessSlider = (Slider) activity.findViewById(R.id.brightnessSlider);
         autoBrightnessSwitch = (SwitchCompat) activity.findViewById(R.id.autoBrightnessSwitch);
-       initSlider(brightnessSlider);
+        initSlider(brightnessSlider);
 
         final Uri BRIGHTNESS_URL = Settings.System.getUriFor(android.provider.Settings.System.SCREEN_BRIGHTNESS);
         brightnessObserver = new BrightnessObserver(new Handler());

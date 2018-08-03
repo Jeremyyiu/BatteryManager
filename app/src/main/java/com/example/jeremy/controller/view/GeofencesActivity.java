@@ -1,9 +1,6 @@
 package com.example.jeremy.controller.view;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
@@ -17,16 +14,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-//import com.example.jeremy.controller.LocativeApplication;
 import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.geo.LocativeGeocoder;
@@ -36,12 +25,18 @@ import com.example.jeremy.controller.persistent.Storage;
 import com.example.jeremy.controller.service.LocativeService;
 import com.example.jeremy.controller.utils.Dialog;
 
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+//import com.example.jeremy.controller.LocativeApplication;
+
 public class GeofencesActivity extends BaseActivity implements GeofenceFragment.OnFragmentInteractionListener,
         LoaderManager.LoaderCallbacks<Cursor> {
     public static final String NOTIFICATION_CLICK = "notification_click";
-
-    //@BindView(R.id.nav_view)
-    //NavigationView mNavigationView;
 
     @BindView(R.id.container)
     FrameLayout mContentFrame;
@@ -49,10 +44,6 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
     @BindView(R.id.add_geofence)
     FloatingActionButton mFabButton;
 
-    /**
-    @BindView(R.id.toolbar_actionbar)
-    Toolbar mToolbar;
-**/
     @Inject
     Storage mStorage;
 
@@ -71,17 +62,6 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
         super.onCreate(savedInstanceState);
         ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
 
-        /* never open drawer initially
-        if (savedInstanceState == null) {
-            firstResume = true;
-        }*/
-
-
-        /**
-        if (mToolbar != null) {
-            mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24px);
-        }
-         **/
     }
 
     @Override
@@ -93,7 +73,7 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(FRAGMENTTAG, fragmentTag);
-        }
+    }
 
     @Override
     protected void onStart() {
@@ -206,11 +186,6 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
         return this.getPreferences(MODE_PRIVATE);
     }
 
-    /**
-    private LocativeApplication getApp() {
-        return (LocativeApplication) getApplication();
-    }
-     **/
 
     public void onGeofenceImportSelection(final Geofences.Geofence fence) {
         if (!mStorage.fenceExistsWithCustomId(fence)) {
@@ -242,27 +217,27 @@ public class GeofencesActivity extends BaseActivity implements GeofenceFragment.
         dialog.show();
 
         new Thread(new Runnable() {
-           @Override
-           public void run() {
-               Address address = new LocativeGeocoder().getFromLatLong(fence.latitude, fence.longitude, self);
-               if (address != null) {
-                   fence.name = address.getAddressLine(0);
-               }
-               mStorage.insertOrUpdateFence(fence);
-               final android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-               runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
-                       dialog.dismiss();
-                       android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-                       Geofences.ITEMS.add(fence);
-                       transaction.replace(R.id.container, mGeofenceFragment, GeofenceFragment.TAG).commit();
-                       setTitle("Geofences");
-                       mFabButton.show();
-                   }
-               });
-           }
-       }).run();
+            @Override
+            public void run() {
+                Address address = new LocativeGeocoder().getFromLatLong(fence.latitude, fence.longitude, self);
+                if (address != null) {
+                    fence.name = address.getAddressLine(0);
+                }
+                mStorage.insertOrUpdateFence(fence);
+                final android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        Geofences.ITEMS.add(fence);
+                        transaction.replace(R.id.container, mGeofenceFragment, GeofenceFragment.TAG).commit();
+                        setTitle("Geofences");
+                        mFabButton.show();
+                    }
+                });
+            }
+        }).run();
 
     }
 

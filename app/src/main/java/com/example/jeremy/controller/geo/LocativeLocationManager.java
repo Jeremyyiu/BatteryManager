@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.location.FusedLocationProviderApi;
-
 import java.util.Timer;
 import java.util.TimerTask;
 

@@ -2,13 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:background="@color/cardview_light_background"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:background="@color/cardview_light_background"
+        android:background="@color/white"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_height="match_parent"

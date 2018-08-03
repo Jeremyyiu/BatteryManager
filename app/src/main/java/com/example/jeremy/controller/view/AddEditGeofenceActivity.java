@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,13 +31,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.jeremy.controller.JnaBatteryManagerApplication;
+import com.example.jeremy.controller.R;
+import com.example.jeremy.controller.geo.LocativeGeocoder;
+import com.example.jeremy.controller.geo.LocativeLocationManager;
+import com.example.jeremy.controller.map.WorkaroundMapFragment;
+import com.example.jeremy.controller.persistent.GeofenceProvider;
+import com.example.jeremy.controller.utils.Constants;
+import com.example.jeremy.controller.utils.GeocodeHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import mapareas.MapAreaManager;
-import mapareas.MapAreaMeasure;
-import mapareas.MapAreaWrapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,14 +51,9 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import com.example.jeremy.controller.R;
-import com.example.jeremy.controller.geo.LocativeGeocoder;
-import com.example.jeremy.controller.geo.LocativeLocationManager;
-import com.example.jeremy.controller.map.WorkaroundMapFragment;
-import com.example.jeremy.controller.persistent.GeofenceProvider;
-import com.example.jeremy.controller.utils.Constants;
-import com.example.jeremy.controller.utils.GeocodeHandler;
+import mapareas.MapAreaManager;
+import mapareas.MapAreaMeasure;
+import mapareas.MapAreaWrapper;
 
 public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyCallback {
 
@@ -122,6 +122,11 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         Log.d(Constants.LOG, "mEditGeofenceId: " + mEditGeofenceId);
         if (mEditGeofenceId != null) {
             mIsEditingGeofence = true;
+        }
+
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.toolbar));
         }
 
         mRadiusSlider.setMax(MAX_RADIUS_METERS);
@@ -251,11 +256,11 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         if (mMap.isMyLocationEnabled() && mMap.getMyLocation() != null && !mIsEditingGeofence) {
             location = mMap.getMyLocation();
             mMap.getMyLocation();
-        }  else if (cursor != null) {
+        } else if (cursor != null) {
             location = new Location("location");
             location.setLatitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LATITUDE)));
-            location.setLongitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LONGITUDE))); }
-        else {
+            location.setLongitude(cursor.getDouble(cursor.getColumnIndex(GeofenceProvider.Geofence.KEY_LONGITUDE)));
+        } else {
             // Sydney
             location = new Location("custom");
             location.setLatitude(-33.872055);
@@ -393,7 +398,7 @@ public class AddEditGeofenceActivity extends BaseActivity implements OnMapReadyC
         }
 
         mSaved = false;
-       // Log.i(Constants.LOG, "Saved #2: " + (mSaved ? "true" : "false"));
+        // Log.i(Constants.LOG, "Saved #2: " + (mSaved ? "true" : "false"));
 
     }
 

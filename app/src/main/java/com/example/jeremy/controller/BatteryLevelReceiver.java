@@ -18,9 +18,9 @@ import static com.example.jeremy.controller.geo.StartupBroadCastReceiver.TAG;
 
 public class BatteryLevelReceiver extends BroadcastReceiver {
 
-    boolean wifiTrigger = false;
-    boolean bluetoothTrigger = false;
-    boolean ringerTrigger = false;
+    boolean wifiTrigger;
+    boolean bluetoothTrigger;
+    boolean ringerTrigger;
 
     NetworkController networkController = NetworkController.getInstance(getAppContext());
     BluetoothController bluetoothController = BluetoothController.getInstance(getAppContext());
@@ -37,18 +37,29 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "Low Battery broadcast received.");
 
+        checkWiFiTrigger();
+        checkBluetoothTrigger();
+        checkRingerTrigger();
+    }
 
+    private void checkWiFiTrigger() {
         wifiTrigger = preferences.getBoolean("wifiLowBatTriggerEnabled", false);
-        bluetoothTrigger = preferences.getBoolean("bluetoothLowBatTriggerEnabled", false);
-        ringerTrigger = preferences.getBoolean("silentLowBatTriggerEnabled", false);
 
         if (wifiTrigger) {
             networkController.toggleWiFi(false);
         }
+    }
+
+    private void checkBluetoothTrigger() {
+        bluetoothTrigger = preferences.getBoolean("bluetoothLowBatTriggerEnabled", false);
 
         if (bluetoothTrigger) {
             bluetoothController.toggleBluetooth(false);
         }
+    }
+
+    private void checkRingerTrigger() {
+        ringerTrigger = preferences.getBoolean("silentLowBatTriggerEnabled", false);
 
         if (ringerTrigger) {
             audioController.setRingerToSilent();

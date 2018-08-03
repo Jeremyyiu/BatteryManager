@@ -4,17 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import butterknife.BindView;
-//import com.example.jeremy.controller.LocativeApplication;
 import com.example.jeremy.controller.JnaBatteryManagerApplication;
 import com.example.jeremy.controller.R;
 import com.example.jeremy.controller.utils.Preferences;
+
+import butterknife.BindView;
+
+//import com.example.jeremy.controller.LocativeApplication;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -82,12 +85,16 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((JnaBatteryManagerApplication) getApplication()).getComponent().inject(this);
-        //((LocativeApplication) getApplication()).getComponent().inject(this);
 
         mNotificationSuccessSwitch.setChecked(mPrefs.getBoolean(Preferences.NOTIFICATION_SUCCESS, false));
         mNotificationFailSwitch.setChecked(mPrefs.getBoolean(Preferences.NOTIFICATION_FAIL, false));
         mNotificationOnlyLatestSwitch.setChecked(mPrefs.getBoolean(Preferences.NOTIFICATION_SHOW_ONLY_LATEST, false));
         mNotificationSoundSwitch.setChecked(mPrefs.getBoolean(Preferences.NOTIFICATION_SOUND, false));
+
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.toolbar));
+        }
 
     }
 
