@@ -34,6 +34,7 @@ Libraries implemented:
 
 - Revamp UI - make everything prettier!
 - Create Logo
+- Fix up UI issue where the header bar remains white
 
 <h2> How to use adb to grant permission to access features such as monochrome mode </h2>
 <b>1.</b> Go to Command prompt <br />
